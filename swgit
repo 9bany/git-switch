@@ -8,6 +8,7 @@ function main() {
     local SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
     local SSH_KEYGEN_TYPE="rsa"
     local SWGIT_LOCATE="$HOME/.swgit"
+    local OVERWRITE=0
     # required(): void
     # check git has been installed.
     function required() {
@@ -112,7 +113,7 @@ function main() {
         SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
         ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$SSH_KEY_LOCATE$username"
 
-        if [ $overWrite = 0 ]; then
+        if [ $OVERWRITE = 0 ]; then
             echo "[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub" >> "$SWGIT_LOCATE"
         fi
         cat "$SSH_KEY_LOCATE$username.pub"

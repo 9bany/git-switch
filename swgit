@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# required(): void
+# check git has been installed.
+function required() {
+    echo "Check git installed";
+}
+
+# create_account(): email: string, username: string
+# create an account with email: create ssh key, update git config with new account.
+function create_account() {
+    echo "Create an account";
+}
+
+# delete_account(): email: string, username: string
+# delete account: delete ssh key, delete account info in git config.
+function delete_account() {
+    echo "Delete ac account";
+}
+
+# switch account: username
+# switch to another accont github.
+function switch_account() {
+    echo  "Switch account git";
+}
+
+# auto run switch account
+function auto_switch_account() {
+    echo  "Auto switch account";
+}
+
+# Switch accounts and forward commanc to git
+function git_middleware() {
+    echo "swgit middleware";
+}
+
+# reset config default
+# return config to before use this tool.
+function reset(){
+    echo "Reset defaut setting";
+}
+
+echo "SWGIT: SWITCH GIT";

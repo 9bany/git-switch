@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+# global 
+SWGIT_ARG=()
+SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
+SSH_KEYGEN_TYPE="rsa"
+SWGIT_LOCATE="$HOME/.swgit"
 # required(): void
 # check git has been installed.
-SWGIT_ARG=()
 function required() {
     git --version 2>&1 >/dev/null 
     GIT_IS_AVAILABLE=$?
@@ -25,7 +29,7 @@ function create_account() {
     return
     else       
         case "${SWGIT_ARG[*]}" in 'add_account')
-            echo "$1"
+            creat_ssh_key "$@";
         ;;
         esac
     fi
@@ -98,6 +102,17 @@ function help(){
 # create ssh key: email, username
 function creat_ssh_key() {
     echo "Create ssh key";
+    local email = $1;
+    local username = $2;
+    
+    # run create ssh key
+    SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
+    ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$SSH_KEY_LOCATE$username"
+
+    if [ $overWrite = 0 ]; then
+        echo "[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub" >> "$SWGIT_LOCATE"
+    fi
+    cat "$SSH_KEY_LOCATE$username.pub"
 }
 
 # Delete ssh key: email, username

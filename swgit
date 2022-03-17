@@ -2,6 +2,7 @@
 
 # required(): void
 # check git has been installed.
+SWGIT_ARG=()
 function required() {
     git --version 2>&1 >/dev/null 
     GIT_IS_AVAILABLE=$?
@@ -18,6 +19,17 @@ function required() {
 # create an account with email: create ssh key, update git config with new account.
 function create_account() {
     echo "Create an account";
+    if [ "${#SWGIT_ARG[*]}" -gt 1 ] || [ "${#SWGIT_ARG[*]}" -ge 1 -a "${#GIT_ACC[*]}" -ge 1 ]; then
+        echo "Wrong: Mutiple Parameters!!\nnn"
+        # Echo_CoEElor r 'Wrong: Mutiple Parameters!!\n' # too many input args or accounts 
+    return
+    else       
+        case "${SWGIT_ARG[*]}" in 'add_account')
+            echo "$1"
+        ;;
+        esac
+    fi
+
 }
 
 # delete_account(): email: string, username: string
@@ -51,6 +63,32 @@ function reset(){
 #
 # backward apis
 #
+
+# check arg in command
+function check_command_line() {
+    if [ "$#" -gt 0 ]; 
+    then
+        while [ "$#" -gt 0 ]; do
+        case "$1" in
+            '-h'|'--help')
+                help;
+                unset -f help;
+                return 1
+            ;;
+            '-a'|'--create_account')
+                SWGIT_ARG+='add_account'
+                shift 1
+                create_account $@;
+                return 1
+            ;;
+        esac
+        done
+    else 
+    #    help;
+    #    unset -f help;
+        exit;
+    fi
+}
 
 # help_script
 function help(){
@@ -100,6 +138,8 @@ function ask_yn() {
 function main() {
     echo "SWGIT: SWITCH GIT";
     required;
-    echo "next step"
+    check_command_line "$@";
 }
-main;
+
+echo "$@"
+main "$@";

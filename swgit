@@ -3,7 +3,15 @@
 # required(): void
 # check git has been installed.
 function required() {
-    echo "Check git installed";
+    git --version 2>&1 >/dev/null 
+    GIT_IS_AVAILABLE=$?
+    if [ $GIT_IS_AVAILABLE -eq 0 ]; 
+    then
+        echo "Git installed";
+    else
+        echo "Git have not install";
+        exit;
+    fi
 }
 
 # create_account(): email: string, username: string
@@ -91,5 +99,7 @@ function ask_yn() {
 
 function main() {
     echo "SWGIT: SWITCH GIT";
+    required;
+    echo "next step"
 }
 main;

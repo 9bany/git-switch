@@ -40,4 +40,56 @@ function reset(){
     echo "Reset defaut setting";
 }
 
-echo "SWGIT: SWITCH GIT";
+#
+# backward apis
+#
+
+# help_script
+function help(){
+    echo "Help";
+}
+
+# create ssh key: email, username
+function creat_ssh_key() {
+    echo "Create ssh key";
+}
+
+# Delete ssh key: email, username
+function delete_ssh_key() {
+    echo "Delete ssh key";
+}
+
+# get current account: ()account
+function get_current_account() {
+    echo "Get current account";
+}
+
+# get git config: text file
+function get_git_config() {
+    echo "Get git config ";
+}
+
+# get ssh config: txt file
+function get_ssh_config() {
+    echo "Get ssh account";
+}
+
+# open file: text file
+function open_file() {
+    echo "Open a file";
+}
+
+# write file: void
+function write_file() {
+    echo "Write a file";
+}
+
+# question Yes/No: boolen
+function ask_yn() {
+    echo "Ash y/n";
+}
+
+function main() {
+    echo "SWGIT: SWITCH GIT";
+}
+main;

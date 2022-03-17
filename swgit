@@ -1,157 +1,157 @@
 #!/usr/bin/env bash
 
-# global 
-SWGIT_ARG=()
-SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
-SSH_KEYGEN_TYPE="rsa"
-SWGIT_LOCATE="$HOME/.swgit"
-# required(): void
-# check git has been installed.
-function required() {
-    git --version 2>&1 >/dev/null 
-    GIT_IS_AVAILABLE=$?
-    if [ $GIT_IS_AVAILABLE -eq 0 ]; 
-    then
-        echo "Git installed";
-    else
-        echo "Git have not install";
-        exit;
-    fi
-}
-
-# create_account(): email: string, username: string
-# create an account with email: create ssh key, update git config with new account.
-function create_account() {
-    echo "Create an account";
-    if [ "${#SWGIT_ARG[*]}" -gt 1 ] || [ "${#SWGIT_ARG[*]}" -ge 1 -a "${#GIT_ACC[*]}" -ge 1 ]; then
-        echo "Wrong: Mutiple Parameters!!\nnn"
-        # Echo_CoEElor r 'Wrong: Mutiple Parameters!!\n' # too many input args or accounts 
-    return
-    else       
-        case "${SWGIT_ARG[*]}" in 'add_account')
-            creat_ssh_key "$@";
-        ;;
-        esac
-    fi
-
-}
-
-# delete_account(): email: string, username: string
-# delete account: delete ssh key, delete account info in git config.
-function delete_account() {
-    echo "Delete ac account";
-}
-
-# switch account: username
-# switch to another accont github.
-function switch_account() {
-    echo  "Switch account git";
-}
-
-# auto run switch account
-function auto_switch_account() {
-    echo  "Auto switch account";
-}
-
-# Switch accounts and forward commanc to git
-function git_middleware() {
-    echo "swgit middleware";
-}
-
-# reset config default
-# return config to before use this tool.
-function reset(){
-    echo "Reset defaut setting";
-}
-
-#
-# backward apis
-#
-
-# check arg in command
-function check_command_line() {
-    if [ "$#" -gt 0 ]; 
-    then
-        while [ "$#" -gt 0 ]; do
-        case "$1" in
-            '-h'|'--help')
-                help;
-                unset -f help;
-                return 1
-            ;;
-            '-a'|'--create_account')
-                SWGIT_ARG+='add_account'
-                shift 1
-                create_account $@;
-                return 1
-            ;;
-        esac
-        done
-    else 
-    #    help;
-    #    unset -f help;
-        exit;
-    fi
-}
-
-# help_script
-function help(){
-    echo "Help";
-}
-
-# create ssh key: email, username
-function creat_ssh_key() {
-    echo "Create ssh key";
-    local email = $1;
-    local username = $2;
-    
-    # run create ssh key
-    SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
-    ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$SSH_KEY_LOCATE$username"
-
-    if [ $overWrite = 0 ]; then
-        echo "[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub" >> "$SWGIT_LOCATE"
-    fi
-    cat "$SSH_KEY_LOCATE$username.pub"
-}
-
-# Delete ssh key: email, username
-function delete_ssh_key() {
-    echo "Delete ssh key";
-}
-
-# get current account: ()account
-function get_current_account() {
-    echo "Get current account";
-}
-
-# get git config: text file
-function get_git_config() {
-    echo "Get git config ";
-}
-
-# get ssh config: txt file
-function get_ssh_config() {
-    echo "Get ssh account";
-}
-
-# open file: text file
-function open_file() {
-    echo "Open a file";
-}
-
-# write file: void
-function write_file() {
-    echo "Write a file";
-}
-
-# question Yes/No: boolen
-function ask_yn() {
-    echo "Ash y/n";
-}
-
 function main() {
     echo "SWGIT: SWITCH GIT";
+
+    # global 
+    local SWGIT_ARG=()
+    local SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
+    local SSH_KEYGEN_TYPE="rsa"
+    local SWGIT_LOCATE="$HOME/.swgit"
+    # required(): void
+    # check git has been installed.
+    function required() {
+        git --version 2>&1 >/dev/null 
+        GIT_IS_AVAILABLE=$?
+        if [ $GIT_IS_AVAILABLE -eq 0 ]; 
+        then
+            echo "Git installed";
+        else
+            echo "Git have not install";
+            exit;
+        fi
+    }
+
+    # create_account(): email: string, username: string
+    # create an account with email: create ssh key, update git config with new account.
+    function create_account() {
+        echo "Create an account";
+        if [ "${#SWGIT_ARG[*]}" -gt 1 ] || [ "${#SWGIT_ARG[*]}" -ge 1 -a "${#GIT_ACC[*]}" -ge 1 ]; then
+            echo "Wrong: Mutiple Parameters!!\nnn"
+            # Echo_CoEElor r 'Wrong: Mutiple Parameters!!\n' # too many input args or accounts 
+        return
+        else       
+            case "${SWGIT_ARG[*]}" in 'add_account')
+                creat_ssh_key "$@";
+            ;;
+            esac
+        fi
+
+    }
+
+    # delete_account(): email: string, username: string
+    # delete account: delete ssh key, delete account info in git config.
+    function delete_account() {
+        echo "Delete ac account";
+    }
+
+    # switch account: username
+    # switch to another accont github.
+    function switch_account() {
+        echo  "Switch account git";
+    }
+
+    # auto run switch account
+    function auto_switch_account() {
+        echo  "Auto switch account";
+    }
+
+    # Switch accounts and forward commanc to git
+    function git_middleware() {
+        echo "swgit middleware";
+    }
+
+    # reset config default
+    # return config to before use this tool.
+    function reset(){
+        echo "Reset defaut setting";
+    }
+
+    #
+    # backward apis
+    #
+
+    # check arg in command
+    function check_command_line() {
+        if [ "$#" -gt 0 ]; 
+        then
+            while [ "$#" -gt 0 ]; do
+            case "$1" in
+                '-h'|'--help')
+                    help;
+                    unset -f help;
+                    return 1
+                ;;
+                '-a'|'--create_account')
+                    SWGIT_ARG+='add_account'
+                    shift 1
+                    create_account $@;
+                    return 1
+                ;;
+            esac
+            done
+        else 
+        #    help;
+        #    unset -f help;
+            exit;
+        fi
+    }
+
+    # help_script
+    function help(){
+        echo "Help";
+    }
+
+    # create ssh key: email, username
+    function creat_ssh_key() {
+        echo "Create ssh key";
+        local email=$1;
+        local username=$2;
+        
+        # run create ssh key
+        SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
+        ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$SSH_KEY_LOCATE$username"
+
+        if [ $overWrite = 0 ]; then
+            echo "[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub" >> "$SWGIT_LOCATE"
+        fi
+        cat "$SSH_KEY_LOCATE$username.pub"
+    }
+
+    # Delete ssh key: email, username
+    function delete_ssh_key() {
+        echo "Delete ssh key";
+    }
+
+    # get current account: ()account
+    function get_current_account() {
+        echo "Get current account";
+    }
+
+    # get git config: text file
+    function get_git_config() {
+        echo "Get git config ";
+    }
+
+    # get ssh config: txt file
+    function get_ssh_config() {
+        echo "Get ssh account";
+    }
+
+    # open file: text file
+    function open_file() {
+        echo "Open a file";
+    }
+
+    # write file: void
+    function write_file() {
+        echo "Write a file";
+    }
+
+    # question Yes/No: boolen
+    function ask_yn() {
+        echo "Ash y/n";
+    }
     required;
     check_command_line "$@";
 }

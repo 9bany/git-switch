@@ -124,7 +124,7 @@ function main() {
         local username=$1
         local email=$2
         if [ $OVERWRITE = 0 ]; then
-            echo "[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub" >> "$SWGIT_LOCATE"
+            echo `[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub` >> "$SWGIT_LOCATE"
         fi
     }
 

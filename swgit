@@ -52,14 +52,17 @@ function main() {
     # switch to another accont github.
     function switch_account() {
         echo  "Switch account git";
-        local path=$(grep 'IdentityFile' $SSH_KEY_LOCATE_CONFIG | sed 's/^.* //');
-        local fomat=$1.identity:
-        local identity=$(grep $fomat $SWGIT_LOCATE | sed 's/^.*: //');
-        local fileSshConfig=$(<$SSH_KEY_LOCATE_CONFIG);
-        local identityRegex=$(echo "$identity" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
-        local pathRegex=$(echo "$path" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
-        local regexFilter=s\/$pathRegex/$identityRegex\/g
+        local identityOrigin=$(grep 'IdentityFile' $SSH_KEY_LOCATE_CONFIG | sed 's/^.* //');
+        
+        local fomat=identity.$1:
+        local identityNew=$(grep $fomat $SWGIT_LOCATE | sed 's/^.*: //');
+
+        local identityNewRegex=$(echo "$identityNew" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+        local identityOriginRegex=$(echo "$identityOrigin" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+        
+        local regexFilter=s\/$identityOriginRegex/$identityNewRegex\/g
         sed -i -e $regexFilter $SSH_KEY_LOCATE_CONFIG
+        
         echo ok;
 
     }

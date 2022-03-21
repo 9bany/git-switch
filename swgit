@@ -71,8 +71,16 @@ function main() {
 
     # list user 
     function list_users() {
-        local users_info=$(grep 'username:' $SWGIT_LOCATE | sed 's/^.*: //')
+        local users_info=$(grep 'username:' $SWGIT_LOCATE)
         echo $users_info;
+    }
+
+    # identity_user
+    # print user indenntity ssh key path
+    function identity_user() {
+        local fomat=$1.identity:
+        local identity=$(grep $fomat $SWGIT_LOCATE | sed 's/^.*: //')
+        echo $identity;
     }
 
     #
@@ -100,6 +108,12 @@ function main() {
                     list_users;
                     return 1
                 ;;
+
+                '-i'|'--identity')
+                    shift 1
+                    identity_user $@;
+                    return 1
+                ;;
             esac
             done
         else 
@@ -117,8 +131,8 @@ function main() {
     # create ssh key: email, username
     function creat_ssh_key() {
         echo "Create ssh key";
-        local email=$1;
-        local username=$2;
+        local email=$2;
+        local username=$1;
         
         # run create ssh key
         SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
@@ -135,8 +149,10 @@ function main() {
         local email=$2
         
         if [ $OVERWRITE = 0 ]; then
-            local output="[$username]:\n\thost: github.com\n\tuser: git\n\tidentity: $SSH_KEY_LOCATE$username\n\tusername: $username\n\temail: $email"
-            echo $output >> "$SWGIT_LOCATE"
+            echo "[$username]" >> "$SWGIT_LOCATE";
+            echo "$username.username: $username" >> "$SWGIT_LOCATE";
+            echo "$username.email: $email" >> "$SWGIT_LOCATE";
+            echo "$username.identity: $SSH_KEY_LOCATE$username" >> "$SWGIT_LOCATE";
         fi
     }
 

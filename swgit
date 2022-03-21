@@ -82,7 +82,7 @@ function main() {
 
     # list user 
     function list_users() {
-        local users_info=$(grep 'username:' $SWGIT_LOCATE)
+        local users_info=$(grep 'username.*:' $SWGIT_LOCATE)
         echo $users_info;
     }
 
@@ -167,9 +167,9 @@ function main() {
         
         if [ $OVERWRITE = 0 ]; then
             echo "[$username]" >> "$SWGIT_LOCATE";
-            echo "$username.username: $username" >> "$SWGIT_LOCATE";
-            echo "$username.email: $email" >> "$SWGIT_LOCATE";
-            echo "$username.identity: $SSH_KEY_LOCATE$username" >> "$SWGIT_LOCATE";
+            echo "username.$username: $username" >> "$SWGIT_LOCATE";
+            echo "email.$username: $email" >> "$SWGIT_LOCATE";
+            echo "identity.$username: $SSH_KEY_LOCATE$username" >> "$SWGIT_LOCATE";
         fi
     }
 

@@ -7,6 +7,7 @@ function main() {
     local SWGIT_ARG=()
     local SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
     local SSH_KEY_LOCATE_CONFIG="$HOME/.ssh/config"  # "./id_rsa_"
+    local SSH_KEY_LOCATE_CONFIG_E="$HOME/.ssh/config-e"
     local SSH_KEYGEN_TYPE="rsa"
     local SWGIT_LOCATE="$HOME/.swgit"
     local OVERWRITE=0
@@ -81,6 +82,11 @@ function main() {
     # return config to before use this tool.
     function reset(){
         echo "Reset defaut setting";
+        if [ ! -f $SSH_KEY_LOCATE_CONFIG_E ]; then
+            echo "File not found!"
+        else 
+            echo yes | cp -rf $SSH_KEY_LOCATE_CONFIG_E $SSH_KEY_LOCATE_CONFIG
+        fi
     }
 
     # list user 
@@ -132,6 +138,11 @@ function main() {
                 '-s'|'--switch')
                     shift 1
                     switch_account $@;
+                    return 1
+                ;;
+                '-rt'|'--resotre-ssh')
+                    shift 1
+                    reset;
                     return 1
                 ;;
             esac

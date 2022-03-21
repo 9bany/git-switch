@@ -6,6 +6,7 @@ function main() {
     # global 
     local SWGIT_ARG=()
     local SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
+    local SSH_KEY_LOCATE_CONFIG="$HOME/.ssh/config"  # "./id_rsa_"
     local SSH_KEYGEN_TYPE="rsa"
     local SWGIT_LOCATE="$HOME/.swgit"
     local OVERWRITE=0
@@ -51,6 +52,14 @@ function main() {
     # switch to another accont github.
     function switch_account() {
         echo  "Switch account git";
+        local path=$(grep 'IdentityFile' $SSH_KEY_LOCATE_CONFIG --perl-regexp | sed 's/^.* //');
+        local fomat=$1.identity:
+        local identity=$(grep $fomat $SWGIT_LOCATE | sed 's/^.*: //')
+    
+        echo $identity
+
+        \~\/\.ssh\/id_rsa
+        echo "ok";
     }
 
     # auto run switch account
@@ -112,6 +121,12 @@ function main() {
                 '-i'|'--identity')
                     shift 1
                     identity_user $@;
+                    return 1
+                ;;
+
+                '-s'|'--switch')
+                    shift 1
+                    switch_account $@;
                     return 1
                 ;;
             esac

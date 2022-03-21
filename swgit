@@ -16,7 +16,7 @@ function main() {
         GIT_IS_AVAILABLE=$?
         if [ $GIT_IS_AVAILABLE -eq 0 ]; 
         then
-            echo "Git installed";
+            echo "Env ok";
         else
             echo "Git have not install";
             exit;
@@ -69,6 +69,12 @@ function main() {
         echo "Reset defaut setting";
     }
 
+    # list user 
+    function list_users() {
+        local users_info=$(grep 'username:' $SWGIT_LOCATE | sed 's/^.*: //')
+        echo $users_info;
+    }
+
     #
     # backward apis
     #
@@ -88,6 +94,10 @@ function main() {
                     SWGIT_ARG+='add_account'
                     shift 1
                     create_account $@;
+                    return 1
+                ;;
+                '-l'|'--list')
+                    list_users;
                     return 1
                 ;;
             esac
@@ -123,8 +133,10 @@ function main() {
     function swgit_add_account() {
         local username=$1
         local email=$2
+        
         if [ $OVERWRITE = 0 ]; then
-            echo `[$username]\n\tname = $username\n\temail = $email\n\tprivate_key = $SSH_KEY_LOCATE$username\n\tpublic_key = $SSH_KEY_LOCATE$username.pub` >> "$SWGIT_LOCATE"
+            local output="[$username]:\n\thost: github.com\n\tuser: git\n\tidentity: $SSH_KEY_LOCATE$username\n\tusername: $username\n\temail: $email"
+            echo $output >> "$SWGIT_LOCATE"
         fi
     }
 
@@ -166,5 +178,4 @@ function main() {
     check_command_line "$@";
 }
 
-echo "$@"
 main "$@";

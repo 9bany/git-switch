@@ -1,0 +1,12 @@
+9bany:
+  host: github.com
+  user: git
+  identity: ~/.ssh/id_rsa_bany
+  username: 9bany 
+  email: bany.y0599@gmail.com
+eban:
+  host: github.com
+  user: git
+  identity: ~/.ssh/id_rsa_eban
+  username: 9bany 
+  email: eban@gmail.com

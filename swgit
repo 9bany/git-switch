@@ -5,12 +5,13 @@ function main() {
 
     # global 
     local SWGIT_ARG=()
-    local SSH_KEY_LOCATE="$HOME/.ssh/id_"  # "./id_rsa_"
-    local SSH_KEY_LOCATE_CONFIG="$HOME/.ssh/config"  # "./id_rsa_"
+    local SSH_KEY_LOCATE="$HOME/.ssh/id_"
+    local SSH_KEY_LOCATE_CONFIG="$HOME/.ssh/config"
     local SSH_KEY_LOCATE_CONFIG_E="$HOME/.ssh/config-e"
     local SSH_KEYGEN_TYPE="rsa"
     local SWGIT_LOCATE="$HOME/.swgit"
     local OVERWRITE=0
+    local GIT_CONFIG_LOCATE="$HOME/.gitconfig"
     # required(): void
     # check git has been installed.
     function required() {
@@ -63,9 +64,32 @@ function main() {
         
         local regexFilter=s\/$identityOriginRegex/$identityNewRegex\/g
         sed -i -e $regexFilter $SSH_KEY_LOCATE_CONFIG
-        
-        echo ok;
+        git_config_global $1;
 
+    }
+    
+    # reconfig git username and emai global variable.
+    function git_config_global() {
+
+        local emailOrigin=$(grep 'email = ' $GIT_CONFIG_LOCATE | sed 's/^.* //');
+        local userNameOrigin=$(grep 'name = ' $GIT_CONFIG_LOCATE | sed 's/^.* //');
+       
+        local emailOriginRegex=$(echo "$emailOrigin" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+        local userNameOriginRegex=$(echo "$userNameOrigin" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+
+        local usernameFormat=username.$1:
+        local usernameNew=$(grep $usernameFormat $SWGIT_LOCATE | sed 's/^.*: //');
+
+        local emailFormat=email.$1:
+        local emailNew=$(grep $emailFormat $SWGIT_LOCATE | sed 's/^.*: //');
+
+        local usernameNewRegex=$(echo "$usernameNew" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+        local emailNewRegex=$(echo "$emailNew" | sed 's/\//\\\//g' | sed 's/\./\\\./g'| sed 's/\~/\\\~/g');
+
+        local regexFilterName=s\/$userNameOriginRegex/$usernameNewRegex\/g;
+        local regexFilterEmail=s\/$emailOriginRegex/$emailNewRegex\/g
+        sed -i -e $regexFilterName $GIT_CONFIG_LOCATE
+        sed -i -e $regexFilterEmail $GIT_CONFIG_LOCATE
     }
 
     # auto run switch account
@@ -205,16 +229,6 @@ function main() {
     # get ssh config: txt file
     function get_ssh_config() {
         echo "Get ssh account";
-    }
-
-    # open file: text file
-    function open_file() {
-        echo "Open a file";
-    }
-
-    # write file: void
-    function write_file() {
-        echo "Write a file";
     }
 
     # question Yes/No: boolen

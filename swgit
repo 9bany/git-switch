@@ -29,7 +29,11 @@ function main() {
     # create_account(): email: string, username: string
     # create an account with email: create ssh key, update git config with new account.
     function create_account() {
-        echo "Create an account";
+        if [ "$#" -ne 2 ]; then
+            echo "Command failed";
+            echo "Usage: bash swgit -a <username> <email>";
+            exit;
+        fi
         if [ "${#SWGIT_ARG[*]}" -gt 1 ] || [ "${#SWGIT_ARG[*]}" -ge 1 -a "${#GIT_ACC[*]}" -ge 1 ]; then
             echo "Wrong: Mutiple Parameters!!\nnn"
             # Echo_CoEElor r 'Wrong: Mutiple Parameters!!\n' # too many input args or accounts 

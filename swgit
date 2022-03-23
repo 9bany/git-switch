@@ -126,6 +126,11 @@ function main() {
     # identity_user
     # print user indenntity ssh key path
     function identity_user() {
+        if [ "$#" -ne 1 ]; then
+            echo "Command failed";
+            echo "Usage: bash swgit -i <username>";
+            exit;
+        fi
         local fomat=$1.identity:
         local identity=$(grep $fomat $SWGIT_LOCATE | sed 's/^.*: //')
         echo $identity;

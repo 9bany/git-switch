@@ -31,7 +31,7 @@ function main() {
     function create_account() {
         if [ "$#" -ne 2 ]; then
             echo "Command failed";
-            echo "Usage: bash swgit -a <username> <email>";
+            echo "Usage: swgit -a <username> <email>";
             exit;
         fi
         if [ "${#SWGIT_ARG[*]}" -gt 1 ] || [ "${#SWGIT_ARG[*]}" -ge 1 -a "${#GIT_ACC[*]}" -ge 1 ]; then
@@ -57,6 +57,12 @@ function main() {
     # switch account: username
     # switch to another accont github.
     function switch_account() {
+        if [ "$#" -ne 1 ]; then
+            echo "Command failed";
+            echo "Usage: swgit -s <username>";
+            exit;
+        fi
+
         echo  "Switch account git";
         local identityOrigin=$(grep 'IdentityFile' $SSH_KEY_LOCATE_CONFIG | sed 's/^.* //');
         
@@ -128,7 +134,7 @@ function main() {
     function identity_user() {
         if [ "$#" -ne 1 ]; then
             echo "Command failed";
-            echo "Usage: bash swgit -i <username>";
+            echo "Usage: swgit -i <username>";
             exit;
         fi
         local fomat=$1.identity:

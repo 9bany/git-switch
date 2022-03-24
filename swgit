@@ -51,7 +51,19 @@ function main() {
     # delete_account(): email: string, username: string
     # delete account: delete ssh key, delete account info in git config.
     function delete_account() {
-        echo "Delete ac account";
+        if [ "$#" -ne 1 ]; then
+            echo "Command failed";
+            echo "Usage: swgit -d <username>";
+            exit;
+        fi
+
+        echo "Delete an account";
+        local username=$1;
+        delete_ssh_key $username;
+        local filterRegex=\/$username\/d;
+        sed $filterRegex $SWGIT_LOCATE  > $SWGIT_LOCATE.pre;
+        cp -fr $SWGIT_LOCATE.pre $SWGIT_LOCATE;
+        rm -rf $SWGIT_LOCATE.pre;
     }
 
     # switch account: username
@@ -100,16 +112,6 @@ function main() {
         local regexFilterEmail=s\/$emailOriginRegex/$emailNewRegex\/g
         sed -i -e $regexFilterName $GIT_CONFIG_LOCATE
         sed -i -e $regexFilterEmail $GIT_CONFIG_LOCATE
-    }
-
-    # auto run switch account
-    function auto_switch_account() {
-        echo  "Auto switch account";
-    }
-
-    # Switch accounts and forward commanc to git
-    function git_middleware() {
-        echo "swgit middleware";
     }
 
     # reset config default
@@ -184,6 +186,11 @@ function main() {
                     reset;
                     return 1
                 ;;
+                '-d'|'--delete')
+                    shift 1
+                    delete_account $@;
+                    return 1
+                ;;
             esac
             done
         else 
@@ -217,9 +224,9 @@ Options:
         local username=$1;
         
         # run create ssh key
-        SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
-        ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$SSH_KEY_LOCATE$username"
-        cat "$SSH_KEY_LOCATE$username.pub"
+        local NEW_SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
+        ssh-keygen -t $SSH_KEYGEN_TYPE -C "$email" -f "$NEW_SSH_KEY_LOCATE$username"
+        cat "$NEW_SSH_KEY_LOCATE$username.pub"
 
         swgit_add_account $username $email;
         
@@ -241,6 +248,10 @@ Options:
     # Delete ssh key: email, username
     function delete_ssh_key() {
         echo "Delete ssh key";
+        local username=$1;
+        local NEW_SSH_KEY_LOCATE="$SSH_KEY_LOCATE${SSH_KEYGEN_TYPE}_"
+        rm -rf "$NEW_SSH_KEY_LOCATE$username.pub";
+        rm -rf "$NEW_SSH_KEY_LOCATE$username";
     }
 
     # get current account: ()account

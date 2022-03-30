@@ -197,6 +197,11 @@ function main() {
                     delete_account $@;
                     return 1
                 ;;
+                *)
+                    help;
+                    unset -f help;
+                    exit;
+                ;;
             esac
             done
         else 

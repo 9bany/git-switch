@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 function main() {
-    echo "SWGIT: SWITCH GIT";
-
     # global 
     local SWGIT_ARG=()
     local SSH_KEY_LOCATE="$HOME/.ssh/id_"
@@ -197,6 +195,12 @@ function main() {
                     delete_account $@;
                     return 1
                 ;;
+                '-ls')
+                    shift 1
+                    list $@;
+                    return 1
+                ;;
+                
                 *)
                     help;
                     unset -f help;
@@ -284,6 +288,28 @@ Options:
     # question Yes/No: boolen
     function ask_yn() {
         echo "Ash y/n";
+    }
+
+    list() {
+        num=1
+        < $SSH_KEY_LOCATE_CONFIG grep Host | while read -r line;
+        do
+            if [[ $line != *"*"* ]]; then
+            line="$(tr '[:upper:]' '[:lower:]' <<< "$line")"
+            if [[ $line == *"host "* ]]; then
+                replace_string=${line//host/Server}
+                num=$((num + 1))
+            elif [[ $line == *"hostname "* ]]; then
+                replace_string=${line//hostname/IP:}
+            fi
+            if [ "$((num%2))" -eq 0 ]; then
+                printf -- "${color1} %s %s ${end}\n" "$replace_string"
+            else
+                printf -- "${color2} %s %s ${end}\n" "$replace_string"
+            fi
+            fi
+        done
+        exit;
     }
     required;
     check_command_line "$@";

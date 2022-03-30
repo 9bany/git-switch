@@ -2,6 +2,17 @@
 
 function main() {
     # global 
+    
+    local BLACK=$'\e[1;30m'
+    local RED=$'\e[1;31m'
+    local GREEN=$'\e[0;32m'
+    local YELLOW=$'\e[0;33m'
+    local BLUE=$'\e[0;34m'
+    local PINK=$'\e[0;35m'
+    local CYAN=$'\e[0;36m'
+    local WHITE=$'\e[0;37m'
+    local END=$'\e[0m'
+
     local SWGIT_ARG=()
     local SSH_KEY_LOCATE="$HOME/.ssh/id_"
     local SSH_KEY_LOCATE_CONFIG="$HOME/.ssh/config"
@@ -10,6 +21,9 @@ function main() {
     local SWGIT_LOCATE="$HOME/.swgit"
     local OVERWRITE=0
     local GIT_CONFIG_LOCATE="$HOME/.gitconfig"
+    local COLOR=""
+    local COLOR_THEME1=""
+    local COLOR_THEME2=""
     # required(): void
     # check git has been installed.
     function required() {
@@ -303,15 +317,66 @@ Options:
                 replace_string=${line//hostname/IP:}
             fi
             if [ "$((num%2))" -eq 0 ]; then
-                printf -- "${color1} %s %s ${end}\n" "$replace_string"
+                printf -- "${color1} %s %s ${END}\n" "$replace_string"
             else
-                printf -- "${color2} %s %s ${end}\n" "$replace_string"
+                printf -- "${color2} %s %s ${END}\n" "$replace_string"
             fi
             fi
         done
         exit;
     }
+
+    color_match () {
+        case "$1" in
+            BLACK)
+            COLOR="$BLACK"
+            ;;
+            RED)
+            COLOR="$RED"
+            ;;
+            GREEN)
+            COLOR="$GREEN"
+            ;;
+            YELLOW)
+            COLOR="$YELLOW"
+            ;;
+            BLUE)
+            COLOR="$BLUE"
+            ;;
+            PINK)
+            COLOR="$PINK"
+            ;;
+            CYAN)
+            COLOR="$CYAN"
+            ;;
+            WHITE)
+            COLOR="$WHITE"
+            ;;
+            *)
+            printf "%s\n" "${RED}Invalid${END} ${1} for ${2}"
+            printf "%s\n" "Chose only this colors ${BLACK}BLACK${END} ${RED}RED${END} ${GREEN}GREEN${END} ${YELLOW}YELLOW${END} ${BLUE}BLUE${END} ${PINK}PINK${END} ${CYAN}CYAN${END} ${WHITE}WHITE${END}"
+            exit;
+        esac
+    }
+
+    # Function to check if colors variable are declared.
+    check_colors () {
+        if [ -z "$COLOR_THEME1" ]; then
+            COLOR_THEME1=BLUE
+        fi
+
+        if [ -z "$COLOR_THEME2" ]; then
+            COLOR_THEME2=PINK
+        fi
+    }
+
     required;
+    check_colors
+    color_match "$COLOR_THEME1" COLOR_THEME1
+    local color1=$COLOR
+    color_match "$COLOR_THEME2" COLOR_THEME2
+    local color2=$COLOR
+
     check_command_line "$@";
 }
 

@@ -19,6 +19,7 @@ class Store {
         }
         const user = new User(username, email)
         this.db.get("users").push(user).write();
+        return user
     }
 
     getUser = (username) => {

@@ -1,0 +1,23 @@
+{
+  "name": "git-switch",
+  "version": "1.0.0",
+  "description": "## Features  - Switch 2 accounts github. - Support ssh key: create and manager ssh keys. - Auto switch then current account not allow for the repository. ## How to install ## How to use 1. Switch account ``` swgit -s <username> ``` ## Contributing",
+  "main": "bin/index.js",
+  "bin": {
+    "git-switch": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9bany/git-switch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9bany/git-switch/issues"
+  },
+  "homepage": "https://github.com/9bany/git-switch#readme"
+}

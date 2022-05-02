@@ -1,5 +1,8 @@
 const User = require('./user');
-
+const { 
+    USERNAME_EMPTY,
+    EMAIL_EMPTY
+} = require('./../constants/global')
 class Store {
     constructor(db) {
         this.db = db 
@@ -7,6 +10,13 @@ class Store {
 
     createNew = (data) => {
         const { username, email } = data;
+        if (!username || username === "") {
+            return USERNAME_EMPTY
+        }
+
+        if (!email || email === "" ) {
+            return EMAIL_EMPTY
+        }
         const user = new User(username, email)
         this.db.get("users").push(user).write();
     }

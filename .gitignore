@@ -1,4 +1,4 @@
 git.sh
 slist
 node_modules
-db_store/data/store.json
+db_store/db/database.json

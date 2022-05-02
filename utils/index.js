@@ -6,6 +6,6 @@ module.exports = {
         return genUsername.generateUsername("", 2, 19);
     },
     randomEmail: () => {
-        return randomEmail()
+        return randomEmail({ domain: 'example.com' })
     }
 }

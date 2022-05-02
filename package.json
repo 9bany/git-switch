@@ -20,10 +20,8 @@
     "url": "https://github.com/9bany/git-switch/issues"
   },
   "dependencies": {
-    "boxen": "^4.2.0",
-    "chalk": "^2.4.2",
-    "dotenv": "^8.6.0",
-    "yargs": "^13.3.2"
+    "lowdb": "1.0.0",
+    "uuid": "^8.3.2"
   },
   "homepage": "https://github.com/9bany/git-switch#readme"
 }

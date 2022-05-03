@@ -1,0 +1,4 @@
+module.exports = {
+    USERNAME_EMPTY: "USERNAME_EMPTY",
+    EMAIL_EMPTY: "EMAIL_EMPTY",
+}

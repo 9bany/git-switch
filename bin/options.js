@@ -19,6 +19,48 @@ function options() {
         type: "string", 
         demandOption: false 
     })
+    // node bin/index.js --update.user=<username> --update.sshKeyPath=<sshKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
+    .option("u", {
+        alias: "update", 
+        describe: "udate an account info with username", 
+        type: "object", 
+        demandOption: false 
+    })
+    // node bin/index.js --delete.user=<username> 
+    .option("d", {
+        alias: "delete", 
+        describe: "delete an account with username", 
+        type: "object", 
+        demandOption: false 
+    })
+    // node bin/index.js --list
+    .options("l",{
+        alias: "list", 
+        describe: "get user list", 
+        type: undefined, 
+        demandOption: false 
+    })
+    // node bin/index.js --switch.user=<username>
+    .options("s",{
+        alias: "switch", 
+        describe: "switch default user", 
+        type: "object", 
+        demandOption: false 
+    })
+    // node bin/index.js --default
+    .option("df", {
+        alias: "default", 
+        describe: "switch default user", 
+        type: "object", 
+        demandOption: false 
+    })
+    //node bin/index.js --checkrule.user=<username>
+    .option("check", {
+        alias: "checkrule", 
+        describe: "switch default user", 
+        type: "object", 
+        demandOption: false 
+    })
     .argv;
     return options;
 }

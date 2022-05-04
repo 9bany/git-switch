@@ -24,8 +24,6 @@ function testCreateUserOk(user) {
       })
     })
   });
-  
-  
 }
 
 describe('db_store:user creation', function () {

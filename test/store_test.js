@@ -13,8 +13,23 @@ function randomUser() {
   return new User(randomUsername(), randomEmail())
 }
 
-describe('Store', function () {
-  describe('User-username invalid', function () {
+function testCreateUserOk(user) {
+  return new Promise((resolve, reject) => {
+    describe('user-created', function () {
+      it(`should return user when created new user`, function () {
+        const value = storeTest.createNew({ username: user.username, email: user.email})
+        assert.equal(user.username, value.username)
+        assert.equal(user.email, value.email)
+        resolve(user)
+      })
+    })
+  });
+  
+  
+}
+
+describe('db_store:user creation', function () {
+  describe('user-username invalid', function () {
     it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
       const value = storeTest.createNew({ username: undefined, email: 'email@gmail.com'})
       assert.equal(value, USERNAME_EMPTY)
@@ -26,7 +41,7 @@ describe('Store', function () {
     });
   });
 
-  describe('User-email invalid', function () {
+  describe('user-email invalid', function () {
     it(`should return ${EMAIL_EMPTY} when the value is undifined`, function () {
       const value = storeTest.createNew({ username: 'username', email: undefined})
       assert.equal(value, EMAIL_EMPTY)
@@ -37,13 +52,26 @@ describe('Store', function () {
       assert.equal(value, EMAIL_EMPTY)
     });
   });
-  describe('User-Created', function () {
-    it(`should return user when created new  user`, function () {
-      const user = randomUser()
-      const value = storeTest.createNew({ username: user.username, email: user.email})
-      assert.equal(user.username, value.username)
-      assert.equal(user.email, value.email)
-    })
-    
-  })
+  const user = randomUser()
+  testCreateUserOk(user)
+});
+
+describe('db_store:user get infomation', function () {
+  describe('user-username invalid', function () {
+    it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
+      const value = storeTest.getUser(undefined)
+      assert.equal(value, USERNAME_EMPTY)
+    });
+  });
+
+  describe('get successed', function () {
+    it(`should return user info when in happy case`, function () {
+      const userData = randomUser()
+      testCreateUserOk(userData).then(_ => {
+        const value = storeTest.getUser(userData.username)
+        assert.equal(value.username, userData.username)
+        assert.equal(value.email, userData.email)
+      })
+    });
+  });
 });

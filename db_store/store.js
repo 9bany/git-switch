@@ -23,7 +23,11 @@ class Store {
     }
 
     getUser = (username) => {
-        return this.db.chain.get('users').find({ username: username }).value()
+        
+        if (!username || username === "") {
+            return USERNAME_EMPTY
+        }
+        return this.db.get('users').find({ username: username }).value()
     }
 
     getUserList = () => {

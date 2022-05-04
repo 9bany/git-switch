@@ -12,3 +12,7 @@
 // CheckUserRule(user *dbstore.User)
 
 // Forward() -> git
+const createNewUser = require('./create_new');
+module.exports = {
+    createNewUser
+}

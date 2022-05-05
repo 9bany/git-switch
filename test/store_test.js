@@ -27,40 +27,40 @@ function testCreateUserOk(user) {
 }
 
 describe('db_store:user creation', function () {
-  describe('user-username invalid', function () {
-    it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
-      const value = storeTest.createNew({ username: undefined, email: 'email@gmail.com'})
-      assert.equal(value, USERNAME_EMPTY)
-    });
+  // describe('user-username invalid', function () {
+  //   it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
+  //     const value = storeTest.createNew({ username: undefined, email: 'email@gmail.com'})
+  //     assert.equal(value, USERNAME_EMPTY)
+  //   });
 
-    it(`should return ${USERNAME_EMPTY} when the value is ''`, function () {
-      const value = storeTest.createNew({ username: '', email: 'email@gmail.com'})
-      assert.equal(value, USERNAME_EMPTY)
-    });
-  });
+  //   it(`should return ${USERNAME_EMPTY} when the value is ''`, function () {
+  //     const value = storeTest.createNew({ username: '', email: 'email@gmail.com'})
+  //     assert.equal(value, USERNAME_EMPTY)
+  //   });
+  // });
 
-  describe('user-email invalid', function () {
-    it(`should return ${EMAIL_EMPTY} when the value is undifined`, function () {
-      const value = storeTest.createNew({ username: 'username', email: undefined})
-      assert.equal(value, EMAIL_EMPTY)
-    });
+  // describe('user-email invalid', function () {
+  //   it(`should return ${EMAIL_EMPTY} when the value is undifined`, function () {
+  //     const value = storeTest.createNew({ username: 'username', email: undefined})
+  //     assert.equal(value, EMAIL_EMPTY)
+  //   });
 
-    it(`should return ${EMAIL_EMPTY} when the value is ''`, function () {
-      const value = storeTest.createNew({ username: 'username', email: ''})
-      assert.equal(value, EMAIL_EMPTY)
-    });
-  });
+  //   it(`should return ${EMAIL_EMPTY} when the value is ''`, function () {
+  //     const value = storeTest.createNew({ username: 'username', email: ''})
+  //     assert.equal(value, EMAIL_EMPTY)
+  //   });
+  // });
   const user = randomUser()
   testCreateUserOk(user)
 });
 
 describe('db_store:user get infomation', function () {
-  describe('user-username invalid', function () {
-    it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
-      const value = storeTest.getUser(undefined)
-      assert.equal(value, USERNAME_EMPTY)
-    });
-  });
+  // describe('user-username invalid', function () {
+  //   it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
+  //     const value = storeTest.getUser(undefined)
+  //     assert.equal(value, USERNAME_EMPTY)
+  //   });
+  // });
 
   describe('get successed', function () {
     it(`should return user info when in happy case`, function () {

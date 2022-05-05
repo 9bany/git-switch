@@ -1,0 +1,21 @@
+name: Test
+
+on:
+  pull_request:
+    branches:    
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install 
+        run: yarn
+      - name: Copy file
+        run: cp -i db_store/db/example_db.json db_store/db/db.json 
+      - name: Run test 
+        run: make test

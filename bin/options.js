@@ -13,6 +13,7 @@ function options() {
         type: "object", 
         demandOption: false 
     })
+    // node bin/index.js --get.user=<username>
     .option("g", {
         alias: "get", 
         describe: "get an account info with username", 
@@ -22,7 +23,7 @@ function options() {
     // node bin/index.js --update.user=<username> --update.sshKeyPath=<sshKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
     .option("u", {
         alias: "update", 
-        describe: "udate an account info with username", 
+        describe: "update an account info with username", 
         type: "object", 
         demandOption: false 
     })
@@ -50,14 +51,14 @@ function options() {
     // node bin/index.js --default
     .option("df", {
         alias: "default", 
-        describe: "switch default user", 
+        describe: "get default user info", 
         type: "object", 
         demandOption: false 
     })
     //node bin/index.js --checkrule.user=<username>
     .option("check", {
         alias: "checkrule", 
-        describe: "switch default user", 
+        describe: "Check rule of user by username", 
         type: "object", 
         demandOption: false 
     })

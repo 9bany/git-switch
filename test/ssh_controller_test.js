@@ -1,8 +1,12 @@
-const saveSSHFile = require('./../ssh/ssh_controller');
+const {
+    saveSSHFile,
+    createSHHKey,
+} = require('./../ssh/ssh_controller');
 const {
     PATH_INVAID,
     DATA_INVALID,
-    WRITE_FILE_ERROR
+    WRITE_FILE_ERROR,
+    USERNAME_EMPTY
 } = require('./../constants/global')
 const assert = require('assert');
 
@@ -91,7 +95,28 @@ describe('ssh:save file', function () {
             pathFile: 'test/data/path_example', privateKey: 'privateKey', publicKey: "publicKey"
         }).then(data => {
             assert.equal(data[0], 'test/data/path_example')
-            assert.equal(data[1], 'test/data/path_example_pub')
+            assert.equal(data[1], 'test/data/path_example.pub')
+        })
+    })
+
+    it(`should return ${USERNAME_EMPTY} when empty username`, function () {
+        const data = createSHHKey('')
+        assert.equal(data, USERNAME_EMPTY)
+    })
+
+    it(`should return ${USERNAME_EMPTY} when undifined username`, function () {
+        const data = createSHHKey(undefined)
+        assert.equal(data, USERNAME_EMPTY)
+    })
+
+    it(`should return ${USERNAME_EMPTY} when null username`, function () {
+        const data = createSHHKey(null)
+        assert.equal(data, USERNAME_EMPTY)
+    })
+
+    it(`should return paths when valid username`, function () {
+        return createSHHKey('username_example').then(data => {
+            assert.notEqual(data, null)
         })
     })
 })

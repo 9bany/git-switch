@@ -1,4 +1,8 @@
 const fs = require('fs');
+const genKey = require('./gen');
+const { SSH_ROOT_PATH } = require('./../constants/config');
+const { USERNAME_EMPTY } = require('./../constants/global');
+
 const { 
     WRITE_FILE_ERROR,
     DATA_INVALID,
@@ -18,7 +22,7 @@ async function saveSSHFile({ pathFile, privateKey, publicKey }) {
         }
 
         const privateKeyPathFile = pathFile
-        const publicKeyPathFile = `${pathFile}_pub`
+        const publicKeyPathFile = `${pathFile}.pub`
         Promise.all([
             saveKey({ path: privateKeyPathFile, key: privateKey}),
             saveKey({ path: publicKeyPathFile, key: publicKey}),
@@ -44,4 +48,25 @@ function saveKey({ path, key}) {
     });
 }
 
-module.exports = saveSSHFile;
+function createSHHKey(username) {
+    if(!username) {
+        return USERNAME_EMPTY
+    }
+    const { privateKeyResult, publicKeyResult } = genKey();
+    return saveSSHFile(
+        {
+            pathFile: SSH_ROOT_PATH + `/${username}`,
+            privateKey: privateKeyResult, 
+            publicKey: publicKeyResult
+        }
+    ).then(data => {
+        return data
+    }).catch(err => {
+        return err
+    })
+}
+
+module.exports = {
+    saveSSHFile,
+    createSHHKey
+};

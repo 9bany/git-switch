@@ -4,11 +4,23 @@
 - Switch 2 accounts github.
 - Support ssh key: create and manager ssh keys.
 - Auto switch then current account not allow for the repository.
-## How to install
-## How to use
-1. Switch account
+## Development 
+- Install 
 ```
-swgit -s <username>
+make install
+```
+- unInstall 
+```
+make uninstall
+```
+- Run test cases
+```
+make test
+```
+## CLI 
+- Help
+```
+swgit --help
 ```
 ## Contributing
 

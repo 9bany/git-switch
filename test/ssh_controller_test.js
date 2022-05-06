@@ -19,7 +19,6 @@ describe('ssh:save file', function () {
         return saveSSHFile({
             pathFile: null, privateKey: 'privateKey', publicKey: 'publicKey'
         }).then(data => {
-            console.log(data)
             assert.equal(data, PATH_INVAID)
         })
     })

@@ -2,3 +2,4 @@ git.sh
 slist
 node_modules
 db_store/db/db.json
+test/data

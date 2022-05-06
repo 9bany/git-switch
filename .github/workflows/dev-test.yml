@@ -20,5 +20,8 @@ jobs:
         run: yarn
       - name: Copy file
         run: cp -i db_store/db/example_db.json db_store/db/db.json 
+      - name: Preprae test
+        run: mkdir test/data
       - name: Run test 
         run: make test
+        

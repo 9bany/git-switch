@@ -9,8 +9,13 @@ class Store {
     }
 
     createNew = (data) => {
-        const { username, email } = data;
-        const user = new User(username, email)
+        const { 
+            username, 
+            email,
+            privateKeyPath,
+            publicKeyPath 
+        } = data;
+        const user = new User(username, email, privateKeyPath, publicKeyPath)
         this.db.get("users").push(user).write();
         return user
     }

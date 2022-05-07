@@ -3,9 +3,6 @@ const yargs = require("yargs");
 function options() {
     const options = yargs
     .usage("Usage: swgit -<option> <value>")
-    .command('curl <url>', 'fetch the contents of the URL', () => {}, (argv) => {
-        console.info(argv)
-    })
     // node bin/index.js --add.user=<username> --add.email=<email>
     .option("a", {
         alias: "add", 
@@ -62,7 +59,6 @@ function options() {
         type: "object", 
         demandOption: false 
     })
-    .argv;
     return options;
 }
 

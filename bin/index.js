@@ -12,8 +12,10 @@ const {
     switchUser,
     getUserDefault,
     checkUserRule,
-    getUserInfo
+    getUserInfo,
+    cloneCommandControl
 } = require('./../switch_control');
+
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });
 
@@ -21,6 +23,7 @@ main();
 
 function main() {
     const optionsResult = options()
+    optionsResult.command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl).argv;
     adapter(optionsResult, [
         {
             type: 'add',
@@ -52,7 +55,7 @@ function main() {
         },
         {
             type: 'get',
-            handle: getUser
+            handle: getUserInfo
         }
     ])
 }

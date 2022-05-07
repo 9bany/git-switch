@@ -9,7 +9,7 @@ const {
     getUserDefault,
     checkUserRule,
     getUserInfo
-} =require('../switch_control')
+} =require('../controllers')
 const assert = require('assert');
 const {
   USERNAME_EMPTY,

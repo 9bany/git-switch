@@ -11,7 +11,7 @@ const switchUser = require('./switch_user');
 const getUserDefault = require('./get_user_default');
 const checkUserRule = require('./check_user_rule');
 const getUserInfo = require('./get_user_info');
-const cloneCommandControl = require('./clone_command_control');
+const cloneCommandControl = require('./commands/clone_command_control');
 const checkGitPermission = require('./exc/git_permission');
 
 module.exports = {

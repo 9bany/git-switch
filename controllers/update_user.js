@@ -3,7 +3,7 @@ const db = require('../db_store/db')
 const { 
     USERNAME_EMPTY,
     USER_DOES_NOT_EXISTS,
-} = require('./../constants/global')
+} = require('../constants/global')
 
 
 function updateUser(objc) {

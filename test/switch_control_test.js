@@ -10,7 +10,6 @@ const {
     checkUserRule,
     getUserInfo
 } =require('../switch_control')
-const { users } = require('../db_store/db/db.json')
 const assert = require('assert');
 const {
   USERNAME_EMPTY,
@@ -64,33 +63,6 @@ describe('switch_control:user creation', function () {
   testCreateUserOk(user)
 });
 
-describe('switch_control:user get infomation', function () {
-  describe('user-username invalid', function () {
-    it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
-      const value = getUserInfo({username: undefined})
-      assert.equal(value, USERNAME_EMPTY)
-    });
-  });
-
-  describe('user-username invalid', function () {
-    it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
-        const user = randomUser()
-        const value = getUserInfo({username: user.username})
-        assert.equal(value, USER_DOES_NOT_EXISTS)
-    });
-  });
-
-  describe('get successed', function () {
-    it(`should return user info when in happy case`, function () {
-      const userData = randomUser()
-      testCreateUserOk(userData).then(_ => {
-        const value = getUserInfo({username: userData.username})
-        assert.equal(value.username, userData.username)
-        assert.equal(value.email, userData.email)
-      })
-    });
-  });
-});
 
 describe('switch_control:user get infomation', function () {
     describe('user-username invalid', function () {
@@ -110,10 +82,11 @@ describe('switch_control:user get infomation', function () {
   
     describe('get successed', function () {
       it(`should return user info when in happy case`, function () {
-        const userData = users[Math.floor(Math.random()*users.length)]
-        const value = getUserInfo({username: userData.username})
-        assert.ok(Boolean(value.username) && Boolean(value.email) && Boolean(value.id))
-        // assert.equal(value.username, userData.username)
+        const userData = randomUser()
+        testCreateUserOk(userData).then(_ => {
+          const value = getUserInfo({username: userData.username})
+          assert.ok(Boolean(value.username) && Boolean(value.email) && Boolean(value.id))
+        })
       });
     });
   });
@@ -138,9 +111,11 @@ describe('switch_control:user update info', function () {
   
     describe('get successed', function () {
       it(`should return user info when in happy case`, function () {
-        const userData = users[Math.floor(Math.random()*users.length)]
-        const value = updateUser({username: userData.username})
-        assert.equal(value.id, userData.id)
+        const userData = randomUser()
+        testCreateUserOk(userData).then(_ => {
+          const value = updateUser({username: userData.username})
+          assert.equal(value.id, userData.id)
+        })
       });
     });
 });
@@ -167,10 +142,12 @@ describe('switch_control:delete user', function () {
   
     describe('get successed', function () {
       it(`should return true when in happy case`, function () {
-        const userData = users[Math.floor(Math.random()*users.length)]
-        const value = deleteUser({username: userData.username})
-        const userInfo = getUserInfo({username: userData.username})
-        assert.ok(value == true && userInfo == USER_DOES_NOT_EXISTS)
+        const userData = randomUser()
+        testCreateUserOk(userData).then(_ => {
+          const value = deleteUser({username: userData.username})
+          const userInfo = getUserInfo({username: userData.username})
+          assert.ok(value == true && userInfo == USER_DOES_NOT_EXISTS)
+        })
       });
     });
 });
@@ -180,8 +157,11 @@ describe('switch_control:get list user', function () {
  
     describe('get successed', function () {
       it(`should return list user when in happy case`, function () {
-        const value = listUser()
-        assert.ok(Array.isArray(value))
+        const userData = randomUser()
+        testCreateUserOk(userData).then(_ => {
+          const value = listUser()
+          assert.ok(Array.isArray(value))
+        })
       });
     });
 });
@@ -208,10 +188,12 @@ describe('switch_control:switch user', function () {
     
       describe('get successed', function () {
         it(`should return user info with isDefault is true when in happy case`, function () {
-            const userData = users[Math.floor(Math.random()*users.length)]
-            const value = switchUser({username: userData.username})
-            assert.equal(value.id, userData.id)
-            assert.equal(value.isDefault, true)
+            const userData = randomUser()
+            testCreateUserOk(userData).then(_ => {
+              const value = switchUser({username: userData.username})
+              assert.equal(value.id, userData.id)
+              assert.equal(value.isDefault, true)
+            })
           });
       });
 });
@@ -223,8 +205,12 @@ describe('switch_control:get user default', function () {
    
     describe('get successed', function () {
         it(`should return user info with isDefault is true when in happy case`, function () {
-            const value = getUserDefault()
-            assert.equal(value.isDefault, true)
+          const userData = randomUser()
+            testCreateUserOk(userData).then(_ => {
+              switchUser({username: userData.username})
+              const value = getUserDefault()
+              assert.equal(value.isDefault, true)
+            })
           });
     });
 });
@@ -250,9 +236,11 @@ describe('switch_control:check user rule', function () {
   
     describe('get successed', function () {
       it(`should return user rule (true/false) when in happy case`, function () {
-        const userData = users[Math.floor(Math.random()*users.length)]
-        const value = checkUserRule({username: userData.username})
-        assert.ok(typeof value == "boolean")
+        const userData = randomUser()
+        testCreateUserOk(userData).then(_ => {
+          const value = checkUserRule({username: userData.username})
+          assert.ok(typeof value == "boolean")
+        })
       });
     });
 });

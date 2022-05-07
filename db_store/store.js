@@ -31,11 +31,12 @@ class Store {
     }
 
     updateUser = (data) => {
-        const currentUserInfo = this.db.get('users').find({ username: data.user }).value();
-        this.db.get('users').find({ username: data.user }).assign({
+        const currentUserInfo = this.db.get('users').find({ username: data.username }).value();
+        this.db.get('users').find({ username: data.username }).assign({
             username: data.newUser || currentUserInfo.username,
             email: data.email || currentUserInfo.email,
-            sshKeyPath: data.sshKeyPath || currentUserInfo.sshKeyPath,
+            privateKeyPath: data.privateKeyPath || currentUserInfo.privateKeyPath,
+            publicKeyPath: data.publicKeyPath || currentUserInfo.publicKeyPath,
             isDefault: data.isDefault || currentUserInfo.isDefault,
         }).write()
 

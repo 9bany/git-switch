@@ -20,7 +20,7 @@ function options() {
         type: "string", 
         demandOption: false 
     })
-    // node bin/index.js --update.user=<username> --update.sshKeyPath=<sshKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
+    // node bin/index.js --update.user=<username> --update.privateKeyPath=<privateKeyPath> --update.publicKeyPath=<publicKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
     .option("u", {
         alias: "update", 
         describe: "update an account info with username", 

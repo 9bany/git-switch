@@ -6,7 +6,7 @@ const {
 } = require('../constants/global')
 
 
-function switchUser(objc) {
+function getUserInfo(objc) {
     const store = new Store(db)
     const {username} = objc;
     if (!Boolean(username)) {
@@ -16,8 +16,8 @@ function switchUser(objc) {
     const userExists = store.getUser(username)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
-
-    return store.switchUser(username);
+    console.log(store.getUser(username));
+    return store.getUser(username);
     
 }
-module.exports = switchUser;
+module.exports = getUserInfo;

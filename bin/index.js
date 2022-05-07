@@ -11,7 +11,8 @@ const {
     listUser,
     switchUser,
     getUserDefault,
-    checkUserRule
+    checkUserRule,
+    getUserInfo
 } = require('./../switch_control');
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });
@@ -48,6 +49,10 @@ function main() {
         {
             type: 'checkrule',
             handle: checkUserRule
+        },
+        {
+            type: 'get',
+            handle: getUser
         }
     ])
 }

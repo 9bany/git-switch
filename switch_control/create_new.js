@@ -22,13 +22,13 @@ async function createNewUser(objc) {
     if(Boolean(userExists)) return USER_ALREADY_EXISTS
     
     const [privateKeyPath, publicKeyPath] = await createSHHKey(username)
-    
-    return store.createNew({
+    const newUser = store.createNew({
         username, 
         email,
         privateKeyPath,
         publicKeyPath
     });
+    return newUser
     
 }
 

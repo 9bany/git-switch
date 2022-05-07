@@ -14,7 +14,7 @@ const {
     checkUserRule,
     getUserInfo,
     cloneCommandControl
-} = require('./../switch_control');
+} = require('../controllers');
 
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });

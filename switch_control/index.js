@@ -10,6 +10,7 @@ const listUser = require('./list_user');
 const switchUser = require('./switch_user');
 const getUserDefault = require('./get_user_default');
 const checkUserRule = require('./check_user_rule');
+const getUserInfo = require('./get_user_info');
 module.exports = {
     createNewUser,
     updateUser,
@@ -17,5 +18,6 @@ module.exports = {
     listUser,
     switchUser,
     getUserDefault,
-    checkUserRule
+    checkUserRule,
+    getUserInfo
 }

@@ -12,7 +12,7 @@ swgit --get.user=<username>
 
 3. Update an user info
 ```
-swgit --update.user=<username> --update.sshKeyPath=<sshKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
+swgit --update.user=<username> --update.privateKeyPath=<privateKeyPath> --update.publicKeyPath=<publicKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
 ```
 **username** and **email** is required
 

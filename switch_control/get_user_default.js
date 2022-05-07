@@ -9,7 +9,6 @@ const {
 
 function getUserDefault() {
     const store = new Store(db)
-    console.log(store.getUserDetault());
     return store.getUserDetault();
     
 }

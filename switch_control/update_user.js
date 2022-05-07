@@ -8,12 +8,12 @@ const {
 
 function updateUser(objc) {
     const store = new Store(db)
-    const {user} = objc;
-    if (!Boolean(user)) {
+    const {username} = objc;
+    if (!Boolean(username)) {
         return USERNAME_EMPTY
     }
 
-    const userExists = store.getUser(user)
+    const userExists = store.getUser(username)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
 

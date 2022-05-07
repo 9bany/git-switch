@@ -138,6 +138,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
+cuid@~1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-1.2.5.tgz#4b36176987f9063ce05ee0934e89ccee4b9de8a6"
+  integrity sha1-SzYXaYf5BjzgXuCTTonM7kud6KY=
+
 debug@4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
@@ -589,6 +594,13 @@ random-tld@^1.0.2:
   dependencies:
     pick-item "^1.0.4"
     tld-list "1.0.0"
+
+random-url@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/random-url/-/random-url-1.0.0.tgz#58a5ee4720f96426d1bb13e8ea3c61c53a19ce9c"
+  integrity sha1-WKXuRyD5ZCbRuxPo6jxhxToZzpw=
+  dependencies:
+    cuid "~1.2.5"
 
 randombytes@^2.1.0:
   version "2.1.0"

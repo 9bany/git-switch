@@ -1,8 +1,6 @@
 const User = require('./user');
-const { 
-    USERNAME_EMPTY,
-    EMAIL_EMPTY
-} = require('./../constants/global')
+const Repo = require('./repo');
+
 class Store {
     constructor(db) {
         this.db = db 
@@ -63,6 +61,17 @@ class Store {
 
     checkUserRule = (user) => {
         return this.db.get('users').find({ username: user }).value().isDefault
+    }
+
+    // Repo
+    createRepo({ url, userID }) {
+        let repo = new Repo(url, userID);
+        this.db.get("repos").push(repo).write();
+        return repo
+    }
+
+    getRepo(url) {
+        return this.db.get('repos').find({ url: url }).value()
     }
 }
 

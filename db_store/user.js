@@ -8,6 +8,7 @@ class User {
         this.privateKeyPath = privateKeyPath
         this.publicKeyPath = publicKeyPath
         this.isDefault = false
+        this.createdAt = Date.now()
     }
 }
 

@@ -32,11 +32,6 @@ async function forWardCommand(argv) {
             }
         })
     }
-
-    
 }
-
-
-
 
 module.exports = forWardCommand;

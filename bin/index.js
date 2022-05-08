@@ -13,7 +13,8 @@ const {
     getUserDefault,
     checkUserRule,
     getUserInfo,
-    cloneCommandControl
+    cloneCommandControl,
+    forWardCommand
 } = require('../controllers');
 
 
@@ -23,7 +24,10 @@ main();
 
 function main() {
     const optionsResult = options()
-    optionsResult.command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl).argv;
+    optionsResult
+    .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
+    .command('*', 'clone repository of the URL', () => {}, forWardCommand)
+    .argv;
     adapter(optionsResult, [
         {
             type: 'add',

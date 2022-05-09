@@ -17,7 +17,7 @@ function main() {
                 return gitRemoteV().then(data => {
                     assert.notEqual(data, null)
                 }).catch(err => {
-                    assert.notEqual(err, null)
+                    assert.notEqual(null, null)
                 })
             })
             

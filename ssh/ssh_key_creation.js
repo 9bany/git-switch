@@ -40,7 +40,6 @@ function saveKey({ path, key}) {
     return new Promise((resolve, reject) => {
         fs.writeFile(path, key, { flag: 'w' }, function (err) {
             if (err) { 
-                console.log(err)
                 reject(WRITE_FILE_ERROR)
             } else { 
                 resolve(path)

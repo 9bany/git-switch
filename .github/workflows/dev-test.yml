@@ -23,7 +23,9 @@ jobs:
       - name: Preprae test
         run: mkdir test/data
       - name: Preprae ssh folder
-        run: mkdir ~/.ssh
+        run: |
+          mkdir ~/.ssh
+          cp -i test/config/config_test ~/.ssh/config
       - name: Run test 
         run: make test-machine
         

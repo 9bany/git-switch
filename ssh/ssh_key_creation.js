@@ -38,7 +38,7 @@ async function saveSSHFile({ pathFile, privateKey, publicKey }) {
 
 function saveKey({ path, key}) {
     return new Promise((resolve, reject) => {
-        fs.writeFile(path, key, function (err) {
+        fs.writeFile(path, key, { flag: 'w' }, function (err) {
             if (err) { 
                 reject(WRITE_FILE_ERROR)
             } else { 

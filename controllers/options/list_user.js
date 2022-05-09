@@ -1,5 +1,5 @@
-const Store = require('../db_store/store')
-const db = require('../db_store/db')
+const Store = require('../../db_store/store')
+const db = require('../../db_store/db')
 
 
 function listUser() {

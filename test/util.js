@@ -15,4 +15,12 @@ function randomRepo() {
 module.exports = {
     randomUser,
     randomRepo,
+    allowRunTestOnMachine: () => {
+        if (process.env.TEST_MODE === 'machine') {
+            return true
+        } else {
+            return false
+        }
+    } 
+
 }

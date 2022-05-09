@@ -1,4 +1,4 @@
-name: Test
+name: Test cases
 
 on:
   push:
@@ -23,5 +23,5 @@ jobs:
       - name: Preprae test
         run: mkdir test/data
       - name: Run test 
-        run: make test
+        run: make test-machine
         

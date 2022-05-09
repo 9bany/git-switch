@@ -9,8 +9,8 @@ const {
     NOT_FOUND
 } = require('./../constants/global');
 
-let usernameOld = 'mother_fucker';
-let userNameNew = 'mother_ofthe_mother_fucker';
+let usernameOld = '1bany';
+let userNameNew = '1bany1';
 
 let testCases = [
     {

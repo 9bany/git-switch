@@ -119,7 +119,6 @@ describe('ssh:save file', function () {
 function testCreateSSHKeyOK(username) {
     it(`should return paths when valid username`, function () {
         return createSHHKey(username).then(data => {
-            console.log(data)
             assert.notEqual(data, null)
         })
     })

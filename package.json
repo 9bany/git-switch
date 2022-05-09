@@ -7,7 +7,8 @@
     "swgit": "./bin/index.js"
   },
   "scripts": {
-    "test": "mocha --timeout 15000"
+    "test": "TEST_MODE=local mocha --timeout 15000",
+    "test-machine": "TEST_MODE=machine mocha --timeout 15000"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@
 // UpdateUserDefault(user *dbstore.User)
 
 // Forward() -> git
-const createNewUser = require('./create_new');
+const createNewUser = require('./options/create_new');
 const updateUser = require('./update_user');
 const deleteUser = require('./delete_user');
 const listUser = require('./list_user');

@@ -27,6 +27,7 @@
     "mocha": "^10.0.0",
     "random-email": "^1.0.3",
     "random-url": "^1.0.0",
+    "ssh-config": "^4.1.4",
     "unique-username-generator": "^1.0.1",
     "uuid": "^8.3.2"
   },

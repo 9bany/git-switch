@@ -1,0 +1,5 @@
+Host github.com
+User git
+Hostname ssh.github.com
+PreferredAuthentications publickey
+IdentityFile /Users/bany/.ssh/id_rsa

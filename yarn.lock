@@ -633,6 +633,11 @@ serialize-javascript@6.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+ssh-config@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-4.1.4.tgz#75bd1e6f797a2005d32eead64366b16dbbd820ac"
+  integrity sha512-nU0t59ZZFaZ7qGGPE25MB1NDiFFYp8hG+WmsLv9oulop/5TAMLZHe7WQrLwbTZ44Lj7mKm/P2Nge5uXd/90sWg==
+
 steno@^0.4.1:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/steno/-/steno-0.4.4.tgz#071105bdfc286e6615c0403c27e9d7b5dcb855cb"

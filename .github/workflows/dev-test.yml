@@ -22,6 +22,10 @@ jobs:
         run: cp -i db_store/db/example_db.json db_store/db/db.json 
       - name: Preprae test
         run: mkdir test/data
+      - name: Preprae ssh folder
+        run: |
+          mkdir ~/.ssh
+          cp -i test/config/config_test ~/.ssh/config
       - name: Run test 
         run: make test-machine
         

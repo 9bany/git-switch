@@ -1,7 +1,7 @@
 const {
     saveSSHFile,
     createSHHKey,
-} = require('./../ssh/ssh_controller');
+} = require('./../ssh/ssh_key_creation');
 const {
     PATH_INVAID,
     DATA_INVALID,
@@ -113,10 +113,15 @@ describe('ssh:save file', function () {
         const data = createSHHKey(null)
         assert.equal(data, USERNAME_EMPTY)
     })
+    testCreateSSHKeyOK('username_example')
+})
 
+function testCreateSSHKeyOK(username) {
     it(`should return paths when valid username`, function () {
-        return createSHHKey('username_example').then(data => {
+        return createSHHKey(username).then(data => {
             assert.notEqual(data, null)
         })
     })
-})
+}
+
+module.exports = testCreateSSHKeyOK;

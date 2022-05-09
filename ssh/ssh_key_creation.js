@@ -1,13 +1,13 @@
 const fs = require('fs');
 const genKey = require('./gen');
-const { SSH_ROOT_PATH } = require('./../constants/config');
-const { USERNAME_EMPTY } = require('./../constants/global');
+const { SSH_ROOT_PATH } = require('../constants/config');
+const { USERNAME_EMPTY } = require('../constants/global');
 
 const { 
     WRITE_FILE_ERROR,
     DATA_INVALID,
     PATH_INVAID
-} = require('./../constants/global')
+} = require('../constants/global')
 
 async function saveSSHFile({ pathFile, privateKey, publicKey }) {
     return new Promise((resolve, reject) => { 

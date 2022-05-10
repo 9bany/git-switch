@@ -24,10 +24,10 @@ main();
 
 function main() {
     const optionsResult = options()
-    optionsResult
     .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
-    .command('*', 'clone repository of the URL', () => {}, forWardCommand)
+    .command('*', 'clone repository of the URL', () => {}, () => {})
     .argv;
+    
     adapter(optionsResult, [
         {
             type: 'add',

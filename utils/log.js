@@ -1,20 +1,32 @@
 
 const { toMessage } = require('./binding');
+const logger = require('node-color-log');
 
-function logError(code) {
-    if(process.env.VERBOSE || true) {
-        let err = new Error(`${toMessage(code)}`);
-        console.error(err)
-    }
-}
-
-function log(message) {
-    if(process.env.VERBOSE || true) {
-        console.error(message)
+function logDebug(message) {
+    if(process.env.DEBUG === 'true') {
+        console.log(message)
     }
 }
 
 module.exports = {
-    logError,
-    log
-};
+    success: (message) => {
+        logger.success(message);
+    },
+    info: (message) => {
+        logger.info(message);
+    },
+    warn: (message) => {
+        logger.warn(message);
+    },
+    error: (code) => {
+        let err = new Error(`${toMessage(code)}`);
+        logger.error(err.toString());
+        logDebug(err)
+    },
+    debug: (message) => {
+        if(process.env.VERBOSE || true) {
+            logger.debug(message);
+        }
+    },
+
+}

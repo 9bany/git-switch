@@ -23,15 +23,28 @@ async function forWardCommand(argv) {
     if (argv._.length === 0) {
         console.error(COMMAND_ERR)
     } else {
-        let command = argv._.join(" ");
         checkGitPermission(url).then(isAllow => {
             if(isAllow) {
+                let command = convertCommand(argv);
                 runCommandWithGit(command)
             } else {
                 console.error(DONT_HAVE_PERMISSION)
             }
         })
     }
+}
+
+
+const convertCommand = (obj) => {
+    let listKey = Object.keys(obj).filter(i => i!=='_' && i!=='$0')  
+    let command = obj._.join(" ")
+    listKey.forEach( i=> {
+        command += ' -'+i
+        if(typeof obj[i] === 'string'){
+            command += ` "${obj[i]}"`
+        }
+    })
+    return command
 }
 
 module.exports = forWardCommand;

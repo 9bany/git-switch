@@ -1,7 +1,7 @@
 const Store = require('../../db_store/store')
 const db = require('../../db_store/db')
 const { createSHHKey } = require('../../ssh/ssh_key_creation');
-const logError = require('./../../utils/err');
+const { logError } = require('../../utils/log');
 const { 
     USER_ALREADY_EXISTS,
     USERNAME_EMPTY,

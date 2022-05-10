@@ -4,9 +4,10 @@ const {
     USERNAME_EMPTY,
     USER_DOES_NOT_EXISTS,
 } = require('../../constants/global')
+const runCommandWithGit = require('../exc/run_command')
+const {updateSSHConfig} = require('../../ssh/ssh_config_manage');
 
-
-function switchUser(objc) {
+async function switchUser(objc) {
     const store = new Store(db)
     const {username} = objc;
     if (!Boolean(username)) {
@@ -16,8 +17,11 @@ function switchUser(objc) {
     const userExists = store.getUser(username)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
+    await runCommandWithGit(`config --global user.name ${newUser.username}`)
+    await runCommandWithGit(`config --global user.email ${newUser.email}`)
+    await updateSSHConfig({host: 'github.com', newIdentity: newUser.privateKeyPath})
 
-    return store.switchUser(username);
+    return userExists;
     
 }
 module.exports = switchUser;

@@ -14,7 +14,19 @@ class Store {
             publicKeyPath 
         } = data;
         const user = new User(username, email, privateKeyPath, publicKeyPath)
+
+        
+
         this.db.get("users").push(user).write();
+
+        this.db.get('users').find({ isDefault: true }).assign({
+            isDefault: false,
+        }).write()
+
+        this.db.get('users').find({ username: username }).assign({
+            isDefault: true,
+        }).write()
+        
         return user
     }
 

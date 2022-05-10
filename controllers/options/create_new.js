@@ -8,6 +8,8 @@ const {
     USERNAME_EMPTY,
     EMAIL_EMPTY
 } = require('../../constants/global')
+const runCommandWithGit = require('./../exc/run_command');
+const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 
 async function createNewUser(objc) {
     const store = new Store(db)
@@ -37,9 +39,14 @@ async function createNewUser(objc) {
         privateKeyPath,
         publicKeyPath
     });
+    await runCommandWithGit(`config --global user.name ${newUser.username}`)
+    await runCommandWithGit(`config --global user.email ${newUser.email}`)
+    await updateSSHConfig({host: 'github.com', newIdentity: newUser.privateKeyPath})
+
     return newUser
     
 }
+
 
 function readPublicKey(publicKeyPath) {
     log.success("COPY THE PUBLIC KEY AND IMPORT IT TO YOUR GITHUB SETTINGS: \n")

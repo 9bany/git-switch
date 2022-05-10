@@ -1,23 +1,25 @@
 
-const { exec } = require("child_process");
+const { spawn } = require('child_process');
+
 
 function runCommandWithGit(command) {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {  
+        let arrayCommand = command.split(" ")
+        var listen = spawn(`git`, arrayCommand);
 
-        exec(`git ${command}`, (error, stdout, stderr) => {
-            if (error) {
-                reject(error.message)
-                return;
-            }
-            if (stderr) {
-                resolve(stderr)
-                return;
-            } 
-            if (stdout) {
-                resolve(stdout)
-                return 
-            }
-            
+        listen.stdout.on('data', function(a){
+            resolve(a)
+            return;
+        });
+    
+        listen.on('exit',function(){
+            resolve('exited')
+            return;
+        })
+    
+        listen.stderr.on('data',function(a){
+            resolve(a)
+            return;
         });
     })
 }

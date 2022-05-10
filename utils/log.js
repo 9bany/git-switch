@@ -8,4 +8,13 @@ function logError(code) {
     }
 }
 
-module.exports = logError;
+function log(message) {
+    if(process.env.VERBOSE || true) {
+        console.error(message)
+    }
+}
+
+module.exports = {
+    logError,
+    log
+};

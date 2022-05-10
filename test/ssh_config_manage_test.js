@@ -2,7 +2,7 @@ const { updateSSHConfig } = require('./../ssh/ssh_config_manage');
 const testCreateSSHKeyOK = require('./ssh_controller_test');
 const { SSH_ROOT_PATH } = require('./../constants/config')
 const { allowRunTestOnMachine } = require('./util')
-
+const { randomUser } = require('./util')
 const assert = require('assert');
 const {
     OK,
@@ -10,8 +10,8 @@ const {
     NOT_FOUND
 } = require('./../constants/global');
 
-let usernameOld = '1bany';
-let userNameNew = '1bany1';
+let usernameOld = `${randomUser()+Date.now()}`;
+let userNameNew = `${randomUser()+(Date.now() + 1)}`;
 
 let testCases = [
     {

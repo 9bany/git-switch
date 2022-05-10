@@ -20,7 +20,9 @@ const constants = {
     DONT_HAVE_PERMISSION: 'DONT_HAVE_PERMISSION',
     NOT_FOUND: 'NOT_FOUND: ',
     OK: 'OK',
-    INVALID: 'INVALID'
+
+    INVALID: 'INVALID',
+    FILE_ALREADY_EXISTS: "FILE_ALREADY_EXISTS",
 }
 
 module.exports = constants;

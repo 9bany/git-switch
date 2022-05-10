@@ -1,72 +1,95 @@
 const fs = require('fs');
-const genKey = require('./gen');
+const spawn = require('child_process').spawn;
+const path = require('path');
 const { SSH_ROOT_PATH } = require('../constants/config');
 const { USERNAME_EMPTY } = require('../constants/global');
+const log = require('./../utils/log');
+
 
 const { 
-    WRITE_FILE_ERROR,
-    DATA_INVALID,
-    PATH_INVAID
+    FILE_ALREADY_EXISTS,
 } = require('../constants/global')
 
-async function saveSSHFile({ pathFile, privateKey, publicKey }) {
+
+function binPath() {
+	if(process.platform !== 'win32') return 'ssh-keygen';
+
+	switch(process.arch) {
+		case 'ia32': return path.join(__dirname, '..', 'bin', 'ssh-keygen-32.exe');
+		case 'x64': return path.join(__dirname, '..', 'bin', 'ssh-keygen-64.exe');
+	}
+
+	throw new Error('Unsupported platform');
+}
+
+function sshKeygen(location, opts) {
     return new Promise((resolve, reject) => { 
-        if (!pathFile) {
-            resolve(PATH_INVAID)
-            return 
-        }
+        opts || (opts={});
 
-        if (!privateKey || !publicKey) {
-            resolve(DATA_INVALID)
-            return 
-        }
-
-        const privateKeyPathFile = pathFile
-        const publicKeyPathFile = `${pathFile}.pub`
-        Promise.all([
-            saveKey({ path: privateKeyPathFile, key: privateKey}),
-            saveKey({ path: publicKeyPathFile, key: publicKey}),
-        ]).then(result => {
-            resolve(result)
-            return 
-        }).catch(err => {
-            resolve(err)
-            return 
-        })
-    });
-}
-
-function saveKey({ path, key}) {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(path, key, { flag: 'w' }, function (err) {
-            if (err) { 
-                reject(WRITE_FILE_ERROR)
-            } else { 
-                resolve(path)
-            }
+        var pubLocation = location+'.pub';
+        if(!opts.comment) opts.comment = '';
+        if(!opts.password) opts.password = '';
+        if(!opts.size) opts.size = '2048';
+        if(!opts.format) opts.format = 'RFC4716';
+    
+        var keygen = spawn(binPath(), [
+            '-t','rsa',
+            '-b', opts.size,
+            '-C', opts.comment,
+            '-N', opts.password,
+            '-f', location,
+            '-m', opts.format
+        ]);
+    
+        keygen.stdout.on('data', function(a) {
+            log.debug('stdout:'+a);
+            resolve({ privateLocation: location, pubLocation: pubLocation })
         });
-    });
-}
+    
+        keygen.on('exit',function() {
+            log.debug('exited');
+            resolve({ privateLocation: location, pubLocation: pubLocation })
+        });
+    
+        keygen.on('error',function() {
+            reject('error');
+            log.debug('error');
+        });
+    
+        keygen.stderr.on('data',function(a) {
+            log.debug('stderr:'+a);
+            resolve({ privateLocation: location, pubLocation: pubLocation })
+        });
+    })
+};
 
 function createSHHKey(username) {
-    if(!username) {
-        return USERNAME_EMPTY
-    }
-    const { privateKeyResult, publicKeyResult } = genKey();
-    return saveSSHFile(
-        {
-            pathFile: SSH_ROOT_PATH + `/${username}`,
-            privateKey: privateKeyResult, 
-            publicKey: publicKeyResult
+    return new Promise((resolve, reject) => { 
+        if(!username) {
+            reject(USERNAME_EMPTY)
+            return
         }
-    ).then(data => {
-        return data
-    }).catch(err => {
-        return err
+    
+        let location = SSH_ROOT_PATH + `/${username}`;
+    
+        if (fs.existsSync(location)) {
+            let error = FILE_ALREADY_EXISTS
+            reject(error)
+            return
+        }
+    
+        if (fs.existsSync(`${location + '.pub'}`)) {
+            let error = FILE_ALREADY_EXISTS
+            reject(error)
+            return
+        }
+    
+        sshKeygen(location,{}).then(({ privateLocation, pubLocation })=> {
+            resolve([privateLocation, pubLocation])
+        })
     })
 }
 
 module.exports = {
-    saveSSHFile,
     createSHHKey
 };

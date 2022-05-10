@@ -10,8 +10,8 @@ const {
     NOT_FOUND
 } = require('./../constants/global');
 
-let usernameOld = `${randomUser()+Date.now()}`;
-let userNameNew = `${randomUser()+(Date.now() + 1)}`;
+let usernameOld = `${randomUser().username}`;
+let userNameNew = `${randomUser().username}`;
 
 let testCases = [
     {

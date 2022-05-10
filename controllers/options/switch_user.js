@@ -17,9 +17,9 @@ async function switchUser(objc) {
     const userExists = store.getUser(username)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
-    // await runCommandWithGit(`config --global user.name "${userExists.username}"`)
-    // await runCommandWithGit(`config --global user.email "${userExists.email}"`)
-    // updateSSHConfig({identity: userExists.privateKeyPath})
+    await runCommandWithGit(`config --global user.name ${newUser.username}`)
+    await runCommandWithGit(`config --global user.email ${newUser.email}`)
+    await updateSSHConfig({host: 'github.com', newIdentity: newUser.privateKeyPath})
 
     return userExists;
     

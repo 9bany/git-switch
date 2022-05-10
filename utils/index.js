@@ -38,6 +38,10 @@ module.exports = {
     },
     getCurrentUserGitConfig: async () => {
         const currentGitConfig = await parse({path: gitConfigPath })
-        return currentGitConfig.user
+        const user = {
+            name: currentGitConfig.user.name.trim(),
+            email: currentGitConfig.user.email.trim(),
+        }
+        return user
     }
 }

@@ -17,7 +17,7 @@ let testCases = [
         name: "OK",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: 'github.com', identity: SSH_ROOT_PATH + `/${usernameOld}`, newIdentity: SSH_ROOT_PATH + `/${userNameNew}`
+                host: 'github.com', newIdentity: SSH_ROOT_PATH + `/${userNameNew}`
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -28,7 +28,7 @@ let testCases = [
         name: "host invalid EMPTY",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: '', identity:  '.ssh/id_rsa', newIdentity: '.ssh/id_'
+                host: '', newIdentity: '.ssh/id_'
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -39,7 +39,7 @@ let testCases = [
         name: "host invalid null",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: null, identity:  '.ssh/id_rsa', newIdentity: '.ssh/id_'
+                host: null, newIdentity: '.ssh/id_'
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -50,40 +50,7 @@ let testCases = [
         name: "host invalid undefined",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: undefined, identity:  '.ssh/id_rsa', newIdentity: '.ssh/id_'
-            }).then(data=> check(data)).catch(err=> check(err))
-        },
-        check: (data) => {
-            assert.equal(data, INVALID)
-        }
-    },
-    {
-        name: "identity invalid empty",
-        stub: (check) => {
-            return updateSSHConfig({ 
-                host: 'github.com', identity:  '', newIdentity: '.ssh/id_'
-            }).then(data=> check(data)).catch(err=> check(err))
-        },
-        check: (data) => {
-            assert.equal(data, INVALID)
-        }
-    },
-    {
-        name: "identity invalid null",
-        stub: (check) => {
-            return updateSSHConfig({ 
-                host: 'github.com', identity:  null, newIdentity: '.ssh/id_'
-            }).then(data=> check(data)).catch(err=> check(err))
-        },
-        check: (data) => {
-            assert.equal(data, INVALID)
-        }
-    },
-    {
-        name: "identity invalid undefined",
-        stub: (check) => {
-            return updateSSHConfig({ 
-                host: 'github.com', identity:  undefined, newIdentity: '.ssh/id_'
+                host: undefined, newIdentity: '.ssh/id_'
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -94,7 +61,7 @@ let testCases = [
         name: "newIdentity invalid empty",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: 'github.com', identity:  'undefined', newIdentity: ''
+                host: 'github.com', newIdentity: ''
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -105,7 +72,7 @@ let testCases = [
         name: "newIdentity invalid null",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: 'github.com', identity:  'undefined', newIdentity: null
+                host: 'github.com', newIdentity: null
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -116,7 +83,7 @@ let testCases = [
         name: "newIdentity invalid undefined",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: 'github.com', identity:  'undefined', newIdentity: undefined
+                host: 'github.com', newIdentity: undefined
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -127,7 +94,7 @@ let testCases = [
         name: "host not found",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: '<mother_fucker_host>', identity: SSH_ROOT_PATH + `/${usernameOld}`, newIdentity: SSH_ROOT_PATH + `/${userNameNew}`
+                host: '<mother_fucker_host>', newIdentity: SSH_ROOT_PATH + `/${userNameNew}`
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
@@ -135,21 +102,10 @@ let testCases = [
         }
     },
     {
-        name: "identity not found",
+        name: "new identity not found",
         stub: (check) => {
             return updateSSHConfig({ 
-                host: 'github.com', identity:  '.ssh/mother_fucker_path', newIdentity: '.ssh/id_'
-            }).then(data=> check(data)).catch(err=> check(err))
-        },
-        check: (data) => {
-            assert.equal(data, NOT_FOUND + '.ssh/mother_fucker_path')
-        }
-    },
-    {
-        name: "identity not found",
-        stub: (check) => {
-            return updateSSHConfig({ 
-                host: 'github.com', identity:  SSH_ROOT_PATH + `/${usernameOld}`, newIdentity: '.ssh/mother_fucker_path'
+                host: 'github.com', newIdentity: '.ssh/mother_fucker_path'
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {

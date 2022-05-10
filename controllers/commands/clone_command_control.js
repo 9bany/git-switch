@@ -13,11 +13,12 @@ const {
     USER_DOES_NOT_EXISTS,
     REPO_DOES_NOT_EXISTS,
 } = require('./../../constants/global')
+const log = require('../../utils/log');
 
 function cloneCommandControl(argv) {
     const { repo_url } = argv
     if (!Boolean(repo_url)) {
-        console.error(COMMAND_ERR)
+        log.error(COMMAND_ERR)
     } else {
         checkGitPermission(repo_url).then(isAllow => {
             if(isAllow) {
@@ -43,7 +44,7 @@ function cloneCommandControl(argv) {
                     }
                 })
             } else {
-                console.error(DONT_HAVE_PERMISSION)
+                log.error(DONT_HAVE_PERMISSION)
             }
         })
     }

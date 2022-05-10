@@ -1,5 +1,5 @@
 const { updateSSHConfig } = require('./../ssh/ssh_config_manage');
-const testCreateSSHKeyOK = require('./ssh_controller_test');
+const testCreateSSHKeyOK = require('./ssh_creation_test');
 const { SSH_ROOT_PATH } = require('./../constants/config')
 const { allowRunTestOnMachine } = require('./util')
 const { randomUser } = require('./util')

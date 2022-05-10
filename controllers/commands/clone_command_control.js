@@ -1,15 +1,12 @@
 const runCommandWithGit = require('./../exc/run_command');
 const {getCurrentUserGitConfig} = require('./../../utils')
-const {
-    createNewUser,
-    checkUserRule,
-    switchUser,
-    getUserDefault,
-    createRepo,
-    getRepo,
-    checkGitPermission
-} = require('../index')
-
+const checkGitPermission = require('./../exc/git_permission')
+const getRepo = require('./../options/get_repo')
+const createRepo = require('./../options/create_repo')
+const getUserDefault = require('./../options/get_user_default')
+const switchUser = require('./../options/switch_user')
+const checkUserRule = require('./../options/check_user_rule')
+const createNewUser = require('./../options/create_new')
 const {
     COMMAND_ERR,
     DONT_HAVE_PERMISSION,
@@ -26,7 +23,7 @@ function cloneCommandControl(argv) {
             if(isAllow) {
                 runCommandWithGit(`${argv._[0]} ${repo_url}`).then(async () => {
                     const {name, email} = await getCurrentUserGitConfig()
-                    let repoInfo = getRepo(repo_url)
+                    let repoInfo = getRepo({url: repo_url})
                     let currentUserRule = checkUserRule({username: name})
                     let userInfo 
 

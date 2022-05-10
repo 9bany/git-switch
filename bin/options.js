@@ -2,7 +2,7 @@ const yargs = require("yargs");
 
 function options() {
     const options = yargs
-    .usage("Usage: swgit -<option> <value>")
+    .usage("Usage: swgit -<option> <value> || commnand")
     // node bin/index.js --add.user=<username> --add.email=<email>
     .option("a", {
         alias: "add", 

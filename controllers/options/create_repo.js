@@ -17,7 +17,6 @@ function createRepo(objc) {
     if (!Boolean(userID)) {
         return ID_EMPTY
     }
-
     const repoExists = store.getRepo(url)
     if(Boolean(repoExists)) return REPO_ALREADY_EXISTS
     

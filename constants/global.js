@@ -1,4 +1,5 @@
-module.exports = {
+
+const constants = {
     USERNAME_EMPTY: "USERNAME_EMPTY",
     EMAIL_EMPTY: "EMAIL_EMPTY",
     ID_EMPTY: "ID_EMPTY",
@@ -21,3 +22,5 @@ module.exports = {
     OK: 'OK',
     INVALID: 'INVALID'
 }
+
+module.exports = constants;

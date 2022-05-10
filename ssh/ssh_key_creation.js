@@ -3,7 +3,7 @@ const spawn = require('child_process').spawn;
 const path = require('path');
 const { SSH_ROOT_PATH } = require('../constants/config');
 const { USERNAME_EMPTY } = require('../constants/global');
-const { log } = require('./../utils/log');
+const log = require('./../utils/log');
 
 
 const { 
@@ -42,22 +42,22 @@ function sshKeygen(location, opts) {
         ]);
     
         keygen.stdout.on('data', function(a) {
-            log('stdout:'+a);
+            log.debug('stdout:'+a);
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     
         keygen.on('exit',function() {
-            log('exited');
+            log.debug('exited');
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     
         keygen.on('error',function() {
             reject('error');
-            log('error');
+            log.debug('error');
         });
     
         keygen.stderr.on('data',function(a) {
-            log('stderr:'+a);
+            log.debug('stderr:'+a);
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     })

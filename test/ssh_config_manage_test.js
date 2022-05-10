@@ -1,6 +1,7 @@
 const { updateSSHConfig } = require('./../ssh/ssh_config_manage');
 const testCreateSSHKeyOK = require('./ssh_controller_test');
 const { SSH_ROOT_PATH } = require('./../constants/config')
+const { allowRunTestOnMachine } = require('./util')
 
 const assert = require('assert');
 const {
@@ -162,10 +163,12 @@ describe('ssh config manage', function () {
     describe('update config', function () { 
         testCreateSSHKeyOK(usernameOld)
         testCreateSSHKeyOK(userNameNew)
-        testCases.forEach(element => {
-            it(element.name, function () {
-                return element.stub(element.check)
-            })    
-        })
+        if(allowRunTestOnMachine()) {
+            testCases.forEach(element => {
+                it(element.name, function () {
+                    return element.stub(element.check)
+                })    
+            })
+        }
     })
 })

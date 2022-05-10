@@ -1,6 +1,9 @@
 const genUsername = require("unique-username-generator");
 var randomEmail = require('random-email');
 var randomUrl = require('random-url');
+const parse = require('parse-git-config');
+
+const gitConfigPath = require('git-config-path')('global');
 const { 
     EMPTY_STRING,
     PARSING_ERR
@@ -32,5 +35,9 @@ module.exports = {
             return PARSING_ERR
         }
         return stringToArrayWithTab[1]
+    },
+    getCurrentUserGitConfig: async () => {
+        const currentGitConfig = await parse({path: gitConfigPath })
+        return currentGitConfig.user
     }
 }

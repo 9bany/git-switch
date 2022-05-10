@@ -14,6 +14,8 @@ const getUserInfo = require('./options/get_user_info');
 const cloneCommandControl = require('./commands/clone_command_control');
 const forWardCommand =  require('./commands/forward_command');
 const checkGitPermission = require('./exc/git_permission');
+const createRepo = require('./options/create_repo')
+const getRepo = require('./options/get_repo')
 
 module.exports = {
     createNewUser,
@@ -26,5 +28,7 @@ module.exports = {
     getUserInfo,
     cloneCommandControl,
     checkGitPermission,
-    forWardCommand
+    forWardCommand,
+    createRepo,
+    getRepo
 }

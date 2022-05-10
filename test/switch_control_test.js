@@ -1,5 +1,7 @@
 const User = require('./../db_store/user');
-const { randomEmail, randomUsername } = require('./../utils/index')
+const Repo = require('./../db_store/repo');
+const { v4: uuidv4 } = require('uuid');
+const { randomEmail, randomUsername, randomUrl } = require('./../utils/index')
 const { 
     createNewUser,
     updateUser,
@@ -8,18 +10,27 @@ const {
     switchUser,
     getUserDefault,
     checkUserRule,
-    getUserInfo
+    getUserInfo,
+    createRepo,
+    getRepo,
 } =require('../controllers')
 const assert = require('assert');
 const {
   USERNAME_EMPTY,
   EMAIL_EMPTY,
-  USER_DOES_NOT_EXISTS
+  USER_DOES_NOT_EXISTS,
+  URL_EMPTY,
+  ID_EMPTY,
+  REPO_DOES_NOT_EXISTS
 } = require('./../constants/global')
 
 
 function randomUser() {
   return new User(randomUsername(), randomEmail())
+}
+
+function randomRepo() {
+  return new Repo(randomUrl(), uuidv4())
 }
 
 function testCreateUserOk(user) {
@@ -35,52 +46,52 @@ function testCreateUserOk(user) {
   });
 }
 
+
+function testCreateRepoOk(data) {
+  return new Promise((resolve, reject) => {
+    describe('repo-created', function () {
+      it(`should return repo when created new repo`,async function () {
+        const value = await createRepo({ url: data.url, userID: data.userID})
+        assert.equal(data.url, value.url)
+        assert.equal(data.userID, value.userID)
+        resolve(data)
+      })
+    })
+  });
+}
+
 describe('switch_control:user creation', function () {
-  describe('user-username invalid', function () {
-    it(`should return ${USERNAME_EMPTY} when the value is undifined`, async function () {
-      const value = await createNewUser({ username: undefined, email: 'email@gmail.com'})
-      assert.equal(value, USERNAME_EMPTY)
-    });
-
-    it(`should return ${USERNAME_EMPTY} when the value is ''`, async function () {
-      const value = await createNewUser({ username: '', email: 'email@gmail.com'})
-      assert.equal(value, USERNAME_EMPTY)
-    });
-  });
-
-  describe('user-email invalid', function () {
-    it(`should return ${EMAIL_EMPTY} when the value is undifined`, async function () {
-      const value = await createNewUser({ username: 'username', email: undefined})
-      assert.equal(value, EMAIL_EMPTY)
-    });
-
-    it(`should return ${EMAIL_EMPTY} when the value is ''`, async function () {
-      const value = await createNewUser({ username: 'username', email: ''})
-      assert.equal(value, EMAIL_EMPTY)
-    });
-  });
-  const user = randomUser()
-  testCreateUserOk(user)
+  //   it(`should return ${USERNAME_EMPTY} when the value is undifined`, async function () {
+  //     const value = await createNewUser({ username: undefined, email: 'email@gmail.com'})
+  //     assert.equal(value, USERNAME_EMPTY)
+  //   });
+  //   it(`should return ${USERNAME_EMPTY} when the value is ''`, async function () {
+  //     const value = await createNewUser({ username: '', email: 'email@gmail.com'})
+  //     assert.equal(value, USERNAME_EMPTY)
+  //   });
+  //   it(`should return ${EMAIL_EMPTY} when the value is undifined`, async function () {
+  //     const value = await createNewUser({ username: 'username', email: undefined})
+  //     assert.equal(value, EMAIL_EMPTY)
+  //   });
+  //   it(`should return ${EMAIL_EMPTY} when the value is ''`, async function () {
+  //     const value = await createNewUser({ username: 'username', email: ''})
+  //     assert.equal(value, EMAIL_EMPTY)
+  //   });
+  // const user = randomUser()
+  // testCreateUserOk(user)
 });
 
 
 describe('switch_control:user get infomation', function () {
-    describe('user-username invalid', function () {
       it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
         const value = getUserInfo({username: undefined})
         assert.equal(value, USERNAME_EMPTY)
       });
-    });
-  
-    describe('user-username does not exist', function () {
       it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
           const user = randomUser()
           const value = getUserInfo({username: user.username})
           assert.equal(value, USER_DOES_NOT_EXISTS)
       });
-    });
-  
-    describe('get successed', function () {
       it(`should return user info when in happy case`, function () {
         const userData = randomUser()
         testCreateUserOk(userData).then(_ => {
@@ -88,28 +99,20 @@ describe('switch_control:user get infomation', function () {
           assert.ok(Boolean(value.username) && Boolean(value.email) && Boolean(value.id))
         })
       });
-    });
   });
 
 
 
 describe('switch_control:user update info', function () {
-    describe('user-username invalid', function () {
       it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
         const value = updateUser({username: undefined})
         assert.equal(value, USERNAME_EMPTY)
       });
-    });
-  
-    describe('user-username invalid', function () {
       it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
           const user = randomUser()
           const value = updateUser({username: user.username})
           assert.equal(value, USER_DOES_NOT_EXISTS)
       });
-    });
-  
-    describe('get successed', function () {
       it(`should return user info when in happy case`, function () {
         const userData = randomUser()
         testCreateUserOk(userData).then(_ => {
@@ -117,7 +120,6 @@ describe('switch_control:user update info', function () {
           assert.equal(value.id, userData.id)
         })
       });
-    });
 });
 
 
@@ -125,22 +127,15 @@ describe('switch_control:user update info', function () {
 
 
 describe('switch_control:delete user', function () {
-    describe('user-username invalid', function () {
       it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
         const value = deleteUser({username: undefined})
         assert.equal(value, USERNAME_EMPTY)
       });
-    });
-  
-    describe('user-username invalid', function () {
       it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
           const user = randomUser()
           const value = deleteUser({username: user.username})
           assert.equal(value, USER_DOES_NOT_EXISTS)
       });
-    });
-  
-    describe('get successed', function () {
       it(`should return true when in happy case`, function () {
         const userData = randomUser()
         testCreateUserOk(userData).then(_ => {
@@ -149,13 +144,10 @@ describe('switch_control:delete user', function () {
           assert.ok(value == true && userInfo == USER_DOES_NOT_EXISTS)
         })
       });
-    });
 });
 
 
 describe('switch_control:get list user', function () {
- 
-    describe('get successed', function () {
       it(`should return list user when in happy case`, function () {
         const userData = randomUser()
         testCreateUserOk(userData).then(_ => {
@@ -163,7 +155,6 @@ describe('switch_control:get list user', function () {
           assert.ok(Array.isArray(value))
         })
       });
-    });
 });
 
 
@@ -171,39 +162,29 @@ describe('switch_control:get list user', function () {
 
 
 describe('switch_control:switch user', function () {
-    describe('user-username invalid', function () {
-        it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
-          const value = switchUser({username: undefined})
+        it(`should return ${USERNAME_EMPTY} when the value is undifined`, async function () {
+          const value = await switchUser({username: undefined})
           assert.equal(value, USERNAME_EMPTY)
         });
-      });
-    
-      describe('user-username invalid', function () {
-        it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
+        it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, async function () {
             const user = randomUser()
-            const value = switchUser({username: user.username})
+            const value = await switchUser({username: user.username})
             assert.equal(value, USER_DOES_NOT_EXISTS)
         });
-      });
-    
-      describe('get successed', function () {
-        it(`should return user info with isDefault is true when in happy case`, function () {
+        it(`should return user info with isDefault is true when in happy case`,  function () {
             const userData = randomUser()
-            testCreateUserOk(userData).then(_ => {
-              const value = switchUser({username: userData.username})
+            testCreateUserOk(userData).then(async _ => {
+              const value = await switchUser({username: userData.username})
               assert.equal(value.id, userData.id)
               assert.equal(value.isDefault, true)
             })
           });
-      });
 });
 
 
 
 
 describe('switch_control:get user default', function () {
-   
-    describe('get successed', function () {
         it(`should return user info with isDefault is true when in happy case`, function () {
           const userData = randomUser()
             testCreateUserOk(userData).then(_ => {
@@ -212,29 +193,21 @@ describe('switch_control:get user default', function () {
               assert.equal(value.isDefault, true)
             })
           });
-    });
 });
 
 
 
 
 describe('switch_control:check user rule', function () {
-    describe('user-username invalid', function () {
       it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
         const value = checkUserRule({username: undefined})
         assert.equal(value, USERNAME_EMPTY)
       });
-    });
-  
-    describe('user-username invalid', function () {
       it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
           const user = randomUser()
           const value = checkUserRule({username: user.username})
           assert.equal(value, USER_DOES_NOT_EXISTS)
       });
-    });
-  
-    describe('get successed', function () {
       it(`should return user rule (true/false) when in happy case`, function () {
         const userData = randomUser()
         testCreateUserOk(userData).then(_ => {
@@ -242,5 +215,46 @@ describe('switch_control:check user rule', function () {
           assert.ok(typeof value == "boolean")
         })
       });
-    });
+});
+
+
+describe('switch_control:repo creation', function () {
+  it(`should return ${URL_EMPTY} when the value is undifined`, async function () {
+    const value = await createRepo({ url: undefined, userID: uuidv4()})
+    assert.equal(value, URL_EMPTY)
+  });
+  it(`should return ${URL_EMPTY} when the value is ''`, async function () {
+    const value = await createRepo({ url: '', userID: uuidv4()})
+    assert.equal(value, URL_EMPTY)
+  });
+  it(`should return ${ID_EMPTY} when the value is undifined`, async function () {
+    const value = await createRepo({ url: randomUrl(), userID: undefined})
+    assert.equal(value, ID_EMPTY)
+  });
+  it(`should return ${ID_EMPTY} when the value is ''`, async function () {
+    const value = await createRepo({ url: randomUrl(), userID: ''})
+    assert.equal(value, ID_EMPTY)
+  });
+  const repo = randomRepo()
+  testCreateRepoOk(repo)
+});
+
+
+describe('switch_control:repo get infomation', function () {
+  it(`should return ${URL_EMPTY} when the value is undifined`, function () {
+    const value = getRepo({url: undefined})
+    assert.equal(value, URL_EMPTY)
+  });
+  it(`should return ${REPO_DOES_NOT_EXISTS} when repo is not found`, function () {
+      const repo = randomRepo()
+      const value = getRepo({url: repo.url})
+      assert.equal(value, REPO_DOES_NOT_EXISTS)
+  });
+  it(`should return repo info when in happy case`, function () {
+    const repo = randomRepo()
+    testCreateRepoOk(repo).then(_ => {
+      const value = getRepo({url: repo.url})
+      assert.ok(Boolean(value.url) && Boolean(value.id) && Boolean(value.userID))
+    })
+  });
 });

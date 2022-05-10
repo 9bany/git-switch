@@ -2,6 +2,7 @@
 const { exec } = require("child_process");
 
 function runCommandWithGit(command) {
+    console.log(command);
     return new Promise((resolve, reject) => { 
 
         exec(`git ${command}`, (error, stdout, stderr) => {

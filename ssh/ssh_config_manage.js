@@ -12,23 +12,16 @@ const {
 /**
 * [updateSSHConfig:                      : will update config ssh config]
 * @param  {string}      host            : the name of the ssh server => ex: github.com || gitlab.com
-* @param  {string}      identity        : the specify name of the old user
 * @param  {string}      newIdentity     : the specify name of the new user => use to connect ssh server
 * @return {object}                      : the new object for ssh config
 */
 function dataUpdateSSHConfig({
     host, 
-    identity, 
     newIdentity
 }) {
     return new Promise((resolve, reject) => { 
-        if(!host || !identity || !newIdentity) {
+        if(!host || !newIdentity) {
             reject(INVALID)
-            return
-        }
-        if (!fs.existsSync(identity)) {
-            let error = NOT_FOUND + identity
-            reject(error)
             return
         }
         if (!fs.existsSync(newIdentity)) {
@@ -105,17 +98,15 @@ function writeConfigFile(data) {
 /**
 * [updateSSHConfig:                      : will update config ssh config]
 * @param  {string}      host            : the name of the ssh server => ex: github.com || gitlab.com
-* @param  {string}      identity        : the specify name of the old user
 * @param  {string}      newIdentity     : the specify name of the new user => use to connect ssh server
 * @return {object}                      : status
 */
 function updateSSHConfig({
-    host, 
-    identity, 
+    host,
     newIdentity
 }) {
     return new Promise((resolve, reject) => { 
-        dataUpdateSSHConfig({ host, identity, newIdentity }).then(data => {
+        dataUpdateSSHConfig({ host, newIdentity }).then(data => {
             writeConfigFile(SSHConfig.stringify(data)).then(data => {
                 resolve(data)
             }).catch(err => {
@@ -130,7 +121,7 @@ function updateSSHConfig({
 
 /**
  * [Example]
- * const data = await dataUpdateSSHConfig({host: 'github.com', identity:  '/Users/bany/.ssh/id_rsa_bany-olli', newIdentity: '/Users/bany/.ssh/id_rsa_9bany'})
+ * const data = await dataUpdateSSHConfig({host: 'github.com', newIdentity: '/Users/bany/.ssh/id_rsa_9bany'})
  * let result = await writeConfigFile(SSHConfig.stringify(data))
  * console.log(result)
  */

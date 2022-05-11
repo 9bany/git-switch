@@ -23,43 +23,44 @@ dotenv.config({path: path.resolve(__dirname, '../.env') });
 main();
 
 function main() {
-    const optionsResult = options()
+    options()
     .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
+    .command('config', 'swgit congig', () => {}, (argv)=> {
+        adapter(argv, [
+            {
+                type: 'add',
+                handle: createNewUser
+            },
+            {
+                type: 'update',
+                handle: updateUser
+            },
+            {
+                type: 'delete',
+                handle: deleteUser
+            },
+            {
+                type: 'list',
+                handle: listUser
+            },
+            {
+                type: 'switch',
+                handle: switchUser
+            },
+            {
+                type: 'default',
+                handle: getUserDefault
+            },
+            {
+                type: 'checkrule',
+                handle: checkUserRule
+            },
+            {
+                type: 'get',
+                handle: getUserInfo
+            }
+        ])
+    })
     .command('*', 'clone repository of the URL', () => {}, forWardCommand)
     .argv;
-    
-    adapter(optionsResult, [
-        {
-            type: 'add',
-            handle: createNewUser
-        },
-        {
-            type: 'update',
-            handle: updateUser
-        },
-        {
-            type: 'delete',
-            handle: deleteUser
-        },
-        {
-            type: 'list',
-            handle: listUser
-        },
-        {
-            type: 'switch',
-            handle: switchUser
-        },
-        {
-            type: 'default',
-            handle: getUserDefault
-        },
-        {
-            type: 'checkrule',
-            handle: checkUserRule
-        },
-        {
-            type: 'get',
-            handle: getUserInfo
-        }
-    ])
 }

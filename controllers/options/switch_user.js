@@ -6,6 +6,7 @@ const {
 } = require('../../constants/global')
 const runCommandWithGit = require('../exc/run_command')
 const {updateSSHConfig} = require('../../ssh/ssh_config_manage');
+const log = require('./../../utils/log');
 
 async function switchUser(objc) {
     const store = new Store(db)
@@ -20,7 +21,7 @@ async function switchUser(objc) {
     await runCommandWithGit(`config --global user.name ${userExists.username}`)
     await runCommandWithGit(`config --global user.email ${userExists.email}`)
     await updateSSHConfig({host: 'github.com', newIdentity: userExists.privateKeyPath})
-
+    log.success(`SWITCH SUCCESSED TO: ${userExists.username}`)
     return userExists;
     
 }

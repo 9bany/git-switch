@@ -24,7 +24,7 @@ module.exports = {
         logDebug(err)
     },
     debug: (message) => {
-        if(process.env.VERBOSE || true) {
+        if(process.env.DEBUG || 'true') {
             logger.debug(message);
         }
     },

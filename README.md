@@ -1,6 +1,7 @@
 # git-switch
-- [Commands](./commands.md)
-- [How it word](./how_it_work.md)
+- [Bug reports](./docs/bug_report.md)
+- [Commands](./docs/commands.md)
+- [How it word](./docs/how_it_work.md)
 
 ## Features 
 - Switch 2 accounts github.

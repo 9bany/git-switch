@@ -143,7 +143,7 @@ function createSShConfigFile() {
                     reject(err)
                     throw err;
                 }
-                resolve('ok')
+                resolve(OK)
             });
         }
     })

@@ -1,30 +1,16 @@
 # git-switch
+- Eazy git with multiple accounts
+## Documents
 - [Bug reports](./docs/bug_report.md)
-- [Commands](./docs/commands.md)
 - [How it word](./docs/how_it_work.md)
+## How to install 
+1. MAC OS
+1. Ubuntu
+1. Window
 
-## Features 
-- Switch 2 accounts github.
-- Support ssh key: create and manager ssh keys.
-- Auto switch then current account not allow for the repository.
-## Development 
-- Install 
-```
-make install
-```
-- unInstall 
-```
-make uninstall
-```
-- Run test cases
-```
-make test
-```
-## CLI 
-- Help
-```
-swgit --help
-```
+## How to use
+- [Commands](./docs/commands.md)
+
 ## Contributing
 
 If you want to colaborate check the project's issues.

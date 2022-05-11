@@ -1,5 +1,7 @@
 # Commands
 - All commands for config swgit.
+
+## Swgit Config
 ### 1. Add new user
 - Create new user with username and email
 - Example:
@@ -84,3 +86,25 @@ swgit --checkrule.username=<username>
 |name   |type  | required  |
 |---|---|---|
 | username  |string|true   |
+
+## Swgit command
+1. General
+```
+swgit <your-command>
+```
+2. Commit code
+```
+swgit commit -m "your message"
+```
+3. Push code
+```
+swgit push origin
+```
+4. Pull code
+```
+swgit pull origin
+```
+4. Help
+```
+swgit --help
+```

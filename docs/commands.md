@@ -1,46 +1,86 @@
 # Commands
-1. Add new user
-```
-swgit --add.username=<username> --add.email=<email>
-```
-**username** and **email** is required
+- All commands for config swgit.
+### 1. Add new user
+- Create new user with username and email
+- Example:
+    ```
+    swgit config --add.username=<username> --add.email=<email>
+    ```
+- Description:
 
-2. Get user info
-```
-swgit --get.username=<username>
-```
-**username** is required
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |
+| email | string  | true  |
+|  host | string  | optional  |
 
-3. Update an user info
-```
-swgit --update.username=<username> --update.privateKeyPath=<privateKeyPath> --update.publicKeyPath=<publicKeyPath> --update.isDefault=<isDefault> --update.email=<email> --update.newUser=<new username>
-```
-**username** and **email** is required
+### 2. User info
+- Return and log user info with username
 
-4. Delete user
+    ```
+    swgit --get.username=<username>
+    ```
+- Description:
+
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |
+
+### 3. Update user info
+- Example:
+```
+swgit --update.<name>=<value>
+```
+- Description:
+
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |
+| newUser  |string|optional   |
+| privateKeyPath  |string|optional   |
+| publicKeyPath  |string|optional   |
+| isDefault  |string|optional   |
+| email  |string|optional   |
+
+### 4. Delete user with username
+- Example:
 ```
 swgit --delete.username=<username> 
 ```
-**username** is required
+- Description:
 
-5. Get user list
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |
+
+
+## 5. Get user list
+- Example:
 ```
  swgit --list
 ```
 
-6. Switch default user
+## 6. Switch default user
+- Example:
 ```
 swgit --switch.username=<username>
 ```
-**username** is required
+- Description:
 
-7. Get default user info
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |
+
+## 7. Get user default info
+- Example:
 ```
 swgit --default
 ```
 
-8. Check rule of user
+## 8. Check rule of user
 ```
 swgit --checkrule.username=<username>
 ```
-**username** is required
+|name   |type  | required  |
+|---|---|---|
+| username  |string|true   |

@@ -1,5 +1,5 @@
 const { randomRepo } = require('./util')
-const storeTest = require('./main_test');
+const storeTest = require('./main.test');
 const assert = require('assert');
 
 describe('db_store: repo', function () {

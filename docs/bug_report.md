@@ -3,8 +3,10 @@
 1. Open new issue
 2. Add desctiption with this format
 ```
-#### OS Info
-- 
+#### Info
+- OS: 
+- version: 
+ 
 #### Issue description
 - 
 #### Steps to reproduce the issue

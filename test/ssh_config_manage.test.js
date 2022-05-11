@@ -99,7 +99,7 @@ let testCases = [
             }).then(data=> check(data)).catch(err=> check(err))
         },
         check: (data) => {
-            assert.equal(data, NOT_FOUND + '<mother_fucker_host>')
+            assert.equal(data, OK)
         }
     },
     {

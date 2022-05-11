@@ -32,7 +32,15 @@ function dataUpdateSSHConfig({
         getList().then(data => {
             const info = data.find({ Host: host })
             if(!info) {
-                reject(NOT_FOUND + host)
+                // add new
+                data.append({
+                    Host: host,
+                    HostName: 'ssh.github.com',
+                    User: 'git',
+                    PreferredAuthentications: 'publickey',
+                    IdentityFile: newIdentity
+                })
+                resolve(data)
                 return
             }
             let configItem = info.config.filter(element => element.param === 'IdentityFile')
@@ -101,20 +109,43 @@ function writeConfigFile(data) {
 * @param  {string}      newIdentity     : the specify name of the new user => use to connect ssh server
 * @return {object}                      : status
 */
-function updateSSHConfig({
+async function updateSSHConfig({
     host,
     newIdentity
 }) {
     return new Promise((resolve, reject) => { 
-        dataUpdateSSHConfig({ host, newIdentity }).then(data => {
-            writeConfigFile(SSHConfig.stringify(data)).then(data => {
-                resolve(data)
+        if (!fs.existsSync(SSH_CONFIG_PATH)) { 
+            createSShConfigFile().then(_ => {
+                runUpdate()
+            })
+        }
+        runUpdate()
+        function runUpdate() {
+            dataUpdateSSHConfig({ host, newIdentity }).then(data => {
+                writeConfigFile(SSHConfig.stringify(data)).then(data => {
+                    resolve(data)
+                }).catch(err => {
+                    reject(err)
+                })
             }).catch(err => {
                 reject(err)
             })
-        }).catch(err => {
-            reject(err)
-        })
+        }
+        
+    })
+}
+
+function createSShConfigFile() {
+    return new Promise((resolve, reject) => { 
+        if (!fs.existsSync(SSH_CONFIG_PATH)) { 
+            fs.writeFile(SSH_CONFIG_PATH, '', function read(err) {
+                if (err) {
+                    reject(err)
+                    throw err;
+                }
+                resolve(OK)
+            });
+        }
     })
 }
 

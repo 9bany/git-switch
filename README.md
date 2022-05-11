@@ -3,7 +3,7 @@
 ## Documents
 - [Bug reports](./docs/bug_report.md)
 - [How it word](./docs/how_it_work.md)
-- [Developement](./docs/developmenrt.md)
+- [Development](./docs/developmenrt.md)
 ## How to install 
 1. MAC OS
 1. Ubuntu

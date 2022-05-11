@@ -1,6 +1,6 @@
-const { updateSSHConfig } = require('./../ssh/ssh_config_manage');
-const testCreateSSHKeyOK = require('./ssh_creation_test');
-const { SSH_ROOT_PATH } = require('./../constants/config')
+const { updateSSHConfig } = require('../ssh/ssh_config_manage');
+const testCreateSSHKeyOK = require('./ssh_creation.test');
+const { SSH_ROOT_PATH } = require('../constants/config')
 const { allowRunTestOnMachine } = require('./util')
 const { randomUser } = require('./util')
 const assert = require('assert');
@@ -8,7 +8,7 @@ const {
     OK,
     INVALID,
     NOT_FOUND
-} = require('./../constants/global');
+} = require('../constants/global');
 
 let usernameOld = `${randomUser().username}`;
 let userNameNew = `${randomUser().username}`;

@@ -1,12 +1,12 @@
 const {
     getURLString
-} = require('./../utils/index')
+} = require('../utils/index')
 const assert = require('assert');
 
 const { 
     EMPTY_STRING,
     PARSING_ERR
-} = require('./../constants/global');
+} = require('../constants/global');
 
 function verifyError(errMessage, data) {
     assert.notEqual(errMessage, null)

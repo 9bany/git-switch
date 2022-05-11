@@ -13,7 +13,7 @@ const {
 const log = require('../../utils/log');
 
 async function forWardCommand(argv) {
-    console.log("forward command")
+    
     let commandKeys = Object.keys(argv)
     if (argv._.length === 0 && !(commandKeys.some(i => i !== '_' && i !== '$0'))) {
         log.error(COMMAND_ERR)

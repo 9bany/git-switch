@@ -25,7 +25,7 @@ main();
 function main() {
     options()
     .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
-    .command('config', 'swgit congig', () => {}, (argv)=> {
+    .command('config', 'swgit config', () => {}, (argv)=> {
         adapter(argv, [
             {
                 type: 'add',

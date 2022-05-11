@@ -9,26 +9,26 @@ const {
 const {
     COMMAND_ERR,
     DONT_HAVE_PERMISSION
-} = require('./../../constants/global')
+} = require('./../../constants/global');
+const log = require('../../utils/log');
 
 async function forWardCommand(argv) {
-    
     let url = await gitRemoteV().then(data => {
         return getURLString(data)
     }).catch(err => {
-        console.log(err)
+        log.error(err)
         return null
     })
-
-    if (argv._.length === 0) {
-        console.error(COMMAND_ERR)
+    let commandKeys = Object.keys(argv)
+    if (argv._.length === 0 && !(commandKeys.some(i => i !== '_' && i !== '$0'))) {
+        log.error(COMMAND_ERR)
     } else {
         checkGitPermission(url).then(isAllow => {
             if(isAllow) {
                 let command = convertCommand(argv);
                 runCommandWithGit(command)
             } else {
-                console.error(DONT_HAVE_PERMISSION)
+                log.error(DONT_HAVE_PERMISSION)
             }
         })
     }

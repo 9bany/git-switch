@@ -35,5 +35,8 @@
     "unique-username-generator": "^1.0.1",
     "uuid": "^8.3.2"
   },
-  "homepage": "https://github.com/9bany/git-switch#readme"
+  "homepage": "https://github.com/9bany/git-switch#readme",
+  "pkg": {
+    "assets": "db_store/db/db.json"
+  }
 }

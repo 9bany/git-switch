@@ -4,33 +4,44 @@ const storeTest = require('./main.test');
 
 const assert = require('assert');
 
-function testCreateUserOk(user) {
-  return new Promise((resolve, reject) => {
-    describe('user-created', function () {
-      it(`should return user when created new user`, function () {
-        const value = storeTest.createNew({ username: user.username, email: user.email})
-        assert.equal(user.username, value.username)
-        assert.equal(user.email, value.email)
-        resolve(user)
-      })
+const user = randomUser()
+let testCases = [
+  {
+    name: 'user creation ok',
+    stub: () => {
+      return storeTest.createNew({ username: user.username, email: user.email})
+    },
+    check: (value) => {
+      assert.equal(user.username, value.username)
+      assert.equal(user.email, value.email)
+    }
+  },
+  {
+    name: 'get user info ok',
+    stub: () => {
+      return storeTest.getUser(user.username)
+    },
+    check: (value) => {
+      assert.equal(user.username, value.username)
+      assert.equal(user.email, value.email)
+    }
+  },
+  {
+    name: 'get user not found',
+    stub: () => {
+      return storeTest.getUser(randomUser().username + Date.now())
+    },
+    check: (value) => {
+      assert.equal(undefined, value)
+    }
+  }
+]
+
+describe('db_store: user', function () {
+  testCases.forEach(element => {
+    it(element.name, function () {
+      let result = element.stub()
+      element.check(result)
     })
-  });
-}
-
-describe('db_store:user creation', function () {
-  const user = randomUser()
-  testCreateUserOk(user)
-});
-
-describe('db_store:user get infomation', function () {
-  describe('get successed', function () {
-    it(`should return user info when in happy case`, function () {
-      const userData = randomUser()
-      testCreateUserOk(userData).then(_ => {
-        const value = storeTest.getUser(userData.username)
-        assert.equal(value.username, userData.username)
-        assert.equal(value.email, userData.email)
-      })
-    });
-  });
+  })
 });

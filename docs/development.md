@@ -33,3 +33,19 @@
         mkdir ~/.ssh
         ```
     - Window:
+## 2. Install 
+```
+    make install
+    # or
+    npm install -g .
+```
+Now you can run `swgit --help` on your terminal.
+
+Check this [doc](./commands.md)
+
+## 3. Uninstall 
+```
+    make uninstall
+    # or
+    npm uninstall -g .
+```

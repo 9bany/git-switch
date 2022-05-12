@@ -16,6 +16,7 @@ const forWardCommand =  require('./commands/forward_command');
 const checkGitPermission = require('./exc/git_permission');
 const createRepo = require('./options/create_repo')
 const getRepo = require('./options/get_repo')
+const getUserInfoById = require('./options/get_user_info_by_id')
 
 module.exports = {
     createNewUser,
@@ -30,5 +31,6 @@ module.exports = {
     checkGitPermission,
     forWardCommand,
     createRepo,
-    getRepo
+    getRepo,
+    getUserInfoById
 }

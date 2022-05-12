@@ -8,10 +8,14 @@ const {
 
 const {
     COMMAND_ERR,
-    DONT_HAVE_PERMISSION
+    DONT_HAVE_PERMISSION,
+    REPO_DOES_NOT_EXISTS,
+    USER_DOES_NOT_EXISTS
 } = require('./../../constants/global');
 const log = require('../../utils/log');
-
+const getRepo = require('../options/get_repo')
+const getUserInfoById = require('../options/get_user_info_by_id')
+const switchUser = require('../options/switch_user')
 async function forWardCommand(argv) {
     
     let commandKeys = Object.keys(argv)
@@ -24,6 +28,7 @@ async function forWardCommand(argv) {
             log.error(err)
             return null
         })
+        await autoSwitchUser(url)
         checkGitPermission(url).then(isAllow => {
             if(isAllow) {
                 let command = convertCommand(argv);
@@ -46,6 +51,17 @@ const convertCommand = (obj) => {
         }
     })
     return command
+}
+
+
+const autoSwitchUser = async (url) => {
+    if(!Boolean(url)) return false
+    let repo = getRepo({url})
+    if(repo == REPO_DOES_NOT_EXISTS) return false
+    let user = getUserInfoById(repo.userID)
+    if(user == USER_DOES_NOT_EXISTS) return false
+    if(user.isDefault) await switchUser({username: user.username})
+    return true
 }
 
 module.exports = forWardCommand;

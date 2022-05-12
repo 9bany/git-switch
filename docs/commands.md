@@ -65,7 +65,9 @@ swgit --delete.username=<username>
 ## 6. Switch default user
 - Example:
 ```
-swgit --switch.username=<username>
+swgit --switch=<username>
+# or
+swgit -s=<username>
 ```
 - Description:
 

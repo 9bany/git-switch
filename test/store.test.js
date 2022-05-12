@@ -4,6 +4,7 @@ const assert = require('assert');
 const storeTest = require('./main.test');
 
 const user = randomUser()
+const newUser = randomUser()
 
 function checkUser(user, dataVerify) {
   assert.equal(user.username, dataVerify.username);
@@ -54,6 +55,34 @@ let testCases = [
     },
     check: (value) => {
       assert.equal(undefined, value)
+    }
+  },
+  {
+    name: 'get user list ok',
+    stub: () => {
+      return storeTest.getUserList()
+    },
+    check: (value) => {
+      assert.notEqual(undefined, value)
+      assert.notEqual(null, value)
+    }
+  },
+  {
+    name: 'update user ok',
+    stub: () => {
+      return storeTest.updateUser({
+        username: user.username,
+        email: newUser.email,
+        privateKeyPath: newUser.privateKeyPath,
+        publicKeyPath: newUser.publicKeyPath,
+      })
+    },
+    
+    check: (value) => {
+      assert.equal(value.username, user.username)
+      assert.equal(value.email, newUser.email)
+      assert.equal(value.privateKeyPath, newUser.privateKeyPath)
+      assert.equal(value.publicKeyPath, newUser.publicKeyPath)
     }
   },
 ]

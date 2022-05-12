@@ -1,14 +1,14 @@
 const Store = require('../../db_store/store')
-const db = require('../../db_store/db')
+const db = require('../../db_store/db');
+const log = require('./../../utils/log');
 const { 
     USERNAME_EMPTY,
     USER_DOES_NOT_EXISTS,
 } = require('../../constants/global')
 
 
-function getUserInfo(objc) {
+function getUserInfo(username) {
     const store = new Store(db)
-    const {username} = objc;
     if (!Boolean(username)) {
         return USERNAME_EMPTY
     }
@@ -16,8 +16,8 @@ function getUserInfo(objc) {
     const userExists = store.getUser(username)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
-    // console.log(store.getUser(username));
-    return store.getUser(username);
+    let user = store.getUser(username);
+    log.info(user);
     
 }
 module.exports = getUserInfo;

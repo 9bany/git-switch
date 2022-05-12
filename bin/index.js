@@ -53,10 +53,6 @@ function main() {
                 type: 'checkrule',
                 handle: checkUserRule
             },
-            {
-                type: 'get',
-                handle: getUserInfo
-            },
         ])
     })
     .command('*', 'All command with swgit', () => {}, (argv) => {
@@ -68,6 +64,10 @@ function main() {
             {
                 type: 'clone',
                 handle: cloneCommandControl
+            },
+            {
+                type: 'get',
+                handle: getUserInfo
             },
         ], forWardCommand)
     })

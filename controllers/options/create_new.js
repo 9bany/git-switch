@@ -8,12 +8,19 @@ const {
     USERNAME_EMPTY,
     EMAIL_EMPTY
 } = require('../../constants/global')
+const { 
+    HOST_DEFAULT
+} = require('../../constants/config')
 const runCommandWithGit = require('./../exc/run_command');
 const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 
 async function createNewUser(objc) {
     const store = new Store(db)
     const { username, email } = objc;
+    let host = objc.host
+    if(!host) {
+        host = HOST_DEFAULT
+    }
     if (!username || username === "") {
         log.error(USERNAME_EMPTY)
         return USERNAME_EMPTY
@@ -41,7 +48,7 @@ async function createNewUser(objc) {
     });
     await runCommandWithGit(`config --global user.name ${newUser.username}`)
     await runCommandWithGit(`config --global user.email ${newUser.email}`)
-    await updateSSHConfig({host: 'github.com', newIdentity: newUser.privateKeyPath})
+    await updateSSHConfig({host: host, newIdentity: newUser.privateKeyPath})
 
     return newUser
     

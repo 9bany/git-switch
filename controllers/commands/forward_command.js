@@ -60,7 +60,7 @@ const autoSwitchUser = async (url) => {
     if(repo == REPO_DOES_NOT_EXISTS) return false
     let user = getUserInfoById(repo.userID)
     if(user == USER_DOES_NOT_EXISTS) return false
-    if(user.isDefault) await switchUser({username: user.username})
+    if(!user.isDefault) await switchUser({username: user.username})
     return true
 }
 

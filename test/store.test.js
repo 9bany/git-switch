@@ -47,6 +47,15 @@ let testCases = [
       checkUser(user, value);
     }
   },
+  {
+    name: 'get user by id not found',
+    stub: () => {
+      return storeTest.getUserById(randomUser().id + Date.now())
+    },
+    check: (value) => {
+      assert.equal(undefined, value)
+    }
+  },
 ]
 
 describe('db_store: user', function () {

@@ -34,6 +34,11 @@ class Store {
         return this.db.get('users').find({ username: username }).value()
     }
 
+
+    getUserById = (id) => {
+        return this.db.get('users').find({ id: id }).value()
+    }
+
     getUserList = () => {
         return this.db.get("users").value()
     }

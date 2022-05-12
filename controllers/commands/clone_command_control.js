@@ -32,7 +32,7 @@ function cloneCommandControl(argv) {
                             userInfo = await createNewUser({username: name, email: email})
                             break
                         case false:
-                            userInfo = switchUser({username: name})
+                            userInfo = await switchUser({username: name})
                             break
                         default:
                             userInfo = getUserDefault()

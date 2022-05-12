@@ -13,6 +13,7 @@ const {
     getUserInfo,
     createRepo,
     getRepo,
+    getUserInfoById
 } =require('../controllers')
 const assert = require('assert');
 const {
@@ -40,7 +41,7 @@ function testCreateUserOk(user) {
         const value = await createNewUser({ username: user.username, email: user.email})
         assert.equal(user.username, value.username)
         assert.equal(user.email, value.email)
-        resolve(user)
+        resolve(value)
       })
     })
   });
@@ -101,7 +102,24 @@ describe('switch_control:user get infomation', function () {
       });
   });
 
-
+  describe('switch_control:user get infomation by id', function () {
+    it(`should return ${ID_EMPTY} when the value is undifined`, function () {
+      const value = getUserInfoById(undefined)
+      assert.equal(value, ID_EMPTY)
+    });
+    it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
+        const value = getUserInfoById(uuidv4())
+        assert.equal(value, USER_DOES_NOT_EXISTS)
+    });
+    it(`should return user info when in happy case`, function () {
+      const userData = randomUser()
+      testCreateUserOk(userData).then(_ => {
+        console.log(_);
+        const value = getUserInfoById(_.id)
+        assert.ok(Boolean(value.username) && Boolean(value.email) && Boolean(value.id))
+      })
+    });
+});
 
 describe('switch_control:user update info', function () {
       it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {

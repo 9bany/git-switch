@@ -10,8 +10,6 @@
 1. Ubuntu
 1. Window
 
-
-
 ## Contributing
 
 If you want to colaborate check the project's issues.

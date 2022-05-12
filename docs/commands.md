@@ -20,7 +20,9 @@
 - Return and log user info with username
 
     ```
-    swgit --get.username=<username>
+    swgit --get=<username>
+    # or
+    swgit -g=<username>
     ```
 - Description:
 

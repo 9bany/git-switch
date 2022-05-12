@@ -17,7 +17,6 @@ const getRepo = require('../options/get_repo')
 const getUserInfoById = require('../options/get_user_info_by_id')
 const switchUser = require('../options/switch_user')
 async function forWardCommand(argv) {
-    
     let commandKeys = Object.keys(argv)
     if (argv._.length === 0 && !(commandKeys.some(i => i !== '_' && i !== '$0'))) {
         log.error(COMMAND_ERR)
@@ -31,7 +30,8 @@ async function forWardCommand(argv) {
         await autoSwitchUser(url)
         checkGitPermission(url).then(isAllow => {
             if(isAllow) {
-                let command = convertCommand(argv);
+                const args = process.argv.slice(2);
+                let command = args.join(' ')
                 runCommandWithGit(command)
             } else {
                 log.error(DONT_HAVE_PERMISSION)

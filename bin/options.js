@@ -59,6 +59,12 @@ function options() {
         type: "object", 
         demandOption: false 
     })
+    .option("c", {
+        alias: "clone", 
+        describe: "Clone an repository", 
+        type: "string", 
+        demandOption: false 
+    })
     return options;
 }
 

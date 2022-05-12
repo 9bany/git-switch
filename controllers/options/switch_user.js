@@ -8,9 +8,8 @@ const runCommandWithGit = require('../exc/run_command')
 const {updateSSHConfig} = require('../../ssh/ssh_config_manage');
 const log = require('./../../utils/log');
 
-async function switchUser(objc) {
+async function switchUser(username) {
     const store = new Store(db)
-    const {username} = objc;
     if (!Boolean(username)) {
         return USERNAME_EMPTY
     }

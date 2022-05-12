@@ -17,14 +17,12 @@ const {
     forWardCommand
 } = require('../controllers');
 
-
 dotenv.config({path: path.resolve(__dirname, '../.env') });
 
 main();
 
 function main() {
     options()
-    .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
     .command('config', 'swgit config', () => {}, (argv)=> {
         adapter(argv, [
             {
@@ -58,9 +56,20 @@ function main() {
             {
                 type: 'get',
                 handle: getUserInfo
-            }
+            },
         ])
     })
-    .command('*', 'clone repository of the URL', () => {}, forWardCommand)
+    .command('*', 'All command with swgit', () => {}, (argv) => {
+        adapter(argv, [
+            {
+                type: 'switch',
+                handle: switchUser
+            },
+            {
+                type: 'clone',
+                handle: cloneCommandControl
+            },
+        ], forWardCommand)
+    })
     .argv;
 }

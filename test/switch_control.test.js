@@ -82,18 +82,18 @@ describe('switch_control:user creation', function () {
 
 describe('switch_control:user get infomation', function () {
   it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
-    const value = getUserInfo({ username: undefined })
+    const value = getUserInfo(undefined)
     assert.equal(value, USERNAME_EMPTY)
   });
   it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, function () {
     const user = randomUser()
-    const value = getUserInfo({ username: user.username })
+    const value = getUserInfo(user.username)
     assert.equal(value, USER_DOES_NOT_EXISTS)
   });
   it(`should return user info when in happy case`, function () {
     const userData = randomUser()
     testCreateUserOk(userData).then(_ => {
-      const value = getUserInfo({ username: userData.username })
+      const value = getUserInfo(userData.username)
       assert.ok(Boolean(value.username) && Boolean(value.email) && Boolean(value.id))
     })
   });

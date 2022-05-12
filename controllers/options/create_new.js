@@ -18,13 +18,16 @@ async function createNewUser(objc) {
     const store = new Store(db)
     const { username, email } = objc;
     let host = objc.host
+
     if(!host) {
         host = HOST_DEFAULT
     }
+
     if (!username || username === "") {
         log.error(USERNAME_EMPTY)
         return USERNAME_EMPTY
     }
+
     if (!email || email === "" ) {
         log.error(USERNAME_EMPTY)
         return EMAIL_EMPTY
@@ -46,6 +49,10 @@ async function createNewUser(objc) {
         privateKeyPath,
         publicKeyPath
     });
+
+    // update user default
+    store.createUserDefault(newUser)
+
     await runCommandWithGit(`config --global user.name ${newUser.username}`)
     await runCommandWithGit(`config --global user.email ${newUser.email}`)
     await updateSSHConfig({host: host, newIdentity: newUser.privateKeyPath})
@@ -53,7 +60,6 @@ async function createNewUser(objc) {
     return newUser
     
 }
-
 
 function readPublicKey(publicKeyPath) {
     log.success("COPY THE PUBLIC KEY AND IMPORT IT TO YOUR GITHUB SETTINGS: \n")

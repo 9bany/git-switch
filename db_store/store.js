@@ -11,9 +11,10 @@ class Store {
             username, 
             email,
             privateKeyPath,
-            publicKeyPath 
+            publicKeyPath,
+            id
         } = data;
-        const user = new User(username, email, privateKeyPath, publicKeyPath)
+        const user = new User(username, email, privateKeyPath, publicKeyPath, id)
 
         this.db.get("users").push(user).write();
 

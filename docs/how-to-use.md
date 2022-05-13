@@ -8,6 +8,38 @@
 1. Window
 1. [Development](./development.md)
 
+## Basic example
+## 1. Create user
+- Run command line
+    ```
+        swgit --add.username=example_user --add.email=example_user@email.com
+    ```
+- Your console
+    ![Images]('./../../sources/doc_images/create_new_user_console.png)
+## 2. Add ssh key
+- Copy ssh key from the console.
+    ```
+    ssh-rsa AAAAB3...
+    ```
+- Add ssh key to [github account settings](https://github.com/settings/keys)
+## Create another user
+> Please follow step 1 and 2 above
+
+## 3. Clone your repo
+- Switch the user who can access, commit, push, pull... your repository 
+```
+swgit -s=<username>
+```
+- Clone repo
+> Required: your url repo is an ssh url. example: **git@github.com:9bany/git-switch.git**
+
+```
+swgit -c=<url_repo>
+```
+- `cd` to your work space
+
+Now, you can use `swgit <push | pull | commit | add | ...>` in this workspace and do not switch user before.
+
 ## Swgit config
 ### Add an user
 > If you dont have ssk key paths, please ignore it. Swgit will create new ssh key for you.

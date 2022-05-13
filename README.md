@@ -3,7 +3,10 @@
   <img height="60" src="./sources/doc_images/logo.png" />
 </p>
 
-# swgit 1.0.0
+# swgit 1.1.0
+![test cases](https://github.com/9bany/git-switch/actions/workflows/dev-test.yml/badge.svg)
+[![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
+
 - Eazy using git with multiple accounts.
 ## Documents
 - [Bug reports](./docs/bug_report.md)

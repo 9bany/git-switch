@@ -1,4 +1,9 @@
-# git-switch
+
+<p align="center">
+  <img height="60" src="./sources/doc_images/logo.png" />
+</p>
+
+# swgit 1.0.0
 - Eazy use git with multiple git accounts.
 ## Documents
 - [Bug reports](./docs/bug_report.md)

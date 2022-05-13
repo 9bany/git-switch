@@ -1,5 +1,5 @@
 # git-switch
-- Eazy git with multiple accounts
+- Eazy use git with multiple git accounts.
 ## Documents
 - [Bug reports](./docs/bug_report.md)
 - [How it word](./docs/how_it_work.md)

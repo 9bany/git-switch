@@ -6,15 +6,21 @@
 - Create new user with username and email
 - Example:
     ```
-    swgit config --add.username=<username> --add.email=<email>
+    swgit --add.username=<username> --add.email=<email> --add.privateKeyPath=<privateKeyPath> --add.empublicKeyPathail=<publicKeyPath>
+    # or
+    swgit -a.username=<username> -a.email=<email> -a.privateKeyPath=<privateKeyPath> -a.publicKeyPath=<publicKeyPath>
     ```
 - Description:
 
-|name   |type  | required  |
-|---|---|---|
-| username  |string|true   |
+|name   |type  | required  | default|
+|---|---|---|---|
+| username  |string|true   | 
 | email | string  | true  |
-|  host | string  | optional  |
+|  host | string  | optional  | github.com
+|  privateKeyPath | string  | optional  | 
+|  publicKeyPath | string  | optional  |
+
+> If you dont have ssk key paths, please ignore it. Swgit will create new ssh key for you.
 
 ### 2. User info
 - Return and log user info with username

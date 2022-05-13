@@ -38,7 +38,7 @@ function sshKeygen(location, opts) {
                     log.debug('error');
                     return
                 }
-                log.debug('exited');
+                log.debug.info('exited');
                 resolve({ privateLocation: location, pubLocation: pubLocation })
             },
         );

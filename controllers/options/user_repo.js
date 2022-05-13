@@ -11,7 +11,7 @@ async function userRepo(repo_url) {
             let url = getURLString(data)
             findUserWithRepoUrl(url)
         }).catch(err => {
-            log.error(err)
+            log.user.error(err)
             return GIT_FILE_NOT_FOUND
         })
     } else if (typeof repo_url === 'string') {
@@ -21,15 +21,15 @@ async function userRepo(repo_url) {
     function findUserWithRepoUrl(url) {
         let repo = getRepo({ url })
         if (!repo.id) {
-            log.error(repo)
+            log.user.error(repo)
             return repo
         }
         let user = getUserInfo(repo.userID)
         if(!user.id) {
-            log.error(user)
+            log.user.error(user)
             return user
         }
-        log.info(JSON.stringify(user))
+        log.user.info(user)
     }
     
 }

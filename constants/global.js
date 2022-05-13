@@ -22,7 +22,8 @@ const constants = {
     OK: 'OK',
 
     INVALID: 'INVALID',
-    FILE_ALREADY_EXISTS: "FILE_ALREADY_EXISTS",
+    FILE_ALREADY_EXISTS: 'FILE_ALREADY_EXISTS',
+    GIT_FILE_NOT_FOUND: 'GIT_FILE_NOT_FOUND',
 }
 
 module.exports = constants;

@@ -31,7 +31,7 @@ function cloneCommandControl(repo_url) {
                             userInfo = await createNewUser({username: name, email: email})
                             break
                         case false:
-                            userInfo = await switchUser({username: name})
+                            userInfo = await switchUser(name)
                             break
                         default:
                             userInfo = getUserDefault()

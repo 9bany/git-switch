@@ -15,7 +15,6 @@ function getUserInfo(id) {
     const userExists = store.getUserById(id)
     if(!Boolean(userExists)) return USER_DOES_NOT_EXISTS
     
-    // console.log(store.getUser(username));
     return store.getUserById(id);
     
 }

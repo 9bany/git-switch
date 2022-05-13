@@ -4,23 +4,13 @@ const path = require('path');
 const { SSH_ROOT_PATH } = require('../constants/config');
 const { USERNAME_EMPTY } = require('../constants/global');
 const log = require('./../utils/log');
-
+const keygen = require('ssh-keygen-lite');
 
 const { 
     FILE_ALREADY_EXISTS,
 } = require('../constants/global')
 
 
-function binPath() {
-	if(process.platform !== 'win32') return 'ssh-keygen';
-
-	switch(process.arch) {
-		case 'ia32': return path.join(__dirname, '..', 'ssh-keygen', 'ssh-keygen-32.exe');
-		case 'x64': return path.join(__dirname, '..', 'ssh-keygen', 'ssh-keygen-64.exe');
-	}
-
-	throw new Error('Unsupported platform');
-}
 
 function sshKeygen(location, opts) {
     return new Promise((resolve, reject) => { 
@@ -31,35 +21,28 @@ function sshKeygen(location, opts) {
         if(!opts.password) opts.password = '';
         if(!opts.size) opts.size = '2048';
         if(!opts.format) opts.format = 'RFC4716';
-    
-        var keygen = spawn(binPath(), [
-            '-t','rsa',
-            '-b', opts.size,
-            '-C', opts.comment,
-            '-N', opts.password,
-            '-f', location,
-            '-m', opts.format
-        ]);
-    
-        keygen.stdout.on('data', function(a) {
-            log.debug('stdout:'+a);
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
-    
-        keygen.on('exit',function() {
-            log.debug('exited');
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
-    
-        keygen.on('error',function() {
-            reject('error');
-            log.debug('error');
-        });
-    
-        keygen.stderr.on('data',function(a) {
-            log.debug('stderr:'+a);
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
+        keygen(
+            {
+              // sshKeygenPath: 'ssh-keygen',
+              location: location,
+              comment: opts.comment,
+              password: opts.password,
+              size: opts.size,
+              format: opts.format,
+            },
+            // If you omit this callback function, a Promise will be returned instead!
+            function onDoneCallback(err, out) {
+              // The error could be related to ssh-keygen binary or file system errors.
+                if (err) {
+                    reject('error');
+                    log.debug('error');
+                    return
+                }
+                log.debug('exited');
+                resolve({ privateLocation: location, pubLocation: pubLocation })
+            },
+        );
+  
     })
 };
 

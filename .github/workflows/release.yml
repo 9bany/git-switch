@@ -27,3 +27,5 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
+          body: |
+            ${{ steps.read_release.outputs.RELEASE_BODY }}

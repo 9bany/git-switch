@@ -14,7 +14,8 @@ const {
     checkUserRule,
     getUserInfo,
     cloneCommandControl,
-    forWardCommand
+    forWardCommand,
+    userRepo
 } = require('../controllers');
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });
@@ -65,6 +66,11 @@ function main() {
                 type: 'get',
                 handle: getUserInfo
             },
+            {
+                type: 'user-repo',
+                handle: userRepo
+            },
+            
         ], forWardCommand)
     })
     .argv;

@@ -3,19 +3,16 @@ const db = require('../../db_store/db')
 const { 
     URL_EMPTY,
     REPO_DOES_NOT_EXISTS,
-} = require('../../constants/global')
+} = require('../../constants/global');
 
-
-function getRepo(objc) {
+function getRepo({ url }) {
     const store = new Store(db)
-    const { url } = objc;
     if (!Boolean(url)) {
         return URL_EMPTY
     }
 
     const repoExists = store.getRepo(url)
     if(!Boolean(repoExists)) return REPO_DOES_NOT_EXISTS
-    
 
     return store.getRepo(url);
     

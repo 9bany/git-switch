@@ -21,7 +21,6 @@ module.exports = {
     error: (code) => {
         let err = new Error(`${toMessage(code)}`);
         logger.error(err.toString());
-        logDebug(err)
     },
     debug: (message) => {
         if(process.env.DEBUG || 'true') {

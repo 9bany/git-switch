@@ -1,15 +1,22 @@
-# git-switch
-- Eazy git with multiple accounts
+
+<p align="center">
+  <img height="60" src="./sources/doc_images/logo.png" />
+</p>
+
+# swgit 1.1.0
+![test cases](https://github.com/9bany/git-switch/actions/workflows/dev-test.yml/badge.svg)
+[![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
+
+- Easy using git with multiple accounts.
 ## Documents
 - [Bug reports](./docs/bug_report.md)
 - [How it word](./docs/how_it_work.md)
+- [Development](./docs/development.md)
+- [How to use](./docs/how-to-use.md)
 ## How to install 
 1. MAC OS
 1. Ubuntu
 1. Window
-
-## How to use
-- [Commands](./docs/commands.md)
 
 ## Contributing
 

@@ -52,11 +52,28 @@ function options() {
         type: "object", 
         demandOption: false 
     })
+    .option("ur", {
+        alias: "user-repo", 
+        describe: "Get user info of the repository", 
+        type: "object", 
+        demandOption: false 
+    })
+    .option("update-ur", {
+        describe: "Update the user admin of the repository", 
+        type: "object", 
+        demandOption: false 
+    })
     //node bin/index.js --checkrule.username=<username>
     .option("check", {
         alias: "checkrule", 
         describe: "Check rule of user by username", 
-        type: "object", 
+        type: "string", 
+        demandOption: false 
+    })
+    .option("c", {
+        alias: "clone", 
+        describe: "Clone an repository", 
+        type: "string", 
         demandOption: false 
     })
     return options;

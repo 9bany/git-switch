@@ -138,6 +138,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
+console-log-colors@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/console-log-colors/-/console-log-colors-0.2.3.tgz#ca300616b5c249cc1269498cc521ec1f808f5031"
+  integrity sha512-KAGsePEunvs575RFAIThR7sUBVuqXU0Y2tckA99k25itVAOa0hPwf3HkNVyQ7XnbisKvTp/gLnByjG9NTYt3hw==
+
 cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -520,11 +525,6 @@ nanoid@3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.3.tgz#fd8e8b7aa761fe807dba2d1b98fb7241bb724a25"
   integrity sha512-p1sjXuopFs0xg+fPASzQ28agW1oHD7xDsd9Xkf3T15H3c/cifrFHVwrh74PdoklAPi+i7MdRsE47vm2r6JoB+w==
-
-node-color-log@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/node-color-log/-/node-color-log-9.0.0.tgz#ed0ed87dfbb3230cbf1534053a091be1033026e3"
-  integrity sha512-OtAY/fEbVGMhzoabaMj5AmhaLvFc230t0Iv0jvDvt8I/p6vK3F7bGIVNYzUcFTJQkjPJC/hZIA8Zt4aScBBzbA==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"

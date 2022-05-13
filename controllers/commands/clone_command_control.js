@@ -14,14 +14,13 @@ const {
     REPO_DOES_NOT_EXISTS,
 } = require('./../../constants/global')
 
-function cloneCommandControl(argv) {
-    const { repo_url } = argv
+function cloneCommandControl(repo_url) {
     if (!Boolean(repo_url)) {
         console.error(COMMAND_ERR)
     } else {
         checkGitPermission(repo_url).then(isAllow => {
             if(isAllow) {
-                runCommandWithGit(`${argv._[0]} ${repo_url}`).then(async () => {
+                runCommandWithGit(`clone ${repo_url}`).then(async () => {
                     const {name, email} = await getCurrentUserGitConfig()
                     let repoInfo = getRepo({url: repo_url})
                     let currentUserRule = checkUserRule({username: name})
@@ -32,7 +31,7 @@ function cloneCommandControl(argv) {
                             userInfo = await createNewUser({username: name, email: email})
                             break
                         case false:
-                            userInfo = await switchUser({username: name})
+                            userInfo = await switchUser(name)
                             break
                         default:
                             userInfo = getUserDefault()

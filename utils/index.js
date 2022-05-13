@@ -13,6 +13,9 @@ module.exports = {
     randomUsername: () => {
         return genUsername.generateUsername("", 2, 19);
     },
+    randomPath: () => {
+        return `${genUsername.generateUsername("", 2, 5)}/${genUsername.generateUsername("", 2, 9)}/${genUsername.generateUsername("", 2, 7)}`
+    },
     randomEmail: () => {
         return randomEmail({ domain: 'example.com' })
     },

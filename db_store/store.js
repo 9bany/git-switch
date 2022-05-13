@@ -11,11 +11,10 @@ class Store {
             username, 
             email,
             privateKeyPath,
-            publicKeyPath 
+            publicKeyPath,
+            id
         } = data;
-        const user = new User(username, email, privateKeyPath, publicKeyPath)
-
-        
+        const user = new User(username, email, privateKeyPath, publicKeyPath, id)
 
         this.db.get("users").push(user).write();
 
@@ -33,7 +32,6 @@ class Store {
     getUser = (username) => {
         return this.db.get('users').find({ username: username }).value()
     }
-
 
     getUserById = (id) => {
         return this.db.get('users').find({ id: id }).value()
@@ -81,7 +79,6 @@ class Store {
         return this.db.get('users').find({ username: user }).value().isDefault
     }
 
-    // Repo
     createRepo({ url, userID }) {
         let repo = new Repo(url, userID);
         this.db.get("repos").push(repo).write();
@@ -90,6 +87,31 @@ class Store {
 
     getRepo(url) {
         return this.db.get('repos').find({ url: url }).value()
+    }
+
+    updateUserAdminRepo({ repoID, userID }) {
+        this.db.get('repos').find({ id: repoID }).assign({
+            userID: userID,
+        }).write()
+        return this.db.get('repos').find({ id: repoID }).value()
+    }
+
+    createUserDefault(user) {
+        
+        user.isDefault = true
+
+        let data = this.db.get('default').value()
+        if(data.length === 0) {
+            this.db.get("default").push(user).write();
+            return user 
+        } else {
+            this.db.get('default').find({ isDefault: true }).assign(user).write()
+        }
+        return user
+    }
+
+    getUserDefault() {
+        return this.db.get("default").value()
     }
 }
 

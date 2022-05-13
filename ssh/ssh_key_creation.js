@@ -43,6 +43,7 @@ function sshKeygen(location, opts) {
             },
         );
   
+
     })
 };
 
@@ -50,6 +51,7 @@ function createSHHKey(username) {
     return new Promise((resolve, reject) => { 
         if(!username) {
             reject(USERNAME_EMPTY)
+            log.debug.error(USERNAME_EMPTY)
             return
         }
     
@@ -57,17 +59,20 @@ function createSHHKey(username) {
     
         if (fs.existsSync(location)) {
             let error = FILE_ALREADY_EXISTS
+            log.debug.error(FILE_ALREADY_EXISTS)
             reject(error)
             return
         }
     
         if (fs.existsSync(`${location + '.pub'}`)) {
             let error = FILE_ALREADY_EXISTS
+            log.debug.error(FILE_ALREADY_EXISTS)
             reject(error)
             return
         }
     
         sshKeygen(location,{}).then(({ privateLocation, pubLocation })=> {
+            log.debug.success("SSH CREATED");
             resolve([privateLocation, pubLocation])
         })
     })

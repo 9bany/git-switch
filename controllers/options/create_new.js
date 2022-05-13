@@ -3,60 +3,81 @@ const Store = require('../../db_store/store')
 const db = require('../../db_store/db')
 const { createSHHKey } = require('../../ssh/ssh_key_creation');
 const log = require('../../utils/log');
+
 const { 
     USER_ALREADY_EXISTS,
     USERNAME_EMPTY,
     EMAIL_EMPTY
 } = require('../../constants/global')
+const { 
+    HOST_DEFAULT
+} = require('../../constants/config')
 const runCommandWithGit = require('./../exc/run_command');
 const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 
-async function createNewUser(objc) {
+async function createNewUser({ 
+    host = HOST_DEFAULT,
+    username, 
+    email, 
+    privateKeyPath, 
+    publicKeyPath 
+}) {
     const store = new Store(db)
-    const { username, email } = objc;
+
     if (!username || username === "") {
-        log.error(USERNAME_EMPTY)
+        log.user.error(USERNAME_EMPTY)
         return USERNAME_EMPTY
     }
+
     if (!email || email === "" ) {
-        log.error(USERNAME_EMPTY)
+        log.user.error(EMAIL_EMPTY)
         return EMAIL_EMPTY
     }
 
+    let privatePath = privateKeyPath
+    let publicPath = publicKeyPath
+
     const userExists = store.getUser(username)
     if(Boolean(userExists)) {
-        log.error(USER_ALREADY_EXISTS)
+        log.user.error(USER_ALREADY_EXISTS)
         return USER_ALREADY_EXISTS
     }
-    
-    const [privateKeyPath, publicKeyPath] = await createSHHKey(username)
 
-    readPublicKey(publicKeyPath)
+    if (!privatePath) {
+        const paths = await createSHHKey(username)
+        privatePath = paths[0]
+        publicPath = paths[1]
+    }
+
+    readPublicKey(publicPath)
 
     const newUser = store.createNew({
         username, 
         email,
-        privateKeyPath,
-        publicKeyPath
+        privateKeyPath: privatePath,
+        publicKeyPath: publicPath
     });
+
+    // update user default
+    store.createUserDefault(newUser)
+
     await runCommandWithGit(`config --global user.name ${newUser.username}`)
     await runCommandWithGit(`config --global user.email ${newUser.email}`)
-    await updateSSHConfig({host: 'github.com', newIdentity: newUser.privateKeyPath})
-
+    await updateSSHConfig({host: host, newIdentity: newUser.privateKeyPath})
+    log.user.success("USER CREATED");
     return newUser
     
 }
 
-
 function readPublicKey(publicKeyPath) {
-    log.success("COPY THE PUBLIC KEY AND IMPORT IT TO YOUR GITHUB SETTINGS: \n")
+    log.user.info("COPY THE PUBLIC KEY\n", )
     if (fs.existsSync(publicKeyPath)) {
         fs.readFile(publicKeyPath, 'utf8', function read(err, data) {
             if (err) {
                 reject(err)
                 throw err;
             }
-            log.info(data)
+            log.user.info(data)
             return;
         });
     }

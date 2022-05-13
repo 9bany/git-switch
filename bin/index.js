@@ -14,9 +14,10 @@ const {
     checkUserRule,
     getUserInfo,
     cloneCommandControl,
-    forWardCommand
+    forWardCommand,
+    userRepo
 } = require('../controllers');
-
+const updateUserAdminRepo = require("../controllers/options/update_user_repo");
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });
 
@@ -24,13 +25,8 @@ main();
 
 function main() {
     options()
-    .command('clone <repo_url>', 'clone repository of the URL', () => {}, cloneCommandControl)
     .command('config', 'swgit config', () => {}, (argv)=> {
         adapter(argv, [
-            {
-                type: 'add',
-                handle: createNewUser
-            },
             {
                 type: 'update',
                 handle: updateUser
@@ -44,10 +40,6 @@ function main() {
                 handle: listUser
             },
             {
-                type: 'switch',
-                handle: switchUser
-            },
-            {
                 type: 'default',
                 handle: getUserDefault
             },
@@ -55,12 +47,35 @@ function main() {
                 type: 'checkrule',
                 handle: checkUserRule
             },
+        ])
+    })
+    .command('*', 'All command with swgit', () => {}, (argv) => {
+        adapter(argv, [
+            {
+                type: 'add',
+                handle: createNewUser
+            },
+            {
+                type: 'switch',
+                handle: switchUser
+            },
+            {
+                type: 'clone',
+                handle: cloneCommandControl
+            },
             {
                 type: 'get',
                 handle: getUserInfo
-            }
-        ])
+            },
+            {
+                type: 'user-repo',
+                handle: userRepo
+            },
+            {
+                type: 'update-ur',
+                handle: updateUserAdminRepo
+            },
+        ], forWardCommand)
     })
-    .command('*', 'clone repository of the URL', () => {}, forWardCommand)
     .argv;
 }

@@ -10,7 +10,7 @@ module.exports = {
             case constants.USER_ALREADY_EXISTS:
                 return "user already exists"
             default:
-                return "Some error"
+                return `${code}`
         }
     }
 }

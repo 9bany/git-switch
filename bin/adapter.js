@@ -1,6 +1,6 @@
 const log = require('./../utils/log')
 function adapter(options, listTypeHandle, callback = () => {}) {
-    log.debug(options)
+    log.debug.info(options)
     let haveOption = false;
     listTypeHandle.forEach(element => {
         const { type, handle } = element

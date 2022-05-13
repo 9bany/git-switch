@@ -3,6 +3,7 @@ const Store = require('../../db_store/store')
 const db = require('../../db_store/db')
 const { createSHHKey } = require('../../ssh/ssh_key_creation');
 const log = require('../../utils/log');
+
 const { 
     USER_ALREADY_EXISTS,
     USERNAME_EMPTY,
@@ -24,12 +25,12 @@ async function createNewUser({
     const store = new Store(db)
 
     if (!username || username === "") {
-        log.error(USERNAME_EMPTY)
+        log.user.error(USERNAME_EMPTY)
         return USERNAME_EMPTY
     }
 
     if (!email || email === "" ) {
-        log.error(USERNAME_EMPTY)
+        log.user.error(EMAIL_EMPTY)
         return EMAIL_EMPTY
     }
 
@@ -38,7 +39,7 @@ async function createNewUser({
 
     const userExists = store.getUser(username)
     if(Boolean(userExists)) {
-        log.error(USER_ALREADY_EXISTS)
+        log.user.error(USER_ALREADY_EXISTS)
         return USER_ALREADY_EXISTS
     }
 
@@ -63,20 +64,20 @@ async function createNewUser({
     await runCommandWithGit(`config --global user.name ${newUser.username}`)
     await runCommandWithGit(`config --global user.email ${newUser.email}`)
     await updateSSHConfig({host: host, newIdentity: newUser.privateKeyPath})
-
+    log.user.success("USER CREATED");
     return newUser
     
 }
 
 function readPublicKey(publicKeyPath) {
-    log.success("COPY THE PUBLIC KEY AND IMPORT IT TO YOUR GITHUB SETTINGS: \n")
+    log.user.info("COPY THE PUBLIC KEY\n", )
     if (fs.existsSync(publicKeyPath)) {
         fs.readFile(publicKeyPath, 'utf8', function read(err, data) {
             if (err) {
                 reject(err)
                 throw err;
             }
-            log.info(data)
+            log.user.info(data)
             return;
         });
     }

@@ -1,24 +1,22 @@
 const { exec } = require("child_process");
+const log = require('../../utils/log');
 
 function checkGitPermission(url) {
     return new Promise((resolve, reject) => { 
 
         exec(`git ls-remote ${url}`, (error, stdout, stderr) => {
             if (error) {
-                // debug
-                // console.log(`error: ${error.message}`);
+                log.debug.error(error)
                 resolve(false)
                 return;
             }
             if (stderr) {
-                // debug
-                // console.log(`stderr: ${stderr}`);
+                log.debug.info(stderr)
                 resolve(true)
                 return;
             } 
             if (stdout) {
-                // debug
-                // console.log(`stdout: ${stdout}`);
+                log.debug.info(stdout)
                 resolve(true)
                 return 
             }

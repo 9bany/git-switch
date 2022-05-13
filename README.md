@@ -7,7 +7,7 @@
 ![test cases](https://github.com/9bany/git-switch/actions/workflows/dev-test.yml/badge.svg)
 [![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
 
-- Eazy using git with multiple accounts.
+- Easy using git with multiple accounts.
 ## Documents
 - [Bug reports](./docs/bug_report.md)
 - [How it word](./docs/how_it_work.md)

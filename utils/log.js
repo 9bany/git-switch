@@ -29,13 +29,13 @@ function logWithMode(message, mode, title = '') {
             break
         case MODE.ERROR:
             let err = new Error(`${toMessage(result)}`);
-            log.red(`${title} ${err.toString()}`)
+            log.red(`${title}${err.toString()}`)
             break
         case MODE.INFO:
-            log.blue(`${title} ${result}`)
+            log.blue(`${title}${result}`)
             break
         default: 
-            log.blue(`${title} ${result}`)
+            log.blue(`${title}${result}`)
             break
     }
 }
@@ -43,35 +43,35 @@ function logWithMode(message, mode, title = '') {
 module.exports = {
     user: {
         error: (message) => {
-            logWithMode(message, MODE.ERROR, 'USER')
+            logWithMode(message, MODE.ERROR, '')
         },
         success: (message) => {
-            logWithMode(message, MODE.SUCCESS, 'USER')
+            logWithMode(message, MODE.SUCCESS, '')
         },
         info: (message) => {
-            logWithMode(message, MODE.INFO, 'USER')
+            logWithMode(message, MODE.INFO, '')
         },
     },
     verbose: {
         error: (message) => {
-            logWithMode(message, MODE.ERROR, 'VERBOSE')
+            process.env.VERBOSE === 'true' && logWithMode(message, MODE.ERROR, '')
         },
         success: (message) => {
-            logWithMode(message, MODE.SUCCESS, 'VERBOSE')
+            process.env.VERBOSE === 'true' && logWithMode(message, MODE.SUCCESS, '')
         },
         info: (message) => {
-            logWithMode(message, MODE.INFO, 'VERBOSE')
+            process.env.VERBOSE === 'true' && logWithMode(message, MODE.INFO, '')
         },
     },
     debug: {
         error: (message) => {
-            logWithMode(message, MODE.ERROR, 'DEBUG')
+            process.env.DEBUG === 'true' && logWithMode(message, MODE.ERROR, '')
         },
         success: (message) => {
-            logWithMode(message, MODE.SUCCESS, 'DEBUG')
+            process.env.DEBUG === 'true' && logWithMode(message, MODE.SUCCESS, '')
         },
         info: (message) => {
-            logWithMode(message, MODE.INFO, 'DEBUG')
+            process.env.DEBUG === 'true' && logWithMode(message, MODE.INFO, '')
         },
     },
 }

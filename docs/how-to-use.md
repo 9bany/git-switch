@@ -1,8 +1,16 @@
-# Commands
-- All commands for config swgit.
+## Swgit
+[![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
+## Getstarted
+## Install 
+> We don't have officially version right now, please use it with development mode.
+1. MAC OS
+1. Ubuntu
+1. Window
+1. [Development](./development.md)
 
-## Swgit Config
-### 1. Add new user
+## Swgit config
+### Add an user
+> If you dont have ssk key paths, please ignore it. Swgit will create new ssh key for you.
 - Create new user with username and email
 - Example:
     ```
@@ -20,9 +28,8 @@
 |  privateKeyPath | string  | optional  | 
 |  publicKeyPath | string  | optional  |
 
-> If you dont have ssk key paths, please ignore it. Swgit will create new ssh key for you.
 
-### 2. User info
+### User info
 - Return and log user info with username
 
     ```
@@ -36,7 +43,7 @@
 |---|---|---|
 | username  |string|true   |
 
-### 3. Update user info
+### Update user info
 - Example:
 ```
 swgit --update.<name>=<value>
@@ -52,25 +59,7 @@ swgit --update.<name>=<value>
 | isDefault  |string|optional   |
 | email  |string|optional   |
 
-### 4. Delete user with username
-- Example:
-```
-swgit --delete.username=<username> 
-```
-- Description:
-
-|name   |type  | required  |
-|---|---|---|
-| username  |string|true   |
-
-
-## 5. Get user list
-- Example:
-```
- swgit --list
-```
-
-## 6. Switch default user
+## Switch default user
 - Example:
 ```
 swgit --switch=<username>
@@ -83,38 +72,10 @@ swgit -s=<username>
 |---|---|---|
 | username  |string|true   |
 
-## 7. Get user default info
+## Get user default of the repo
 - Example:
 ```
-swgit --default
-```
-
-## 8. Check rule of user
-```
-swgit --checkrule.username=<username>
-```
-|name   |type  | required  |
-|---|---|---|
-| username  |string|true   |
-
-## Swgit command
-1. General
-```
-swgit <your-command>
-```
-2. Commit code
-```
-swgit commit -m "your message"
-```
-3. Push code
-```
-swgit push origin
-```
-4. Pull code
-```
-swgit pull origin
-```
-4. Help
-```
-swgit --help
+swgit --ur
+# or
+swgit --user-repo
 ```

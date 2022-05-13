@@ -12,7 +12,7 @@
 - [Bug reports](./docs/bug_report.md)
 - [How it word](./docs/how_it_work.md)
 - [Development](./docs/development.md)
-- [How to use](./docs/commands.md)
+- [How to use](./docs/how-to-use.md)
 ## How to install 
 1. MAC OS
 1. Ubuntu

@@ -26,10 +26,6 @@ function main() {
     .command('config', 'swgit config', () => {}, (argv)=> {
         adapter(argv, [
             {
-                type: 'add',
-                handle: createNewUser
-            },
-            {
                 type: 'update',
                 handle: updateUser
             },
@@ -40,10 +36,6 @@ function main() {
             {
                 type: 'list',
                 handle: listUser
-            },
-            {
-                type: 'switch',
-                handle: switchUser
             },
             {
                 type: 'default',
@@ -57,6 +49,10 @@ function main() {
     })
     .command('*', 'All command with swgit', () => {}, (argv) => {
         adapter(argv, [
+            {
+                type: 'add',
+                handle: createNewUser
+            },
             {
                 type: 'switch',
                 handle: switchUser

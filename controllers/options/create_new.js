@@ -14,14 +14,14 @@ const {
 const runCommandWithGit = require('./../exc/run_command');
 const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 
-async function createNewUser(objc) {
+async function createNewUser({ 
+    host = HOST_DEFAULT,
+    username, 
+    email, 
+    privateKeyPath, 
+    publicKeyPath 
+}) {
     const store = new Store(db)
-    const { username, email } = objc;
-    let host = objc.host
-
-    if(!host) {
-        host = HOST_DEFAULT
-    }
 
     if (!username || username === "") {
         log.error(USERNAME_EMPTY)
@@ -33,21 +33,28 @@ async function createNewUser(objc) {
         return EMAIL_EMPTY
     }
 
+    let privatePath = privateKeyPath
+    let publicPath = publicKeyPath
+
     const userExists = store.getUser(username)
     if(Boolean(userExists)) {
         log.error(USER_ALREADY_EXISTS)
         return USER_ALREADY_EXISTS
     }
-    
-    const [privateKeyPath, publicKeyPath] = await createSHHKey(username)
 
-    readPublicKey(publicKeyPath)
+    if (!privatePath) {
+        const paths = await createSHHKey(username)
+        privatePath = paths[0]
+        publicPath = paths[1]
+    }
+
+    readPublicKey(publicPath)
 
     const newUser = store.createNew({
         username, 
         email,
-        privateKeyPath,
-        publicKeyPath
+        privateKeyPath: privatePath,
+        publicKeyPath: publicPath
     });
 
     // update user default

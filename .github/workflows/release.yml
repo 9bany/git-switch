@@ -19,6 +19,15 @@ jobs:
         run: cp -i db_store/db/example_db.json db_store/db/db.json 
       - name: Build 
         run: bash ./scripts/build-production.sh
+      - name: Read release.md and use it as a body of new release
+        id: read_release
+        shell: bash
+        run: |
+          r=$(cat path/to/release.md)                       # <--- Read release.md (Provide correct path as per your repo)
+          r="${r//'%'/'%25'}"                               # Multiline escape sequences for %
+          r="${r//$'\n'/'%0A'}"                             # Multiline escape sequences for '\n'
+          r="${r//$'\r'/'%0D'}"                             # Multiline escape sequences for '\r'
+          echo "::set-output name=RELEASE_BODY::$r"         # <--- Set environment variable
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:

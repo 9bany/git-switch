@@ -42,22 +42,22 @@ function sshKeygen(location, opts) {
         ]);
     
         keygen.stdout.on('data', function(a) {
-            log.debug.info('stdout:'+a);
+            log.verbose.info('stdout:'+a);
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     
         keygen.on('exit',function() {
-            log.debug.info('exited');
+            log.verbose.info('exited');
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     
         keygen.on('error',function() {
             reject('error');
-            log.debug.info('error');
+            log.verbose.info('error');
         });
     
         keygen.stderr.on('data',function(a) {
-            log.debug.info('stderr:'+a);
+            log.verbose.info('stderr:'+a);
             resolve({ privateLocation: location, pubLocation: pubLocation })
         });
     })

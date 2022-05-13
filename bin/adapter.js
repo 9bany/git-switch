@@ -1,5 +1,10 @@
 const log = require('./../utils/log')
 function adapter(options, listTypeHandle, callback = () => {}) {
+    if(!options.verbose) {
+        process.env.VERBOSE = false
+    } else {
+        process.env.VERBOSE = options.verbose
+    }
     log.debug.info(options)
     let haveOption = false;
     listTypeHandle.forEach(element => {

@@ -21,12 +21,32 @@ jobs:
         run: cp -i db_store/db/example_db.json db_store/db/db.json 
       - name: Build 
         run: bash ./scripts/build-production.sh
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_name: 9bany/git-switch
-          repo_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          file: build/*/swgit
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "first release"
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Assets
+        id: upload-release-assets
+        uses: dwenegar/upload-release-assets@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}
+          assets_path: build/
+
+      # - name: Upload binaries to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_name: 9bany/git-switch
+      #     repo_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #     file: build/*/swgit
+      #     tag: ${{ github.ref }}
+      #     overwrite: true
+      #     body: "first release"

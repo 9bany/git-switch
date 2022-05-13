@@ -58,6 +58,11 @@ function options() {
         type: "object", 
         demandOption: false 
     })
+    .option("update-ur", {
+        describe: "Update the user admin of the repository", 
+        type: "object", 
+        demandOption: false 
+    })
     //node bin/index.js --checkrule.username=<username>
     .option("check", {
         alias: "checkrule", 

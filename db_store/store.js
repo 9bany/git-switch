@@ -89,6 +89,13 @@ class Store {
         return this.db.get('repos').find({ url: url }).value()
     }
 
+    updateUserAdminRepo({ repoID, userID }) {
+        this.db.get('repos').find({ id: repoID }).assign({
+            userID: userID,
+        }).write()
+        return this.db.get('repos').find({ id: repoID }).value()
+    }
+
     createUserDefault(user) {
         
         user.isDefault = true

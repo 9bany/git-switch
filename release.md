@@ -1,6 +1,3 @@
 ## Release note
 ###  Features
-#### General
-- Update log interface.
-- Add `--verbose` option.
-
+- Switch user admin of the repository: [issue](https://github.com/9bany/git-switch/issues/99)

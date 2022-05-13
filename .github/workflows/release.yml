@@ -9,21 +9,7 @@ on:
 
 jobs:
   build:
-    name: Publish for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    # runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            artifact_name: swgit
-            asset_name: linux/swgit
-          - os: ubuntu-latest
-            artifact_name: swgit.exe
-            asset_name: win/swgit.exe
-          - os: ubuntu-latest
-            artifact_name: swgit
-            asset_name: mac/swgit
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -40,7 +26,7 @@ jobs:
         with:
           repo_name: 9bany/git-switch
           repo_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          file: build/${{ matrix.artifact_name }}
+          file: build/*/swgit
           tag: ${{ github.ref }}
           overwrite: true
           body: "first release"

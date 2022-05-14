@@ -18,6 +18,7 @@ const {
     userRepo
 } = require('../controllers');
 const updateUserAdminRepo = require("../controllers/options/update_user_repo");
+const addExistRepo = require("../controllers/options/add_exist_repo");
 
 dotenv.config({path: path.resolve(__dirname, '../.env') });
 
@@ -74,6 +75,10 @@ function main() {
             {
                 type: 'update-ur',
                 handle: updateUserAdminRepo
+            },
+            {
+                type: 'add-repo',
+                handle: addExistRepo
             },
         ], forWardCommand)
     })

@@ -63,6 +63,11 @@ function options() {
         type: "object", 
         demandOption: false 
     })
+    .option("add-repo", {
+        describe: "Add an exist repository with the default user admin.", 
+        type: "object", 
+        demandOption: false 
+    })
     //node bin/index.js --checkrule.username=<username>
     .option("check", {
         alias: "checkrule", 

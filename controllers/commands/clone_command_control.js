@@ -1,4 +1,4 @@
-const runCommandWithGit = require('./../exc/run_command');
+const { runCommandWithGit } = require('./../exc/run_command');
 const {getCurrentUserGitConfig} = require('./../../utils')
 const checkGitPermission = require('./../exc/git_permission')
 const getRepo = require('./../options/get_repo')

@@ -14,7 +14,7 @@ const log = require('../../utils/log');
 const getRepo = require('../options/get_repo');
 const getUserInfoById = require('../options/get_user_info_by_id');
 const switchUser = require('../options/switch_user');
-const runCommandWithGit = require('./../exc/run_command');
+const { runCommandWithGitArgv } = require('./../exc/run_command');
 const gitRemoteV = require('./../exc/git_remote_url');
 
 async function forWardCommand(argv) {
@@ -31,9 +31,8 @@ async function forWardCommand(argv) {
         await autoSwitchUser(url)
 
         const args = process.argv.slice(2);
-        let command = args.join(' ')
-        log.debug.info(command)
-        runCommandWithGit(command)
+        log.debug.info(args)
+        runCommandWithGitArgv(args)
     }
 }
 

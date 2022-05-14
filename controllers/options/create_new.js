@@ -12,7 +12,7 @@ const {
 const { 
     HOST_DEFAULT
 } = require('../../constants/config')
-const runCommandWithGit = require('./../exc/run_command');
+const { runCommandWithGit } = require('./../exc/run_command');
 const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 
 async function createNewUser({ 

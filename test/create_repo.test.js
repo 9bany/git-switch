@@ -1,13 +1,9 @@
 const { createRepo } = require("../controllers");
 const assert = require('assert');
-const { v4: uuidv4 } = require('uuid');
 const { randomRepo } = require('./util');
 const { URL_EMPTY, ID_EMPTY } = require("../constants/global");
 
-let repoRandom = {
-    url: randomRepo(),
-    userID: uuidv4()
-}
+let repoRandom = randomRepo();
 
 function runCreateRepoTest(repo) {
     let repoRandom = repo

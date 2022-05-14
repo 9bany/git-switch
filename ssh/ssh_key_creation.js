@@ -23,16 +23,13 @@ function sshKeygen(location, opts) {
         if(!opts.format) opts.format = 'RFC4716';
         keygen(
             {
-              // sshKeygenPath: 'ssh-keygen',
               location: location,
               comment: opts.comment,
               password: opts.password,
               size: opts.size,
               format: opts.format,
             },
-            // If you omit this callback function, a Promise will be returned instead!
             function onDoneCallback(err, out) {
-              // The error could be related to ssh-keygen binary or file system errors.
                 if (err) {
                     reject('error');
                     log.debug('error');

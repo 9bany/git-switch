@@ -2,6 +2,7 @@
 const util = require('util')
 const { toMessage } = require('./binding');
 const { color, log } = require('console-log-colors');
+const { loadingAnimation, stopAnimation } = require('./loader');
 
 function logDebug(message) {
     if(process.env.DEBUG === 'true') {
@@ -51,6 +52,9 @@ module.exports = {
         info: (message) => {
             logWithMode(message, MODE.INFO, '')
         },
+        loading: (title) => {
+            return loadingAnimation(title)
+        }
     },
     verbose: {
         error: (message) => {

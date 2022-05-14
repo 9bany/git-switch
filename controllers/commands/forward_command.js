@@ -32,6 +32,7 @@ async function forWardCommand(argv) {
 
         const args = process.argv.slice(2);
         let command = args.join(' ')
+        log.debug.info(command)
         runCommandWithGit(command)
     }
 }

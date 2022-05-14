@@ -4,7 +4,7 @@ const {
     USERNAME_EMPTY,
     USER_DOES_NOT_EXISTS,
 } = require('../../constants/global')
-const runCommandWithGit = require('../exc/run_command')
+const { runCommandWithGit } = require('../exc/run_command')
 const {updateSSHConfig} = require('../../ssh/ssh_config_manage');
 const log = require('./../../utils/log');
 

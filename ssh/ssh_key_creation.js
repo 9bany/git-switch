@@ -4,23 +4,13 @@ const path = require('path');
 const { SSH_ROOT_PATH } = require('../constants/config');
 const { USERNAME_EMPTY } = require('../constants/global');
 const log = require('./../utils/log');
-
+const keygen = require('ssh-keygen-lite');
 
 const { 
     FILE_ALREADY_EXISTS,
 } = require('../constants/global')
 
 
-function binPath() {
-	if(process.platform !== 'win32') return 'ssh-keygen';
-
-	switch(process.arch) {
-		case 'ia32': return path.join(__dirname, '..', 'bin', 'ssh-keygen-32.exe');
-		case 'x64': return path.join(__dirname, '..', 'bin', 'ssh-keygen-64.exe');
-	}
-
-	throw new Error('Unsupported platform');
-}
 
 function sshKeygen(location, opts) {
     return new Promise((resolve, reject) => { 
@@ -31,35 +21,26 @@ function sshKeygen(location, opts) {
         if(!opts.password) opts.password = '';
         if(!opts.size) opts.size = '2048';
         if(!opts.format) opts.format = 'RFC4716';
-    
-        var keygen = spawn(binPath(), [
-            '-t','rsa',
-            '-b', opts.size,
-            '-C', opts.comment,
-            '-N', opts.password,
-            '-f', location,
-            '-m', opts.format
-        ]);
-    
-        keygen.stdout.on('data', function(a) {
-            log.verbose.info('stdout:'+a);
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
-    
-        keygen.on('exit',function() {
-            log.verbose.info('exited');
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
-    
-        keygen.on('error',function() {
-            reject('error');
-            log.verbose.info('error');
-        });
-    
-        keygen.stderr.on('data',function(a) {
-            log.verbose.info('stderr:'+a);
-            resolve({ privateLocation: location, pubLocation: pubLocation })
-        });
+        keygen(
+            {
+              location: location,
+              comment: opts.comment,
+              password: opts.password,
+              size: opts.size,
+              format: opts.format,
+            },
+            function onDoneCallback(err, out) {
+                if (err) {
+                    reject('error');
+                    log.debug('error');
+                    return
+                }
+                log.debug.info('exited');
+                resolve({ privateLocation: location, pubLocation: pubLocation })
+            },
+        );
+  
+
     })
 };
 

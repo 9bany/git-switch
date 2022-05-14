@@ -9,6 +9,7 @@ const {
     getURLString
 } = require('./../../utils/index');
 
+
 const log = require('../../utils/log');
 const getRepo = require('../options/get_repo');
 const getUserInfoById = require('../options/get_user_info_by_id');
@@ -28,11 +29,13 @@ async function forWardCommand(argv) {
             return null
         })
         await autoSwitchUser(url)
+
         const args = process.argv.slice(2);
         let command = args.join(' ')
         runCommandWithGit(command)
     }
 }
+
 
 const autoSwitchUser = async (url) => {
     if(!Boolean(url)) return false

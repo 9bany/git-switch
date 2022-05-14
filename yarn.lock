@@ -756,6 +756,11 @@ ssh-config@^4.1.4:
   resolved "https://registry.yarnpkg.com/ssh-config/-/ssh-config-4.1.4.tgz#75bd1e6f797a2005d32eead64366b16dbbd820ac"
   integrity sha512-nU0t59ZZFaZ7qGGPE25MB1NDiFFYp8hG+WmsLv9oulop/5TAMLZHe7WQrLwbTZ44Lj7mKm/P2Nge5uXd/90sWg==
 
+ssh-keygen-lite@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ssh-keygen-lite/-/ssh-keygen-lite-1.2.0.tgz#c15e26325a7f3573d17b6f6a9d525554de203bc6"
+  integrity sha512-nxPPy34Xi3xTFH9iyfkd9r4H0N3bevFQWvGOdQk1I90RyUgq3o9zLVMEyUqPCLDm7HAMnz9qAerbhuzVW1+2nw==
+
 steno@^0.4.1:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/steno/-/steno-0.4.4.tgz#071105bdfc286e6615c0403c27e9d7b5dcb855cb"

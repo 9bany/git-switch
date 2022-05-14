@@ -32,6 +32,7 @@
     "random-email": "^1.0.3",
     "random-url": "^1.0.0",
     "ssh-config": "^4.1.4",
+    "ssh-keygen-lite": "^1.2.0",
     "unique-username-generator": "^1.0.1",
     "uuid": "^8.3.2"
   },

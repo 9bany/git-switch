@@ -48,7 +48,6 @@ async function createNewUser({
         privatePath = paths[0]
         publicPath = paths[1]
     }
-
     readPublicKey(publicPath)
 
     const newUser = store.createNew({

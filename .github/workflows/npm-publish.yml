@@ -4,11 +4,6 @@ on:
   push:
     tags:
       - '*'
-    branches:    
-      - dev
-  pull_request:
-    branches:    
-      - dev
 
 jobs:
   publish:

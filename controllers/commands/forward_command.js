@@ -18,14 +18,13 @@ const { runCommandWithGitArgv } = require('./../exc/run_command');
 const gitRemoteV = require('./../exc/git_remote_url');
 
 async function forWardCommand(argv) {
-    let commandKeys = Object.keys(argv)
-    if (argv._.length === 0 && !(commandKeys.some(i => i !== '_' && i !== '$0'))) {
-        log.error(COMMAND_ERR)
+    if (argv._.length === 0) {
+        log.debug.error(COMMAND_ERR)
     } else {
         let url = await gitRemoteV().then(data => {
             return getURLString(data)
         }).catch(err => {
-            log.error(err)
+            log.debug.error(COMMAND_ERR)
             return null
         })
         await autoSwitchUser(url)

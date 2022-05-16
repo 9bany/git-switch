@@ -21,7 +21,9 @@ jobs:
       - name: Install 
         run: yarn
       - name: Copy file
-        run: cp -i db_store/db/example_db.json db_store/db/db.json 
+        run: |
+          mkdir -p swgit_store/db
+          cp -i db_store/db/example_db.json swgit_store/db/swgit.json 
       - name: Preprae test
         run: mkdir test/data
       - name: Preprae ssh folder

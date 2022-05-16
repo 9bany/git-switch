@@ -24,7 +24,7 @@ async function forWardCommand(argv) {
         let url = await gitRemoteV().then(data => {
             return getURLString(data)
         }).catch(err => {
-            log.error(err)
+            log.debug.error(COMMAND_ERR)
             return null
         })
         await autoSwitchUser(url)

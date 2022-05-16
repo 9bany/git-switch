@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "fff1f1df-cdad-4eeb-83bf-7003bf72edde",
+      "username": "9bany",
+      "email": "bany.y0599@gmail.com",
+      "privateKeyPath": "/Users/bany/.ssh/9bany",
+      "publicKeyPath": "/Users/bany/.ssh/9bany.pub",
+      "isDefault": true,
+      "createdAt": 1652683857885
+    }
+  ],
+  "repos": [],
+  "default": [
+    {
+      "id": "fff1f1df-cdad-4eeb-83bf-7003bf72edde",
+      "username": "9bany",
+      "email": "bany.y0599@gmail.com",
+      "privateKeyPath": "/Users/bany/.ssh/9bany",
+      "publicKeyPath": "/Users/bany/.ssh/9bany.pub",
+      "isDefault": true,
+      "createdAt": 1652683857885
+    }
+  ]
+}

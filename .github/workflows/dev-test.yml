@@ -22,7 +22,7 @@ jobs:
         run: yarn
       - name: Copy file
         run: |
-          mkdir swgit_store/db
+          mkdir -p swgit_store/db
           cp -i db_store/db/example_db.json swgit_store/db/swgit.json 
       - name: Preprae test
         run: mkdir test/data

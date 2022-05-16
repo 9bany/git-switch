@@ -4,6 +4,10 @@
 ## Install 
 > We don't have officially version right now, please use it with development mode.
 1. MAC OS
+```
+brew tap 9bany/swgit
+brew install swgit
+```
 1. Ubuntu
 1. Window
 1. [Development](./development.md)

@@ -4,8 +4,8 @@
 ## 1. Setup
 - Init database: 
     - Manually:
-        - Create `db.json` file into `db_store/db` folder.
-        - Copy code line below and paste to `db.json` file.
+        - Create `swgit.json` file into `swgit_store/db` folder.
+        - Copy code line below and paste to `swgit.json` file.
             ``` json
             {
                 "users": [],
@@ -15,7 +15,7 @@
             ```
     - Command line:
         ```
-        cp -i db_store/db/example_db.json db_store/db/db.json 
+        mkdir -p swgit_store/db && cp -i db_store/db/example_db.json swgit_store/db/swgit.json 
         ```
     - Resualt: 
     ![data folder file data](./../sources/doc_images/database_folderfile.png)
@@ -48,4 +48,15 @@ Check this [doc](./commands.md)
     make uninstall
     # or
     npm uninstall -g .
+```
+
+## 3. Release new tag
+> Ref: follow up this [link](https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-tag)
+- Create a tag: 
+```
+git tag -a <tag_name> -m <tag_name>
+```
+- Push your tag: 
+```
+git push origin <tag_name>
 ```

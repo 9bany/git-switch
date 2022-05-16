@@ -8,9 +8,15 @@
 brew tap 9bany/swgit
 brew install swgit
 ```
-1. Ubuntu
-1. Window
-1. [Development](./development.md)
+
+2. Ubuntu
+3. Window
+4. Nodejs 
+```
+npm i @browng/swgit
+#or
+yarn add @browng/swgit
+```
 
 ## Basic example
 

@@ -13,6 +13,12 @@ brew install swgit
 1. [Development](./development.md)
 
 ## Basic example
+
+## Init
+> run this command before use anything.
+```
+swgit init
+```
 ## 1. Create user
 - Run command line
     ```

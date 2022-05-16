@@ -6,3 +6,4 @@ test/data
 .DS_Store
 build
 package-lock.json
+swgit_store

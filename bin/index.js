@@ -36,11 +36,11 @@ function main() {
                 log.user.info("OKKKKKKKKK, `swgit --help`")
             })
         })
-        .command('config', 'swgit config', () => {}, (argv) => {
+        .command('*', 'All command with swgit', () => {}, (argv) => {
             if (!checkInitSystem()) {
                 log.user.error("Please, run `swgit init` before use")
                 return
-            }
+            } 
             adapter(argv, [
                 {
                     type: 'update',
@@ -62,14 +62,6 @@ function main() {
                     type: 'checkrule',
                     handle: checkUserRule
                 },
-            ])
-        })
-        .command('*', 'All command with swgit', () => {}, (argv) => {
-            if (!checkInitSystem()) {
-                log.user.error("Please, run `swgit init` before use")
-                return
-            } 
-            adapter(argv, [
                 {
                     type: 'add',
                     handle: createNewUser

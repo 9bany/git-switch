@@ -18,6 +18,7 @@ const {updateSSHConfig} = require('./../../ssh/ssh_config_manage')
 async function createNewUser({ 
     host = HOST_DEFAULT,
     username, 
+    password,
     email, 
     privateKeyPath, 
     publicKeyPath 
@@ -44,7 +45,7 @@ async function createNewUser({
     }
 
     if (!privatePath) {
-        const paths = await createSHHKey(username)
+        const paths = await createSHHKey(username, password)
         privatePath = paths[0]
         publicPath = paths[1]
     }

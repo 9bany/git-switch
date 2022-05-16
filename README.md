@@ -13,6 +13,8 @@
 - [Bug reports](./docs/bug_report.md)
 - [Development](./docs/development.md)
 - [How to use](./docs/how-to-use.md)
+- [Contribute](./CONTRIBUTING.md)
+
 ## How to install 
 1. MAC OS
 ```
@@ -28,15 +30,3 @@ npm i @browng/swgit
 yarn add @browng/swgit
 ```
 
-## Contributing
-
-If you want to colaborate check the project's issues.
-
-1. Fork the repository
-2. Create a new branch
-3. Implement your solution
-2. Update your change to `release.md` file
-4. Commit
-5. Open a Pull Request
-
-Thanks!

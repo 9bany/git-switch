@@ -44,7 +44,7 @@ function sshKeygen(location, opts) {
     })
 };
 
-function createSHHKey(username) {
+function createSHHKey(username, password) {
     return new Promise((resolve, reject) => { 
         if(!username) {
             reject(USERNAME_EMPTY)
@@ -68,7 +68,7 @@ function createSHHKey(username) {
             return
         }
     
-        sshKeygen(location,{}).then(({ privateLocation, pubLocation })=> {
+        sshKeygen(location,{ password: password }).then(({ privateLocation, pubLocation })=> {
             log.debug.success("SSH CREATED");
             resolve([privateLocation, pubLocation])
         })

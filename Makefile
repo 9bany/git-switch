@@ -8,4 +8,6 @@ uninstall:
 	npm uninstall -g swgit
 dev: 
 	node bin/index.js
+publish:
+	npm publish --access public
 .PHONY: test dev install uninstall test-machine

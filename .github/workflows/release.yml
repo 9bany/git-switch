@@ -3,7 +3,7 @@ name: Releases executeable for all OS
 on: 
   push:
     tags:
-    - '*'
+    - 'v*'
 
 jobs:
   build:

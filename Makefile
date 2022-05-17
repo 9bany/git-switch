@@ -8,6 +8,8 @@ uninstall:
 	npm uninstall -g swgit
 dev: 
 	node bin/index.js
-publish:
+publish-npm:
 	npm publish --access public
-.PHONY: test dev install uninstall test-machine
+build-release-mac:
+	bash ./scripts/build-production.sh
+.PHONY: test dev install uninstall test-machine publish-npm build-release-mac

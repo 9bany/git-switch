@@ -1,4 +1,4 @@
-name: Build
+name: Build app for all OS
 
 on: 
   push:
@@ -20,8 +20,6 @@ jobs:
           node-version: 16
       - name: Install 
         run: yarn
-      - name: Copy file
-        run: cp -i db_store/db/example_db.json db_store/db/db.json 
       - name: Build 
         run: bash ./scripts/build-production.sh
       

@@ -1,4 +1,4 @@
-const gitRemoteV  = require('../controllers/exc/git_remote_url');
+const gitRemoteV  = require('../src/controllers/exc/git_remote_url');
 const { exec } = require("child_process");
 const { allowRunTestOnMachine } = require('./util')
 const assert = require('assert');

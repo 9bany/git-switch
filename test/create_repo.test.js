@@ -1,7 +1,7 @@
-const { createRepo } = require("../controllers");
+const { createRepo } = require("../src/controllers");
 const assert = require('assert');
 const { randomRepo } = require('./util');
-const { URL_EMPTY, ID_EMPTY } = require("../constants/global");
+const { URL_EMPTY, ID_EMPTY } = require("../src/constants/global");
 
 let repoRandom = randomRepo();
 

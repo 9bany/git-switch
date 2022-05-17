@@ -1,4 +1,4 @@
-const { checkGitPermission } = require('../controllers');
+const { checkGitPermission } = require('../src/controllers');
 const assert = require('assert');
 
 describe('git:git permission', function () { 

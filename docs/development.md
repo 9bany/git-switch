@@ -18,7 +18,7 @@
         mkdir -p swgit_store/db && cp -i db_store/db/example_db.json swgit_store/db/swgit.json 
         ```
     - Resualt: 
-    ![data folder file data](./../sources/doc_images/database_folderfile.png)
+    ![data folder file data](./../assets/doc_images/database_folderfile.png)
 - Init test:
     - Manually:
         - Create folder with name `data` in `test` folder

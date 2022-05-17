@@ -1,5 +1,5 @@
-const User = require('./../db_store/user');
-const Repo = require('./../db_store/repo');
+const User = require('./../src/db_store/user');
+const Repo = require('./../src/db_store/repo');
 const { v4: uuidv4 } = require('uuid');
 
 const { 
@@ -7,7 +7,7 @@ const {
     randomUsername, 
     randomUrl, 
     randomPath,
-} = require('./../utils')
+} = require('./../src/utils')
 
 function randomUser() {
     return new User(randomUsername(), randomEmail(), randomPath(), randomPath(), uuidv4())

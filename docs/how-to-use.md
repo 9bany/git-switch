@@ -31,7 +31,7 @@ swgit init
         swgit --add.username=example_user --add.email=example_user@email.com
     ```
 - Your console
-    ![Images]('./../../sources/doc_images/create_new_user_console.png)
+    ![Images]('./../../assets/doc_images/create_new_user_console.png)
 ## 2. Add ssh key
 - Copy ssh key from the console.
     ```

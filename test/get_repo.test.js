@@ -1,9 +1,9 @@
-const { randomUrl } = require("../utils");
+const { randomUrl } = require("../src/utils");
 const runCreateRepoTest = require("./create_repo.test");
-const { getRepo } = require("../controllers");
+const { getRepo } = require("../src/controllers");
 const { randomRepo } = require("./util");
 const assert = require('assert');
-const { URL_EMPTY, REPO_DOES_NOT_EXISTS } = require("../constants/global");
+const { URL_EMPTY, REPO_DOES_NOT_EXISTS } = require("../src/constants/global");
 
 let repoRandom = randomRepo();
 

@@ -1,4 +1,4 @@
-const { DB_CONFIG_PATH, DB_CONFIG_FILENAME } = require("../constants/config");
+const { DB_CONFIG_PATH, DB_CONFIG_FILENAME } = require("../src/constants/config");
 const fs = require('fs');
 const path = require("path");
 let pathFolder = path.resolve(process.cwd(), DB_CONFIG_PATH);

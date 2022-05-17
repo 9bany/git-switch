@@ -1,6 +1,6 @@
 
 <p align="center" style="margin-top: 35px !important; margin-bottom: 25px !important;">
-  <img height="60" src="./sources/doc_images/logo.png" />
+  <img height="60" src="./assets/doc_images/logo.png" />
 </p>
 
 # swgit 1.1.0

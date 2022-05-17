@@ -1,7 +1,7 @@
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const path = require("path");
-const initSystem = require("../bin/init");
+
 const { 
     DB_CONFIG_PATH, 
     DB_CONFIG_FILENAME 

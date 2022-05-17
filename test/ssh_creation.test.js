@@ -1,11 +1,11 @@
 const {
     createSHHKey,
-} = require('../ssh/ssh_key_creation');
+} = require('../src/ssh/ssh_key_creation');
 const { randomUser } = require('./util')
 const {
     USERNAME_EMPTY,
     FILE_ALREADY_EXISTS
-} = require('../constants/global')
+} = require('../src/constants/global')
 const assert = require('assert');
 
 let username = `${randomUser().username + Date.now()}`;

@@ -1,7 +1,7 @@
-const User = require('../db_store/user');
-const Repo = require('../db_store/repo');
+const User = require('../src/db_store/user');
+const Repo = require('../src/db_store/repo');
 const { v4: uuidv4 } = require('uuid');
-const { randomEmail, randomUsername, randomUrl } = require('../utils/index')
+const { randomEmail, randomUsername, randomUrl } = require('../src/utils/index')
 
 const {
   createNewUser,
@@ -15,7 +15,7 @@ const {
   createRepo,
   getRepo,
   getUserInfoById
-} = require('../controllers')
+} = require('../src/controllers')
 const assert = require('assert');
 const {
   USERNAME_EMPTY,
@@ -24,7 +24,7 @@ const {
   URL_EMPTY,
   ID_EMPTY,
   REPO_DOES_NOT_EXISTS
-} = require('../constants/global');
+} = require('../src/constants/global');
 
 function randomUser() {
   return new User(randomUsername(), randomEmail())

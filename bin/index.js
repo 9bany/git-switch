@@ -16,14 +16,14 @@ const {
     cloneCommandControl,
     forWardCommand,
     userRepo
-} = require('../controllers');
-const updateUserAdminRepo = require("../controllers/options/update_user_repo");
-const addExistRepo = require("../controllers/options/add_exist_repo");
+} = require('../src/controllers');
+const updateUserAdminRepo = require("../src/controllers/options/update_user_repo");
+const addExistRepo = require("../src/controllers/options/add_exist_repo");
 const {
     initSystem,
     checkInitSystem
 } = require("./init");
-const log = require("../utils/log");
+const log = require("../src/utils/log");
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 

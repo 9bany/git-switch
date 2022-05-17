@@ -1,4 +1,4 @@
-const log = require('./../utils/log')
+const log = require('./../src/utils/log')
 function adapter(options, listTypeHandle, callback = () => {}) {
     if(!options.verbose) {
         process.env.VERBOSE = false

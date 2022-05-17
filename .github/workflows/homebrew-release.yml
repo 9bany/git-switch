@@ -10,8 +10,6 @@ jobs:
           node-version: 16
       - name: Install 
         run: yarn
-      - name: Copy file
-        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json 
       - name: Build 
         run: bash ./scripts/build-production.sh
       - name: Read release.md and use it as a body of new release

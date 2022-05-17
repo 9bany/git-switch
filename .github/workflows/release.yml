@@ -2,8 +2,10 @@ name: Releases executeable for all OS
 
 on: 
   push:
-    tags:
-    - '*'
+    branches:    
+      - dev
+    # tags:
+    # - '*'
 
 jobs:
   build:

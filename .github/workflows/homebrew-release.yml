@@ -1,15 +1,13 @@
-name: Releases executeable for all OS
+name: Releases executeable macOs to home brew 
 
 on: 
   push:
-    branches:    
-      - dev
-    # tags:
-    # - '*'
+    tags:
+    - '*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  release-osx:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,8 +15,6 @@ jobs:
           node-version: 16
       - name: Install 
         run: yarn
-      - name: Copy file
-        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json 
       - name: Build 
         run: bash ./scripts/build-production.sh
       - name: Read release.md and use it as a body of new release
@@ -40,3 +36,21 @@ jobs:
           file_glob: true
           body: |
             ${{ steps.read_release.outputs.RELEASE_BODY }}
+      - name: Extract version
+        id: extract-version
+        run: |
+          printf "::set-output name=%s::%s\n" tag-name "${GITHUB_REF#refs/tags/}"
+      - uses: mislav/bump-homebrew-formula-action@v2
+        if: "!contains(github.ref, '-')" # skip prereleases
+        with:
+          formula-name: swgit
+          tag-name: ${{ github.event.inputs.tag-name }}
+          homebrew-tap: Homebrew/homebrew-core
+          base-branch: dev
+          download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.extract-version.outputs.tag-name }}/swgit-macos
+          commit-message: |
+            {{formulaName}} {{version}}
+
+            Created by https://github.com/mislav/bump-homebrew-formula-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

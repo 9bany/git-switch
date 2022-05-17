@@ -7,7 +7,6 @@ class User {
         this.email = email
         this.privateKeyPath = privateKeyPath
         this.publicKeyPath = publicKeyPath
-        this.isDefault = false
         this.createdAt = Date.now()
     }
 }

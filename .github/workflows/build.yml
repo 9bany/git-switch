@@ -2,8 +2,8 @@ name: Build app for all OS
 
 on: 
   push:
-    # tags:
-    #   - '*'
+    tags:
+      - '*'
     branches:    
       - dev
   pull_request:

@@ -4,42 +4,50 @@ jobs:
   release-osx:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build Release
-      run: make build-release
-    - name: Get version
-      id: get_version
-      run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
-    
-    - name: Set SHA
-      id: shasum
-      run: |
-        echo ::set-output name=sha::"$(shasum -a 256 ./target/swgit-mac.tar.gz | awk '{printf $1}')"
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: true
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./target/swgit-mac.tar.gz
-        asset_name: swgit-mac.tar.gz
-        asset_content_type: application/gzip
-    - name: Bump Brew
-      env: 
-        HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      run: |
-        brew tap 9bany/tap
-        brew bump-formula-pr -f --version=${{ steps.get_version.outputs.version }} --no-browse --no-audit \
-        --sha256=${{ steps.shasum.outputs.sha }} \
-        --url="https://github.com/9bany/git-switch/releases/download/${{ steps.get_version.outputs.version }}/swgit-mac.tar.gz" \
-        9bany/tap/swgit
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install 
+        run: yarn
+      - name: Copy file
+        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json 
+      - name: Build 
+        run: bash ./scripts/build-production.sh
+      - name: Read release.md and use it as a body of new release
+        id: read_release
+        shell: bash
+        run: |
+          r=$(cat ./release.md)                             # <--- Read release.md (Provide correct path as per your repo)
+          r="${r//'%'/'%25'}"                               # Multiline escape sequences for %
+          r="${r//$'\n'/'%0A'}"                             # Multiline escape sequences for '\n'
+          r="${r//$'\r'/'%0D'}"                             # Multiline escape sequences for '\r'
+          echo "::set-output name=RELEASE_BODY::$r"         # <--- Set environment variable
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+          body: |
+            ${{ steps.read_release.outputs.RELEASE_BODY }}
+      - name: Extract version
+        id: extract-version
+        run: |
+          printf "::set-output name=%s::%s\n" tag-name "${GITHUB_REF#refs/tags/}"
+      - uses: mislav/bump-homebrew-formula-action@v2
+        if: "!contains(github.ref, '-')" # skip prereleases
+        with:
+          formula-name: swgit-${{ github.event.inputs.tag-name }}
+          formula-path: Formula/swgit.rb
+          homebrew-tap: Homebrew/homebrew-core
+          base-branch: master
+          download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.extract-version.outputs.tag-name }}/swgit-macos
+          commit-message: |
+            {{formulaName}} {{version}}
+
+            Created by https://github.com/mislav/bump-homebrew-formula-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

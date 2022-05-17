@@ -1,3 +1,5 @@
+name: Releases executeable macOs to home brew 
+
 on: push
 
 jobs:

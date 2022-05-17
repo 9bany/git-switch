@@ -16,17 +16,24 @@
 - [Contribute](./CONTRIBUTING.md)
 
 ## How to install 
-1. MAC OS
+### 1. MAC OS
 ```
-brew tap 9bany/swgit
-brew install swgit
+  brew tap 9bany/swgit
+
+  brew install swgit
 ```
-2. Ubuntu
-3. Window
-4. Nodejs 
+### 2. Linux
+
+Download the latest version of `swgit` from the [releases](https://github.com/9bany/git-switch/releases) page and then run:
+```
+$ cp -i swgit-linux /usr/local/bin/swgit
+```
+
+### 3. Nodejs 
 ```
 npm i @browng/swgit
 #or
 yarn add @browng/swgit
 ```
+### 4. Window
 

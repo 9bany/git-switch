@@ -2,10 +2,8 @@ name: Npm publish package
 
 on: 
   push:
-    branches:    
-      - dev
-    # tags:
-    #   - '*'
+    tags:
+      - '*'
 
 jobs:
   publish:

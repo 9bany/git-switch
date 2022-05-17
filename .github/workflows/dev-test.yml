@@ -3,7 +3,7 @@ name: Test cases on ubuntu
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
     branches:    
       - dev
   pull_request:

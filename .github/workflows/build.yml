@@ -3,7 +3,7 @@ name: Build app for all OS
 on: 
   push:
     tags:
-      - '*'
+      - 'v*'
     branches:    
       - dev
   pull_request:

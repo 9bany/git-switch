@@ -1,0 +1,33 @@
+name: Test cases on macos
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:    
+      - dev
+  pull_request:
+    branches:    
+      - dev
+
+jobs:
+  test:
+    runs-on: macos-12	
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install 
+        run: yarn
+      - name: Copy file
+        run: |
+          mkdir -p swgit_store/db
+          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+      - name: Preprae test
+        run: mkdir test/data
+      - name: Preprae ssh folder
+        run: cp -i test/config/config_test ~/.ssh/config
+      - name: Run test 
+        run: make test-machine
+        

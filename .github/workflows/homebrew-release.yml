@@ -43,10 +43,10 @@ jobs:
       - uses: mislav/bump-homebrew-formula-action@v2
         if: "!contains(github.ref, '-')" # skip prereleases
         with:
-          formula-name: swgit-${{ github.event.inputs.tag-name }}
-          formula-path: Formula/swgit.rb
+          formula-name: swgit
+          tag-name: ${{ github.event.inputs.tag-name }}
           homebrew-tap: Homebrew/homebrew-core
-          base-branch: master
+          base-branch: dev
           download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.extract-version.outputs.tag-name }}/swgit-macos
           commit-message: |
             {{formulaName}} {{version}}

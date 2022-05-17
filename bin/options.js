@@ -34,7 +34,7 @@ function options() {
     // node bin/index.js --list
     .options("l",{
         alias: "list", 
-        describe: "get user list", 
+        describe: "Show user list", 
         type: undefined, 
         demandOption: false 
     })

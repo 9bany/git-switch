@@ -10,9 +10,8 @@
 
 - Easy using git with multiple accounts.
 ## Documents
-- [Bug reports](./docs/bug_report.md)
-- [Development](./docs/development.md)
 - [How to use](./docs/how-to-use.md)
+- [Development](./docs/development.md)
 - [Contribute](./CONTRIBUTING.md)
 
 ## How to install 

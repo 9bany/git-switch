@@ -1,14 +1,6 @@
 name: Test cases on window
 
-on:
-  push:
-    tags:
-      - 'v*'
-    branches:    
-      - dev
-  pull_request:
-    branches:    
-      - dev
+on: push
 
 jobs:
   test:
@@ -18,18 +10,18 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install 
+      - name: Install
         run: yarn
       - name: Copy file
         run: |
           mkdir -p swgit_store/db
-          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json
       - name: Preprae test
         run: mkdir test/data
       - name: Preprae ssh folder
         run: |
           mkdir ~/.ssh
           cp -i test/config/config_test ~/.ssh/config
-      - name: Run test 
+      - name: Run test
         run: make test-machine
-        
+

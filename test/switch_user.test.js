@@ -6,22 +6,14 @@ const { randomUser } = require('./util');
 
 const userData = randomUser()
 
-runCreateUserTest(userData).then(user => {
+runSwitchUser(userData);
 
+function runSwitchUser(user) {
     let testCases = [
         {
-            name: "OK",
-            stub: (check) => {
-                return switchUser(user.username).then(check).catch(check)
-            },
-            check: (data) => {
-                assert.equal(user.username, data.username)
-            }
-        },
-        {
             name: "Username invalid '' ",
-            stub: (check) => {
-                return switchUser('').then(check).catch(check)
+            stub: () => {
+                return switchUser('')
             },
             check: (data) => {
                 assert.equal(data, USERNAME_EMPTY)
@@ -29,8 +21,8 @@ runCreateUserTest(userData).then(user => {
         },
         {
             name: "Username invalid null ",
-            stub: (check) => {
-                return switchUser(null).then(check).catch(check)
+            stub: () => {
+                return switchUser(null)
             },
             check: (data) => {
                 assert.equal(data, USERNAME_EMPTY)
@@ -38,8 +30,8 @@ runCreateUserTest(userData).then(user => {
         },
         {
             name: "Username invalid undefined ",
-            stub: (check) => {
-                return switchUser(undefined).then(check).catch(check)
+            stub: () => {
+                return switchUser(undefined)
             },
             check: (data) => {
                 assert.equal(data, USERNAME_EMPTY)
@@ -47,21 +39,42 @@ runCreateUserTest(userData).then(user => {
         },
         {
             name: "user doesnt exists ",
-            stub: (check) => {
-                return switchUser('undefined').then(check).catch(check)
+            stub: () => {
+                return switchUser('undefined')
             },
             check: (data) => {
                 assert.equal(data, USER_DOES_NOT_EXISTS)
             }
         },
+        {
+            name: "OK",
+            stub: () => {
+                return switchUser(user.username)
+            },
+            check: (data) => {
+                assert.equal(user.username, data.username)
+            }
+        },
         
     ]
-    
-    describe('switch-user', function () {
-        testCases.forEach(element => {
-            it(element.name, function () {
-                element.stub(element.check)
+
+    return new Promise((resolve, reject) => {
+        runCreateUserTest(user).then(user => {
+            describe('switch-user', function () {
+                testCases.forEach(element => {
+                    it(element.name, function () {
+                        element.stub().then(data => {
+                            element.check(data)
+                            if(element.name === "OK") {
+                                resolve(data)
+                            }
+                        }).catch(element.check)
+                    });
+                });
             });
-        });
-    });
-})
+        })
+        
+    })
+}
+
+module.exports = runSwitchUser;

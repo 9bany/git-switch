@@ -1,11 +1,12 @@
 const assert = require('assert');
 const { getUserDefault } = require("../src/controllers");
 const runCreateUserTest = require("./create_user.test");
+const runSwitchUser = require('./switch_user.test');
 const { randomUser } = require("./util");
 
 let user = randomUser();
 
-runCreateUserTest(user).then(userResult => {
+runSwitchUser(user).then(userResult => {
 
     let testCases = [
         {
@@ -14,53 +15,37 @@ runCreateUserTest(user).then(userResult => {
                 return getUserDefault()
             },
             check: (data) => {
-                assert.equal(data, userResult)
+                assert.notEqual(data.username, '')
+                assert.notEqual(data.username, null)
+                assert.notEqual(data.username, undefined)
+
+                assert.notEqual(data.email, '')
+                assert.notEqual(data.email, null)
+                assert.notEqual(data.email, undefined)
+
+
+                assert.notEqual(data.id, '')
+                assert.notEqual(data.id, null)
+                assert.notEqual(data.id, undefined)
+
+                assert.notEqual(data.privateKeyPath, '')
+                assert.notEqual(data.privateKeyPath, null)
+                assert.notEqual(data.privateKeyPath, undefined)
+
+                assert.notEqual(data.publicKeyPath, '')
+                assert.notEqual(data.publicKeyPath, null)
+                assert.notEqual(data.publicKeyPath, undefined)
             }
-        }
+        },
     ]
     
-    // describe('get user-default', function () { 
-    //     testCases.forEach(element => {
-    //         it(element.name, function () {
-    //             let data = element.stub()
-    //             element.check(data)
-    //         })
-    //     })
+    describe('get user-default', function () { 
+        testCases.forEach(element => {
+            it(element.name, function () {
+                let data = element.stub()
+                element.check(data)
+            })
+        })
     
-    // })
+    })
 })
-
-
-/*
-describe('switch_control:switch user', function () {
-    it(`should return ${USERNAME_EMPTY} when the value is undifined`, async function () {
-      const value = await switchUser(undefined)
-      assert.equal(value, USERNAME_EMPTY)
-    });
-    it(`should return ${USER_DOES_NOT_EXISTS} when user is not found`, async function () {
-      const user = randomUser()
-      const value = await switchUser(user.username)
-      assert.equal(value, USER_DOES_NOT_EXISTS)
-    });
-    it(`should return user info with isDefault is true when in happy case`, function () {
-      const userData = randomUser()
-      testCreateUserOk(userData).then(async _ => {
-        const value = await switchUser(userData.username)
-        assert.equal(value.id, userData.id)
-        assert.equal(value.isDefault, true)
-      })
-    });
-  });
-  
-  describe('switch_control:get user default', function () {
-    it(`should return user info with isDefault is true when in happy case`, function () {
-      const userData = randomUser()
-      testCreateUserOk(userData).then(_ => {
-        switchUser(userData.username)
-        const value = getUserDefault()
-        assert.equal(value.isDefault, true)
-      })
-    });
-  });
-
-  */

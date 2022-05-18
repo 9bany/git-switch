@@ -60,27 +60,6 @@ function testCreateRepoOk(data) {
   });
 }
 
-describe('switch_control:user creation', function () {
-  //   it(`should return ${USERNAME_EMPTY} when the value is undifined`, async function () {
-  //     const value = await createNewUser({ username: undefined, email: 'email@gmail.com'})
-  //     assert.equal(value, USERNAME_EMPTY)
-  //   });
-  //   it(`should return ${USERNAME_EMPTY} when the value is ''`, async function () {
-  //     const value = await createNewUser({ username: '', email: 'email@gmail.com'})
-  //     assert.equal(value, USERNAME_EMPTY)
-  //   });
-  //   it(`should return ${EMAIL_EMPTY} when the value is undifined`, async function () {
-  //     const value = await createNewUser({ username: 'username', email: undefined})
-  //     assert.equal(value, EMAIL_EMPTY)
-  //   });
-  //   it(`should return ${EMAIL_EMPTY} when the value is ''`, async function () {
-  //     const value = await createNewUser({ username: 'username', email: ''})
-  //     assert.equal(value, EMAIL_EMPTY)
-  //   });
-  // const user = randomUser()
-  // testCreateUserOk(user)
-});
-
 describe('switch_control:user get infomation', function () {
   it(`should return ${USERNAME_EMPTY} when the value is undifined`, function () {
     const value = getUserInfo(undefined)

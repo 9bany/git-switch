@@ -17,14 +17,6 @@ class Store {
         const user = new User(username, email, privateKeyPath, publicKeyPath, id)
 
         this.db.get("users").push(user).write();
-
-        this.db.get('users').find({ isDefault: true }).assign({
-            isDefault: false,
-        }).write()
-
-        this.db.get('users').find({ username: username }).assign({
-            isDefault: true,
-        }).write()
         
         return user
     }
@@ -41,18 +33,13 @@ class Store {
         return this.db.get("users").value()
     }
 
-    getUserDetault = () => {
-        return this.db.get('users').find({ isDefault: true }).value()
-    }
-
     updateUser = (data) => {
         const currentUserInfo = this.db.get('users').find({ username: data.username }).value();
         this.db.get('users').find({ username: data.username }).assign({
             username: data.newUser || currentUserInfo.username,
             email: data.email || currentUserInfo.email,
             privateKeyPath: data.privateKeyPath || currentUserInfo.privateKeyPath,
-            publicKeyPath: data.publicKeyPath || currentUserInfo.publicKeyPath,
-            isDefault: data.isDefault || currentUserInfo.isDefault,
+            publicKeyPath: data.publicKeyPath || currentUserInfo.publicKeyPath
         }).write()
 
         return this.db.get('users').find({ id: currentUserInfo.id }).value()
@@ -64,19 +51,11 @@ class Store {
     }
 
     switchUser = (user) => {
-        this.db.get('users').find({ isDefault: true }).assign({
-            isDefault: false,
-        }).write()
-
-        this.db.get('users').find({ username: user }).assign({
-            isDefault: true,
-        }).write()
-
-        return this.db.get('users').find({ username: user }).value()
+        return user
     }
 
     checkUserRule = (user) => {
-        return this.db.get('users').find({ username: user }).value().isDefault
+        return this.db.get('users').find({ username: user }).value()
     }
 
     createRepo({ url, userID }) {
@@ -97,15 +76,14 @@ class Store {
     }
 
     createUserDefault(user) {
-        
-        user.isDefault = true
 
         let data = this.db.get('default').value()
         if(data.length === 0) {
             this.db.get("default").push(user).write();
             return user 
         } else {
-            this.db.get('default').find({ isDefault: true }).assign(user).write()
+            let userDefault = data[0]
+            this.db.get('default').find({ id: userDefault.id }).assign(user).write()
         }
         return user
     }

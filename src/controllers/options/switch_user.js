@@ -5,7 +5,7 @@ const {
     USER_DOES_NOT_EXISTS,
 } = require('../../constants/global')
 const { runCommandWithGit } = require('../exc/run_command')
-const {updateSSHConfig} = require('../../ssh/ssh_config_manage');
+const { updateSSHConfig } = require('../../ssh/ssh_config_manage');
 const log = require('./../../utils/log');
 
 async function switchUser(username) {
@@ -26,6 +26,7 @@ async function switchUser(username) {
     await updateSSHConfig({host: 'github.com', newIdentity: userExists.privateKeyPath})
     log.user.success(`SWITCH SUCCESSED TO: ${userExists.username}`)
     return userExists;
+    
     
 }
 module.exports = switchUser;

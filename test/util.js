@@ -13,8 +13,7 @@ function randomUser() {
     return new User(randomUsername(), randomEmail(), randomPath(), randomPath(), uuidv4())
 }
 
-function randomRepo() {
-    let user = randomUser()
+function randomRepo(user = randomUser()) {
     return new Repo(randomUrl(), user.id)
 }
 

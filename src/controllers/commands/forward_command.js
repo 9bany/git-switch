@@ -37,8 +37,7 @@ async function forWardCommand(argv) {
     }
 }
 
-
-const autoSwitchUser = async (url) => {
+function autoSwitchUser(url) {
     const store = new Store(db)
 
     if(!Boolean(url)) return URL_EMPTY
@@ -49,10 +48,13 @@ const autoSwitchUser = async (url) => {
 
     let listUser = store.getUserDefault()
     if (listUser.length === 0) return USER_DOES_NOT_EXISTS
-    if (listUser[0].id == user.id) return OK
+    if (listUser[0].id == user.id) return listUser[0].id
     store.createUserDefault(user)
     switchUser(user.username)
-    return true
+    return user
 }
 
-module.exports = forWardCommand;
+module.exports = {
+    forWardCommand,
+    autoSwitchUser
+};

@@ -12,12 +12,12 @@ const getUserDefault = require('./options/get_user_default');
 const checkUserRule = require('./options/check_user_rule');
 const getUserInfo = require('./options/get_user_info');
 const cloneCommandControl = require('./commands/clone_command_control');
-const forWardCommand =  require('./commands/forward_command');
 const checkGitPermission = require('./exc/git_permission');
 const createRepo = require('./options/create_repo')
 const getRepo = require('./options/get_repo')
 const getUserInfoById = require('./options/get_user_info_by_id')
 const userRepo = require('./options/user_repo');
+const { forWardCommand } =  require('./commands/forward_command');
 
 module.exports = {
     createNewUser,

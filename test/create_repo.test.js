@@ -6,6 +6,7 @@ const { URL_EMPTY, ID_EMPTY } = require("../src/constants/global");
 let repoRandom = randomRepo();
 
 function runCreateRepoTest(repo) {
+    
     let repoRandom = repo
     let testCases = [
         {
@@ -73,16 +74,16 @@ function runCreateRepoTest(repo) {
             }
         },
     ]
-    
     describe('repo: creation', function () { 
         testCases.forEach(element => {
             it(element.name, function () {
                 let data = element.stub()
                 element.check(data)
             })
+            console.log("done: repo: creation", repo.id)
         })
-    
     })
+    
 }
 
 runCreateRepoTest(repoRandom)

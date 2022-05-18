@@ -1,4 +1,4 @@
-name: All Test cases on OSs
+name: Test cases
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   test_on_mac:
-    name: Test cases on macos
+    name: On macos
     runs-on: macos-12	
     steps:
       - uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
       - name: Run test 
         run: make test-machine
   test_on_ubuntu:
-    name: Test cases on ubuntu-latest
+    name: On ubuntu-latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -52,4 +52,26 @@ jobs:
           mkdir ~/.ssh
           cp -i test/config/config_test ~/.ssh/config
       - name: Run test 
+        run: make test-machine
+  test_on_win:
+    name: On window
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn
+      - name: Copy file
+        run: |
+          mkdir -p swgit_store/db
+          xcopy /y /F src\db_store\db\example_db.json swgit_store\db\swgit.json*
+      - name: Preprae test
+        run: mkdir -p test/data
+      - name: Preprae ssh folder
+        run: |
+          mkdir ~/.ssh
+          xcopy /y /F test\config\config_test "%userprofile%\.ssh\config\"
+      - name: Run test
         run: make test-machine

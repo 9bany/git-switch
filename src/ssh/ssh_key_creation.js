@@ -6,14 +6,14 @@ const { USERNAME_EMPTY } = require('../constants/global');
 const log = require('./../utils/log');
 const keygen = require('ssh-keygen-lite');
 
-const { 
+const {
     FILE_ALREADY_EXISTS,
 } = require('../constants/global')
 
 
 
 function sshKeygen(location, opts) {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
         opts || (opts={});
 
         var pubLocation = location+'.pub';
@@ -39,35 +39,35 @@ function sshKeygen(location, opts) {
                 resolve({ privateLocation: location, pubLocation: pubLocation })
             },
         );
-  
+
 
     })
 };
 
 function createSHHKey(username, password) {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
         if(!username) {
             reject(USERNAME_EMPTY)
             log.debug.error(USERNAME_EMPTY)
             return
         }
-    
-        let location = SSH_ROOT_PATH + `/${username}`;
-    
+
+        let location = path.resolve(SSH_ROOT_PATH + `/${username}`);
+
         if (fs.existsSync(location)) {
             let error = FILE_ALREADY_EXISTS
             log.debug.error(FILE_ALREADY_EXISTS)
             reject(error)
             return
         }
-    
+
         if (fs.existsSync(`${location + '.pub'}`)) {
             let error = FILE_ALREADY_EXISTS
             log.debug.error(FILE_ALREADY_EXISTS)
             reject(error)
             return
         }
-    
+
         sshKeygen(location,{ password: password }).then(({ privateLocation, pubLocation })=> {
             log.debug.success("SSH CREATED");
             resolve([privateLocation, pubLocation])

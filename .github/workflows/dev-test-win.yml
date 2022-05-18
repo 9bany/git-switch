@@ -15,13 +15,12 @@ jobs:
       - name: Copy file
         run: |
           mkdir -p swgit_store/db
-          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json
+          xcopy /y /F src\db_store\db\example_db.json swgit_store\db\swgit.json*
       - name: Preprae test
-        run: mkdir test/data
+        run: mkdir -p test/data
       - name: Preprae ssh folder
         run: |
           mkdir ~/.ssh
-          cp -i test/config/config_test ~/.ssh/config
+          xcopy /y /F test\config\config_test "%userprofile%\.ssh\config\"
       - name: Run test
         run: make test-machine
-

@@ -7,8 +7,8 @@
     "swgit": "./bin/index.js"
   },
   "scripts": {
-    "test": "TEST_MODE=local VERBOSE=false mocha --timeout 15000",
-    "test-machine": "TEST_MODE=machine VERBOSE=false mocha --timeout 15000"
+    "test": "cross-env TEST_MODE=local VERBOSE=false mocha --timeout 15000",
+    "test-machine": "cross-env TEST_MODE=machine VERBOSE=false mocha --timeout 15000"
   },
   "repository": {
     "type": "git",
@@ -43,5 +43,8 @@
   "homepage": "https://github.com/9bany/git-switch#readme",
   "pkg": {
     "assets": "db_store/db/db.json"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

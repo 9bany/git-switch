@@ -39,7 +39,7 @@ jobs:
           body: |
             ${{ steps.read_release.outputs.RELEASE_BODY }}
       - name: Update Homebrew formula
-        uses: 9bany/action-homebrew-bump-formula@v3.8.1
+        uses: dawidd6/action-homebrew-bump-formula@v3
         with:
           # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
@@ -50,7 +50,7 @@ jobs:
           # Formula name, required
           formula: swgit
           # Optional, will be determined automatically
-          tag: ${{ github.ref }}
+          tag:${{ github.ref }}
           # Optional, will be determined automatically
           revision: ${{github.sha}}
           # Optional, if don't want to check for already open PRs

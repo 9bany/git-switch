@@ -6,8 +6,33 @@ on:
       - "v*"
 
 jobs:
-  build:
+  test_on_mac: 
+    name: On ubuntu-latest
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install 
+        run: yarn
+      - name: Copy file
+        run: |
+          mkdir -p swgit_store/db
+          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+      - name: Preprae test
+        run: mkdir test/data
+      - name: Preprae ssh folder
+        run: |
+          mkdir ~/.ssh
+          cp -i test/config/config_test ~/.ssh/config
+      - name: Run test 
+        run: make test-machine
+
+  build_all_os:
+    runs-on: ubuntu-latest
+    needs:
+    - test_on_mac
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -19,6 +44,15 @@ jobs:
         run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json
       - name: Build
         run: bash ./scripts/build-production.sh
+      
+  release_to_github: 
+    runs-on: ubuntu-latest
+    needs:
+    - build_all_os
+    steps:
+      - name: Get version
+        id: get-version
+        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
       - name: Read release.md and use it as a body of new release
         id: read_release
         shell: bash
@@ -33,11 +67,16 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/*
-          tag: ${{ github.ref }}
+          tag: ${{ steps.get-version.outputs.version }}
           overwrite: true
           file_glob: true
           body: |
             ${{ steps.read_release.outputs.RELEASE_BODY }}
+  distribute_mac_os: 
+    runs-on: ubuntu-latest
+    needs:
+    - release_to_github
+    steps:
       - name: Update Homebrew formula
         uses: dawidd6/action-homebrew-bump-formula@v3
         with:

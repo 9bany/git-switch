@@ -1,9 +1,9 @@
 name: Releases executeable for all OS
 
-on: 
+on:
   push:
     tags:
-    - 'v*'
+      - "v*"
 
 jobs:
   build:
@@ -13,11 +13,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install 
+      - name: Install
         run: yarn
       - name: Copy file
-        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json 
-      - name: Build 
+        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json
+      - name: Build
         run: bash ./scripts/build-production.sh
       - name: Read release.md and use it as a body of new release
         id: read_release
@@ -33,7 +33,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/*
-          tag: ${${{ github.ref }}#"v"} 
+          tag: ${${{ github.ref }}#"v"}
           overwrite: true
           file_glob: true
           body: |
@@ -50,7 +50,7 @@ jobs:
           # Formula name, required
           formula: swgit
           # Optional, will be determined automatically
-          tag:${{ github.ref }}
+          tag: ${{ github.ref }}
           # Optional, will be determined automatically
           revision: ${{github.sha}}
           # Optional, if don't want to check for already open PRs

@@ -104,4 +104,4 @@ jobs:
           tap: 9bany/homebrew-swgit
           formula: swgit
           revision: ${{github.sha}}
-          force: false
+          force: true 

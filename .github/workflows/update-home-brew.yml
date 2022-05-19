@@ -1,6 +1,9 @@
 name: Update homebrew
 
-on: push
+on: 
+  push:
+    tags:
+      - 't*'
 
 jobs:
   build:

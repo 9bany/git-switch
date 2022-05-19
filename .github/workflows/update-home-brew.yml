@@ -6,18 +6,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # - name: Set macOS release SHA 256
-    #     id: shasum-mac-os
-    #     run: |
-    #       echo ::set-output name=sha::"$(shasum -a 256 ./build/swgit-macos | awk '{printf $1}')"
-    - uses: naijabx/update-formula-homebrew-action@v1
+    - name: Update Homebrew formula
+      uses: dawidd6/action-homebrew-bump-formula@v3
       with:
-        repo: 9bany/git-switch
+        # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
+        token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+        # Optional, will create tap repo fork in organization
+        org: ORG
+        # Optional, defaults to homebrew/core
         tap: 9bany/homebrew-swgit
-        formula: Formula/swgit.rb
-        # download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.get_version.outputs.version }}/swgit-macos
-        download-url: https://github.com/9bany/git-switch/releases/download/v1.1.0-rc6/swgit-macos
-        commit-message: update hello formula 
-        sha256:  "051baa031ddaad97bd95729c528a2efd9b337e7437e61e24bcd2e778e84b620d"
-      env:
-        COMMIT_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        # Formula name, required
+        formula: swgit
+        # Optional, will be determined automatically
+        tag: ${{github.ref}}
+        # Optional, will be determined automatically
+        revision: ${{github.sha}}
+        # Optional, if don't want to check for already open PRs
+        force: false # true

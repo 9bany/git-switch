@@ -1,13 +1,43 @@
-name: Releases executeable for all OS
+name: Releases executeable
 
-on: 
+on:
   push:
     tags:
-    - 'v*'
+      - "v*"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    name: Test cases
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-12]
+        include:
+          - os: windows-latest
+            run: |
+              mkdir -p swgit_store/db
+              xcopy /y /F src\db_store\db\example_db.json swgit_store\db\swgit.json*
+            run_prepare_test:
+              mkdir -p test/data
+            run_prepare_ssh: |
+              mkdir ~/.ssh
+              xcopy /y /F test\config\config_test "%userprofile%\.ssh\config\"
+          - os: ubuntu-latest
+            run: |
+              mkdir -p swgit_store/db
+              cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+            run_prepare_test:
+              mkdir test/data
+            run_prepare_ssh: |
+              mkdir ~/.ssh
+              cp -i test/config/config_test ~/.ssh/config
+          - os: macos-12
+            run: |
+              mkdir -p swgit_store/db
+              cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+            run_prepare_test:
+              mkdir test/data
+            run_prepare_ssh: cp -i test/config/config_test ~/.ssh/config
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -16,9 +46,32 @@ jobs:
       - name: Install 
         run: yarn
       - name: Copy file
-        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json 
-      - name: Build 
+        run: ${{ matrix.run }}
+      - name: Preprae test
+        run: ${{ matrix.run_prepare_test }}
+      - name: Preprae ssh folder
+        run: ${{ matrix.run_prepare_ssh }}
+      - name: Run test 
+        run: make test-machine
+  build_release:
+    runs-on: ubuntu-latest
+    name: Build and release
+    needs:
+    - test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn
+      - name: Copy file
+        run: cp -i src/db_store/db/example_db.json src/db_store/db/db.json
+      - name: Build
         run: bash ./scripts/build-production.sh
+      - name: Get version
+        id: get-version
+        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
       - name: Read release.md and use it as a body of new release
         id: read_release
         shell: bash
@@ -33,8 +86,22 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/*
-          tag: ${{ github.ref }}
+          tag: ${{ steps.get-version.outputs.version }}
           overwrite: true
           file_glob: true
           body: |
             ${{ steps.read_release.outputs.RELEASE_BODY }}
+      
+  distribute_mac_os: 
+    runs-on: ubuntu-latest
+    needs:
+    - build_release
+    steps:
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+          tap: 9bany/homebrew-swgit
+          formula: swgit
+          revision: ${{github.sha}}
+          force: false

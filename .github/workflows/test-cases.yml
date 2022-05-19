@@ -11,9 +11,37 @@ on:
       - dev
 
 jobs:
-  test_on_mac:
-    name: On macos
-    runs-on: macos-12	
+  test:
+    name: Test cases
+    strategy:
+      matrix:
+        scripts: []
+        os: [ubuntu-latest, windows-latest, macos-12]
+        include:
+          - os: windows-latest
+            run: |
+              mkdir -p swgit_store/db
+              xcopy /y /F src\db_store\db\example_db.json swgit_store\db\swgit.json*
+            run_prepare_test:
+              mkdir -p test/data
+            run_prepare_ssh: |
+              mkdir ~/.ssh
+              xcopy /y /F test\config\config_test "%userprofile%\.ssh\config\"
+          - os: ubuntu-latest
+            run: |
+              mkdir -p swgit_store/db
+              cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+            run_prepare_test:
+              mkdir test/data
+            run_prepare_ssh: cp -i test/config/config_test ~/.ssh/config
+          - os: macos-12
+            run: |
+              mkdir -p swgit_store/db
+              cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+            run_prepare_test:
+              mkdir test/data
+            run_prepare_ssh: cp -i test/config/config_test ~/.ssh/config
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,56 +50,11 @@ jobs:
       - name: Install 
         run: yarn
       - name: Copy file
-        run: |
-          mkdir -p swgit_store/db
-          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
+        run: ${{ matrix.run }}
       - name: Preprae test
-        run: mkdir test/data
+        run: ${{ matrix.run_prepare_test }}
       - name: Preprae ssh folder
-        run: cp -i test/config/config_test ~/.ssh/config
+        run: ${{ matrix.run_prepare_ssh }}
       - name: Run test 
         run: make test-machine
-  test_on_ubuntu:
-    name: On ubuntu-latest
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install 
-        run: yarn
-      - name: Copy file
-        run: |
-          mkdir -p swgit_store/db
-          cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
-      - name: Preprae test
-        run: mkdir test/data
-      - name: Preprae ssh folder
-        run: |
-          mkdir ~/.ssh
-          cp -i test/config/config_test ~/.ssh/config
-      - name: Run test 
-        run: make test-machine
-  test_on_win:
-    name: On window
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install
-        run: yarn
-      - name: Copy file
-        run: |
-          mkdir -p swgit_store/db
-          xcopy /y /F src\db_store\db\example_db.json swgit_store\db\swgit.json*
-      - name: Preprae test
-        run: mkdir -p test/data
-      - name: Preprae ssh folder
-        run: |
-          mkdir ~/.ssh
-          xcopy /y /F test\config\config_test "%userprofile%\.ssh\config\"
-      - name: Run test
-        run: make test-machine
+  

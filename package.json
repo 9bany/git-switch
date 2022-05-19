@@ -1,7 +1,7 @@
 {
   "name": "@browng/swgit",
   "version": "v1.1.0-rc6",
-  "description": "## Features  - Switch 2 accounts github. - Support ssh key: create and manager ssh keys. - Auto switch then current account not allow for the repository. ## How to install ## How to use 1. Switch account ``` swgit -s <username> ``` ## Contributing",
+  "description": "CLI - Easy using git with multiple accounts.",
   "main": "bin/index.js",
   "bin": {
     "swgit": "./bin/index.js"

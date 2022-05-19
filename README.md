@@ -8,7 +8,7 @@
 ![build ](https://github.com/9bany/git-switch/actions/workflows/build.yml/badge.svg)
 [![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
 
-- Easy using git with multiple accounts.
+- CLI - Easy using git with multiple accounts.
 ## Documents
 - [How to use](./docs/how-to-use.md)
 - [Development](./docs/development.md)

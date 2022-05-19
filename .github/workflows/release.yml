@@ -78,8 +78,6 @@ jobs:
         with:
           # Required, custom GitHub access token with the 'public_repo' and 'workflow' scopes
           token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-          # Optional, will create tap repo fork in organization
-          org: ORG
           # Optional, defaults to homebrew/core
           tap: 9bany/homebrew-swgit
           # Formula name, required

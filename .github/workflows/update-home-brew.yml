@@ -1,0 +1,22 @@
+name: Update homebrew
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # - name: Set macOS release SHA 256
+    #     id: shasum-mac-os
+    #     run: |
+    #       echo ::set-output name=sha::"$(shasum -a 256 ./build/swgit-macos | awk '{printf $1}')"
+    - uses: naijabx/update-formula-homebrew-action@v1
+      with:
+        repo: 9bany/git-switch
+        tap: 9bany/homebrew-swgit
+        formula: Formula/swgit.rb
+        # download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.get_version.outputs.version }}/swgit-macos
+        download-url: https://github.com/9bany/git-switch/releases/download/v1.1.0-rc6/swgit-macos
+        commit-message: update hello formula 
+      env:
+        COMMIT_TOKEN: ${{ secrets.COMMIT_TOKEN }}

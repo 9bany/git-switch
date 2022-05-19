@@ -18,5 +18,6 @@ jobs:
         # download-url: https://github.com/9bany/git-switch/releases/download/${{ steps.get_version.outputs.version }}/swgit-macos
         download-url: https://github.com/9bany/git-switch/releases/download/v1.1.0-rc6/swgit-macos
         commit-message: update hello formula 
+        sha256:  "051baa031ddaad97bd95729c528a2efd9b337e7437e61e24bcd2e778e84b620d"
       env:
         COMMIT_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

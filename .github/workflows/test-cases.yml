@@ -32,14 +32,18 @@ jobs:
               cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
             run_prepare_test:
               mkdir test/data
-            run_prepare_ssh: cp -i test/config/config_test ~/.ssh/config
+            run_prepare_ssh: |
+              mkdir ~/.ssh
+              cp -i test/config/config_test ~/.ssh/config
           - os: macos-12
             run: |
               mkdir -p swgit_store/db
               cp -i src/db_store/db/example_db.json swgit_store/db/swgit.json 
             run_prepare_test:
               mkdir test/data
-            run_prepare_ssh: cp -i test/config/config_test ~/.ssh/config
+            run_prepare_ssh: |
+              mkdir ~/.ssh
+              cp -i test/config/config_test ~/.ssh/config
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3

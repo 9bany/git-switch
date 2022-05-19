@@ -1,0 +1,50 @@
+{
+  "name": "@browng/swgit",
+  "version": "v1.1.0-beta", 
+  "description": "CLI - Easy using git with multiple accounts.",
+  "main": "bin/index.js",
+  "bin": {
+    "swgit": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "cross-env TEST_MODE=local VERBOSE=false mocha --timeout 15000",
+    "test-machine": "cross-env TEST_MODE=machine VERBOSE=false mocha --timeout 15000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9bany/git-switch.git"
+  },
+  "keywords": [
+    "git",
+    "swgit",
+    "git-account"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9bany/git-switch/issues"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "console-log-colors": "^0.2.3",
+    "dotenv": "^16.0.0",
+    "execa": "^6.1.0",
+    "git-config-path": "^2.0.0",
+    "lowdb": "1.0.0",
+    "mocha": "^10.0.0",
+    "parse-git-config": "^3.0.0",
+    "random-email": "^1.0.3",
+    "random-url": "^1.0.0",
+    "ssh-config": "^4.1.4",
+    "ssh-keygen-lite": "^1.2.0",
+    "unique-username-generator": "^1.0.1",
+    "uuid": "^8.3.2"
+  },
+  "homepage": "https://github.com/9bany/git-switch#readme",
+  "pkg": {
+    "assets": "db_store/db/db.json"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

@@ -1,2 +1,9 @@
 git.sh
 slist
+node_modules
+db_store/db/db.json
+test/data
+.DS_Store
+build
+package-lock.json
+swgit_store

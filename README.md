@@ -1,23 +1,38 @@
-# git-switch
 
-## Features 
-- Switch 2 accounts github.
-- Support ssh key: create and manager ssh keys.
-- Auto switch then current account not allow for the repository.
-## How to install
-## How to use
-1. Switch account
+<p align="center" style="margin-top: 35px !important; margin-bottom: 25px !important;">
+  <img height="60" src="./assets/doc_images/logo.png" />
+</p>
+
+# swgit 1.1.0
+![test cases](https://github.com/9bany/git-switch/actions/workflows/test-cases.yml/badge.svg)
+![build ](https://github.com/9bany/git-switch/actions/workflows/build.yml/badge.svg)
+[![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
+
+- CLI - Easy using git with multiple accounts.
+## Documents
+- [How to use](./docs/how-to-use.md)
+- [Development](./docs/development.md)
+- [Contribute](./CONTRIBUTING.md)
+
+## How to install 
+### 1. MAC OS
 ```
-swgit -s <username>
+  brew tap 9bany/swgit
+
+  brew install swgit
 ```
-## Contributing
+### 2. Linux
 
-If you want to colaborate check the project's issues.
+Download the latest version of `swgit` from the [releases](https://github.com/9bany/git-switch/releases) page and then run:
+```
+$ cp -i swgit-linux /usr/local/bin/swgit
+```
 
-1. Fork the repository
-2. Create a new branch
-3. Implement your solution
-4. Commit
-5. Open a Pull Request
+### 3. Nodejs 
+```
+npm i @browng/swgit
+#or
+yarn add @browng/swgit
+```
+### 4. Window
 
-Thanks!

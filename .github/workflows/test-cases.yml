@@ -15,7 +15,6 @@ jobs:
     name: Test cases
     strategy:
       matrix:
-        scripts: []
         os: [ubuntu-latest, windows-latest, macos-12]
         include:
           - os: windows-latest

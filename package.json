@@ -1,6 +1,6 @@
 {
   "name": "@browng/swgit",
-  "version": "v1.1.0-rc6",
+  "version": "v1.1.0-beta",
   "description": "CLI - Easy using git with multiple accounts.",
   "main": "bin/index.js",
   "bin": {

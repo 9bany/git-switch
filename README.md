@@ -1,3 +1,4 @@
+> 🚧 This repository has been archived by the owner. It is now read-only. check new [repo](https://github.com/browng-io/swgit)
 
 <p align="center" style="margin-top: 35px !important; margin-bottom: 25px !important;">
   <img height="60" src="./assets/doc_images/logo.png" />

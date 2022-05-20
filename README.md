@@ -9,6 +9,9 @@
 [![version](https://img.shields.io/badge/version-1.1.0-yellow.svg)](https://semver.org)
 
 - CLI - Easy using git with multiple accounts.
+
+> 🚧 This is still in development, and not ready for general use.
+
 ## Documents
 - [How to use](./docs/how-to-use.md)
 - [Development](./docs/development.md)
